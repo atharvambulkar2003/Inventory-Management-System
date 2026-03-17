@@ -1,0 +1,26 @@
+package com.ims.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+@Entity
+@Table(name = "stores")
+@Data
+public class StoreEntity {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+	
+	private String storeName;
+    private String gstNumber;
+    
+    @OneToOne
+    @JoinColumn(name = "owner_id", unique = true)
+    private UserEntity owner;
+}
