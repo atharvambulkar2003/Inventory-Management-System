@@ -1,5 +1,7 @@
 package com.ims.service;
 
+import java.util.Date;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,7 +48,7 @@ public class UserService {
         
         try {
             String subject = "Welcome to IMS!";
-            String body = "Hello " + user.getUsername() + ",\n\n" +
+            String body = "Hello " + user.getFullName() + ",\n\n" +
                     "Your registration as an OWNER for " + store.getStoreName() + " is successful.\n\n" +
                     "Regards,\n" +
                     "Inventry Management System";
@@ -66,6 +68,16 @@ public class UserService {
 		
 		SigninResponseVO signInResponseVO = modelMapper.map(userEntity, SigninResponseVO.class);	    
 	    modelMapper.map(userEntity.getStore(), signInResponseVO);
+	    try {
+            String subject = "Login detected to IMS!";
+            String body = "Hello " + userEntity.getFullName() + ",\n\n" +
+                    "Your Login is detected on "+new Date()+".\n\n" +
+                    "Regards,\n" +
+                    "Inventry Management System";
+            emailService.sendSimpleEmail(userEntity.getEmail(), subject, body);
+        } catch (Exception e) {
+            System.err.println("Failed to send welcome email: " + e.getMessage());
+        }
 	    return signInResponseVO;
 	}
 }

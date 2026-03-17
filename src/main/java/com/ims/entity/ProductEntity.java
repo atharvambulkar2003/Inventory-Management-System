@@ -12,21 +12,25 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "products")
+@Data
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String productCode; 
     private String productName;
     private String category;
     private Double sellingPrice;
     private Integer minStockLevel;
-
+    
+    private Double interestRate;
+    
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
     private StoreEntity store;
