@@ -7,7 +7,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.ims.controller.ProductController;
 import com.ims.dto.AddBatchToProductDto;
 import com.ims.dto.ProductDto;
 import com.ims.dto.SaleDto;
@@ -135,8 +135,6 @@ public class ProductService {
         product.setTotalQuantity(product.getTotalQuantity()+dto.getCurrentQuantity());
         product.setTotalPurchasePrice(product.getTotalPurchasePrice()+dto.getPurchasePrice());
 
-        productRepository.save(product);
-
         TransactionEntity transaction = new TransactionEntity();
         transaction.setProduct(product);
         transaction.setType(TransactionType.PURCHASE);
@@ -146,6 +144,10 @@ public class ProductService {
         transaction.setTotalAmount(dto.getPurchasePrice()); 
         
         transactionRepository.save(transaction);
+        
+        product.getTransactions().add(transaction);
+        
+        productRepository.save(product);
         
         try {
             String subject = "New Batch added to your Store";
@@ -173,16 +175,49 @@ public class ProductService {
         if (user == null || user.getStore() == null) {
             throw new RuntimeException("Store not found for this user");
         }
-        ProductEntity productEntity = productRepository.findByProductNameAndCategoryAndStore(saleDto.getProductName(),saleDto.getCategory(), user.getStore());
+        ProductEntity productEntity = productRepository.findByProductNameAndCategoryAndStore(saleDto.getProductName().toUpperCase(),saleDto.getCategory(), user.getStore());
 		
         if(productEntity.getTotalQuantity()<saleDto.getQuantity()) {
         	throw new RuntimeException("Quantity is less, total Quantity of "+productEntity.getProductName()+" is "+productEntity.getTotalQuantity());
         }
         
+        Double individualProductPrice = productEntity.getTotalPurchasePrice()/productEntity.getTotalQuantity();
+        Double totalPriceWithQuantitySendByUser = individualProductPrice*saleDto.getQuantity();
+        Double sellingPrice = totalPriceWithQuantitySendByUser + (totalPriceWithQuantitySendByUser*saleDto.getInterestRate()/100);
         
-        return null;
+        List<BatchEntity> batches = productEntity.getBatches();
+        
+        Integer tempQuantity = saleDto.getQuantity();
+        
+        while(tempQuantity > 0 && !batches.isEmpty()) {
+        	BatchEntity batch = batches.get(0);//for FIFO of batch
+        	if(batch.getCurrentQuantity() <= tempQuantity) {
+        		tempQuantity = tempQuantity - batch.getCurrentQuantity();
+        		batches.remove(0);
+        		batchRepository.delete(batch);
+        	}else {
+        		batch.setCurrentQuantity(batch.getCurrentQuantity()-tempQuantity);
+        		tempQuantity = 0;
+        		batchRepository.save(batch);
+        	}
+        }
+        
+        productEntity.setTotalPurchasePrice(productEntity.getTotalPurchasePrice()-totalPriceWithQuantitySendByUser);
+        productEntity.setTotalQuantity(productEntity.getTotalQuantity()-saleDto.getQuantity());
+        
+        TransactionEntity transaction = new TransactionEntity();
+        transaction.setProduct(productEntity);
+        transaction.setType(TransactionType.SALE);
+        transaction.setQuantity(saleDto.getQuantity());
+        transaction.setTransactionDate(LocalDateTime.now());
+        transaction.setPartyName(saleDto.getCustomerName());
+        transaction.setTotalAmount(sellingPrice); 
+        
+        transactionRepository.save(transaction);
+        
+        productEntity.getTransactions().add(transaction);
+        productRepository.save(productEntity);
+        
+        return "Sale is done with selling price "+ sellingPrice+ " on interest rate "+ saleDto.getInterestRate();
 	}
-	
-	
-
 }
