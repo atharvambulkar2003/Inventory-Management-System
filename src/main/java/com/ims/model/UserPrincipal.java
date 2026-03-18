@@ -13,7 +13,7 @@ import com.ims.entity.UserEntity;
 
 public class UserPrincipal implements UserDetails {
 	
-	@Autowired
+	
 	private UserEntity user;
 	
 	public UserPrincipal(UserEntity user) {

@@ -26,10 +26,9 @@ public class ProductEntity {
     private String productCode; 
     private String productName;
     private String category;
-    private Double sellingPrice;
     private Integer minStockLevel;
-    
-    private Double interestRate;
+    private Integer totalQuantity;
+    private Double totalPurchasePrice;
     
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
@@ -37,4 +36,7 @@ public class ProductEntity {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<BatchEntity> batches;
+    
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<TransactionEntity> transactions;
 }

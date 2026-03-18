@@ -12,5 +12,4 @@ public class ProductDto {
     private String productName;
     private String category;
     private Integer minStockLevel;
-    private Double interestRate;
 }

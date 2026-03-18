@@ -17,8 +17,10 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class JwtFilter extends OncePerRequestFilter {
     @Autowired 
     private JwtService jwtService;
@@ -33,8 +35,15 @@ public class JwtFilter extends OncePerRequestFilter {
         String username = null;
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-            username = jwtService.extractUserName(token); 
+        	try {
+        	    token = authHeader.substring(7);
+        	    username = jwtService.extractUserName(token);
+        	} catch (Exception e) {
+        	    log.error(e.getMessage());
+        	    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        	    response.getWriter().write("Token expired. Please login again.");
+        	    return;
+        	}
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
