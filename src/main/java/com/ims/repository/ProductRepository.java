@@ -20,4 +20,5 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long>{
     List<String> findProductsByStoreAndCategory(@Param("store") StoreEntity store, @Param("category") String category);
 	ProductEntity findByProductNameAndStore(String productName, StoreEntity store);
 	ProductEntity findByProductNameAndCategoryAndStore(String productName, String category, StoreEntity store);
+	ProductEntity findByProductCodeAndStore(String productCode, StoreEntity store);
 }
