@@ -1,15 +1,20 @@
 package com.ims.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ims.dto.AddBatchToProductDto;
+import com.ims.dto.BatchExpiryVO;
 import com.ims.dto.BatchUpdateDto;
 import com.ims.dto.BatchVO;
+import com.ims.dto.LowStockVO;
 import com.ims.dto.ProductDto;
 import com.ims.dto.ProductEditDto;
 import com.ims.dto.ProductVO;
@@ -294,6 +299,22 @@ public class ProductService {
 	    
 	    productRepository.save(productEntity);
 	    
+	    try {
+            String subject = "Update of product is successfully done";
+            String body = "Hello " + user.getFullName() + ",\n\n" +
+                    "Old product name : "+productEntity.getProductName()+".\n" +
+                    "New product name : "+productEditDto.getProductName()+".\n" +
+                    "Old product category  : "+productEntity.getCategory()+".\n" +
+                    "New product category : "+productEditDto.getCategory()+".\n" +
+                    "Old product minimum stock level : "+productEntity.getMinStockLevel()+".\n" +
+                    "New Product minimum stock level : "+productEditDto.getMinStockLevel()+".\n" +
+                    "Regards,\n" +
+                    "Inventry Management System";
+            emailService.sendSimpleEmail(user.getEmail(), subject, body);
+        } catch (Exception e) {
+            System.err.println("Failed to send welcome email: " + e.getMessage());
+        }
+	    
 	    return "Product Updated successfully";
 	}
 
@@ -310,6 +331,17 @@ public class ProductService {
 	    }
 	    
 	    productRepository.delete(productEntity);
+	    
+	    try {
+            String subject = "Product "+productEntity.getProductName()+" deleted successfully";
+            String body = "Hello " + user.getFullName() + ",\n\n" +
+                    "Your product "+productEntity.getProductName()+" and its batches is deleted successfully.\n\n\n" +
+                    "Regards,\n" +
+                    "Inventry Management System";
+            emailService.sendSimpleEmail(user.getEmail(), subject, body);
+        } catch (Exception e) {
+            System.err.println("Failed to send welcome email: " + e.getMessage());
+        }
 	    
 		return "Product Deleted successfully";
 	} 
@@ -344,6 +376,24 @@ public class ProductService {
 	    batchRepository.save(batch);
 	    productRepository.save(product);
 
+	    try {
+            String subject = "Update of batch is successfully done";
+            String body = "Hello " + user.getFullName() + ",\n\n" +
+                    "Old batch number : "+batch.getBatchNumber()+".\n" +
+                    "Updated batch number : "+dto.getBatchNumber()+".\n" +
+                    "Old batch quantity  : "+batch.getCurrentQuantity()+".\n" +
+                    "Updated batch quantity : "+dto.getCurrentQuantity()+".\n" +
+                    "Old batch purchase price : "+batch.getPurchasePrice()+".\n" +
+                    "Updated batch purchase price : "+dto.getCurrentQuantity()+".\n" +
+                    "Old batch expiry date  : "+batch.getExpiryDate()==null?"No expiry":batch.getExpiryDate()+".\n" +
+                    "Updated batch expiry date : "+dto.getExpiryDate()==null?"No expiry":dto.getExpiryDate()+".\n" +
+                    "Regards,\n" +
+                    "Inventry Management System";
+            emailService.sendSimpleEmail(user.getEmail(), subject, body);
+        } catch (Exception e) {
+            System.err.println("Failed to send welcome email: " + e.getMessage());
+        }
+	    
 	    return "Batch " + batch.getBatchNumber() + " updated successfully.";
 	}
 	
@@ -369,8 +419,55 @@ public class ProductService {
 	    batchRepository.delete(batch);
 	    
 	    productRepository.save(product);
+	    
+	    try {
+            String subject = "Batch "+batch.getBatchNumber()+" is deleted successfully";
+            String body = "Hello " + user.getFullName() + ",\n\n" +
+                    "Your batch "+batch.getBatchNumber()+" is deleted successfully.\n\n\n" +
+                    "Regards,\n" +
+                    "Inventry Management System";
+            emailService.sendSimpleEmail(user.getEmail(), subject, body);
+        } catch (Exception e) {
+            System.err.println("Failed to send welcome email: " + e.getMessage());
+        }
 
 	    return "Batch " + batch.getBatchNumber() + " deleted.";
+	}
+
+	public List<LowStockVO> getLowStockItems(String username) {
+		UserEntity user = userRepository.findByUsername(username);
+	    if (user == null || user.getStore() == null) {
+	        throw new RuntimeException("Store not found");
+	    } 
+	    List<ProductEntity> listProductEntities = user.getStore().getProducts(); 
+	    List<LowStockVO> listLowStockVO = new ArrayList<>();
+	    
+	    for(ProductEntity product:listProductEntities) {
+	    	if(product.getTotalQuantity()<=product.getMinStockLevel()) {
+	    		LowStockVO lowStockVO = modelMapper.map(product, LowStockVO.class);
+	    		listLowStockVO.add(lowStockVO);
+	    	}
+	    }
+	    
+		return listLowStockVO;
+	}
+
+	public List<BatchExpiryVO> getExpiryItems(String username) {
+		UserEntity user = userRepository.findByUsername(username);
+	    if (user == null || user.getStore() == null) {
+	        throw new RuntimeException("Store not found");
+	    } 
+	    LocalDate today = LocalDate.now();
+	    LocalDate thirtyDaysFromNow = today.plusDays(30);
+	    List<BatchEntity> batches = batchRepository.findExpiringBatches(username, today, thirtyDaysFromNow);
+	    List<BatchExpiryVO> expiryItems = new ArrayList<>();
+	    for (BatchEntity batch : batches) {
+	        BatchExpiryVO vo = modelMapper.map(batch, BatchExpiryVO.class);
+	        vo.setProductName(batch.getProduct().getProductName());
+	        vo.setProductCode(batch.getProduct().getProductCode());
+	        expiryItems.add(vo);
+	    }
+	    return expiryItems;
 	}
 	
 }

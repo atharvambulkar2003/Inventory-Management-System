@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ims.dto.AddBatchToProductDto;
+import com.ims.dto.BatchExpiryVO;
 import com.ims.dto.BatchUpdateDto;
+import com.ims.dto.LowStockVO;
 import com.ims.dto.ProductDto;
 import com.ims.dto.ProductEditDto;
 import com.ims.dto.ProductVO;
@@ -167,6 +169,34 @@ public class ProductController {
 	        String username = authentication.getName();
 	        String message = productService.deleteBatch(username, id);
 	        return new ResponseEntity<>(message, HttpStatus.OK);
+	    } catch (Exception exception) {
+	        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+	    }
+	}
+	
+	@GetMapping("/lowstockitems")
+	public ResponseEntity<?> getLowStockItems(Authentication authentication) {
+	    if (authentication == null || !authentication.isAuthenticated()) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
+	    }
+	    try {
+	        String username = authentication.getName();
+	        List<LowStockVO> lowStockVO = productService.getLowStockItems(username);
+	        return new ResponseEntity<>(lowStockVO, HttpStatus.OK);
+	    } catch (Exception exception) {
+	        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+	    }
+	}
+	
+	@GetMapping("/expiryitems")
+	public ResponseEntity<?> getExpiryItems(Authentication authentication) {
+	    if (authentication == null || !authentication.isAuthenticated()) {
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
+	    }
+	    try {
+	        String username = authentication.getName();
+	        List<BatchExpiryVO> expiryItems = productService.getExpiryItems(username);
+	        return new ResponseEntity<>(expiryItems, HttpStatus.OK);
 	    } catch (Exception exception) {
 	        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
 	    }
