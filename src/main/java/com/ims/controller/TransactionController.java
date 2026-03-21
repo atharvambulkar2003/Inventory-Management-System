@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ims.dto.TransactionVO;
 import com.ims.service.TransactionService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api/transaction")
+@Slf4j
 public class TransactionController {
 	
 	@Autowired
@@ -22,15 +25,9 @@ public class TransactionController {
 	
 	@GetMapping("/alltransactions")
 	public ResponseEntity<?> getTransactionHistory(Authentication authentication) {
-	    if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-	    try {
-	        String username = authentication.getName();
-	        List<TransactionVO> transactions = transactionService.getTransactionHistory(username);
-	        return new ResponseEntity<>(transactions, HttpStatus.OK);
-	    } catch (Exception exception) {
-	        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-	    }
+		log.info("In getTransactionHistory "+authentication.getName());
+        String username = authentication.getName();
+        List<TransactionVO> transactions = transactionService.getTransactionHistory(username);
+        return new ResponseEntity<>(transactions, HttpStatus.OK);
 	}
 }

@@ -21,9 +21,12 @@ import com.ims.dto.UserSignupDto;
 import com.ims.service.UserService;
 import com.ims.service.auth.JwtService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/api/user")
+@Slf4j
 public class UserController {
 	@Autowired
 	private UserService userService;
@@ -36,34 +39,26 @@ public class UserController {
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@RequestBody UserSignupDto userSignupModel) {
-		try {
-			String response = userService.signup(userSignupModel);
-			return new ResponseEntity<>(response,HttpStatus.CREATED);
-		}catch(Exception e) {
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		log.info("In signup "+userSignupModel);
+		String response = userService.signup(userSignupModel);
+		return new ResponseEntity<>(response,HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody LoginDto loginModel) throws AuthenticationException {
-	    try {
-	    	Authentication authentication = authenticationManager.authenticate(
-    		    new UsernamePasswordAuthenticationToken(loginModel.getUsername(), loginModel.getPassword())
-    		);
-
-    		if (authentication.isAuthenticated()) {
-    		    String token = jwtService.generateToken(loginModel.getUsername());
-    		    SigninResponseVO response = userService.getUserDetailsAfterLogin(loginModel.getUsername());
-    		    response.setToken(token);
-    		    return ResponseEntity.ok(response); 
-    		}else {
-    			throw new BadCredentialsException("Invalid username or password");
-    		}
-	    }catch(BadCredentialsException exception) {
-	    	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
-	    }catch (Exception exception) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during login");
-	    }
+	public ResponseEntity<?> login(@RequestBody LoginDto loginModel) {
+		log.info("In login "+loginModel);
+    	Authentication authentication = authenticationManager.authenticate(
+		    new UsernamePasswordAuthenticationToken(loginModel.getUsername(), loginModel.getPassword())
+		);
+		if (authentication.isAuthenticated()) {
+		    String token = jwtService.generateToken(loginModel.getUsername());
+		    SigninResponseVO response = userService.getUserDetailsAfterLogin(loginModel.getUsername());
+		    response.setToken(token);
+		    return ResponseEntity.ok(response); 
+		}else {
+			log.error("Login error, Invalid username or password");
+			throw new BadCredentialsException("Invalid username or password");
+		}
 	}
 	
 	@GetMapping("/all")

@@ -11,10 +11,15 @@ import com.ims.dto.TransactionVO;
 import com.ims.entity.ProductEntity;
 import com.ims.entity.TransactionEntity;
 import com.ims.entity.UserEntity;
+import com.ims.exception.StoreNotFoundException;
+import com.ims.exception.UserNotFoundException;
 import com.ims.repository.TransactionRepository;
 import com.ims.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class TransactionService {
 	
 	@Autowired
@@ -27,10 +32,17 @@ public class TransactionService {
 	private TransactionRepository transactionRepository;
 
 	public List<TransactionVO> getTransactionHistory(String username) {
+		log.info("In getTransactionHistory "+username);
 	    UserEntity user = userRepository.findByUsername(username);
-	    if (user == null || user.getStore() == null) {
-	        throw new RuntimeException("Store not found");
+	    if (user == null) {
+	    	log.error("User not found "+user);
+	        throw new UserNotFoundException("User not found");
 	    } 
+	    
+	    if(user.getStore() == null) {
+	    	log.error("Store not found "+user.getStore());
+	        throw new StoreNotFoundException("Store not found");
+	    }
 
 	    List<TransactionEntity> transactions = transactionRepository.findAllByStore(user.getStore());
 	    
@@ -38,9 +50,15 @@ public class TransactionService {
 	    for (TransactionEntity transaction : transactions) {
 	        TransactionVO vo = modelMapper.map(transaction, TransactionVO.class);
 	        
-	        vo.setProductCode(transaction.getProduct().getProductCode());
-	        vo.setProductName(transaction.getProduct().getProductName());
-	        vo.setCategory(transaction.getProduct().getCategory());
+	        if (transaction.getProduct() != null) {
+	            vo.setProductCode(transaction.getProduct().getProductCode());
+	            vo.setProductName(transaction.getProduct().getProductName());
+	            vo.setCategory(transaction.getProduct().getCategory());
+	        } else {
+	            vo.setProductCode("N/A");
+	            vo.setProductName("DELETED PRODUCT");
+	            vo.setCategory("N/A");
+	        }
 	        
 	        transactionVOList.add(vo);
 	    }

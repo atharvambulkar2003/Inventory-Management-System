@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +12,14 @@ import com.ims.dto.SigninResponseVO;
 import com.ims.dto.UserSignupDto;
 import com.ims.entity.StoreEntity;
 import com.ims.entity.UserEntity;
+import com.ims.exception.UsernameAlreadyExistsException;
 import com.ims.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class UserService {
     @Autowired
     private UserRepository userRepository;
@@ -31,8 +35,11 @@ public class UserService {
     @Transactional
     public String signup(UserSignupDto userSignupModel) {
     	
+    	log.info("In signup service "+userSignupModel);
+    	
     	if (userRepository.existsByUsername(userSignupModel.getUsername())) {
-            throw new RuntimeException("Username is already taken");
+    		log.error("Username is already taken"+userSignupModel.getUsername());
+            throw new UsernameAlreadyExistsException("Username is already taken");
         }
     	
         UserEntity user = modelMapper.map(userSignupModel, UserEntity.class);
@@ -54,15 +61,17 @@ public class UserService {
                     "Inventry Management System";
             emailService.sendSimpleEmail(user.getEmail(), subject, body);
         } catch (Exception e) {
-            System.err.println("Failed to send welcome email: " + e.getMessage());
+        	log.error("Failed to send welcome email: " + e.getMessage());
         }
         
         return "User registered successfully";
     }
 
 	public SigninResponseVO getUserDetailsAfterLogin(String username) {
+		log.info("In getUserDetailsAfterLogin service "+ username);
 		if (!userRepository.existsByUsername(username)) {
-            throw new RuntimeException("Username does not exists.");
+			log.error("Username does not exists "+username);
+            throw new UsernameNotFoundException("Username does not exists.");
         }
 		UserEntity userEntity = userRepository.findByUsername(username);
 		
@@ -76,7 +85,7 @@ public class UserService {
                     "Inventry Management System";
             emailService.sendSimpleEmail(userEntity.getEmail(), subject, body);
         } catch (Exception e) {
-            System.err.println("Failed to send welcome email: " + e.getMessage());
+        	log.error("Failed to send welcome email: " + e.getMessage());
         }
 	    return signInResponseVO;
 	}

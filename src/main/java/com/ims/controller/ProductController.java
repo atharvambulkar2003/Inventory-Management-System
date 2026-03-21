@@ -26,9 +26,12 @@ import com.ims.dto.ProductVO;
 import com.ims.dto.SaleDto;
 import com.ims.service.ProductService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/api/product")
 @CrossOrigin
+@Slf4j
 public class ProductController {
 	
 	@Autowired
@@ -36,170 +39,98 @@ public class ProductController {
 	
 	@PostMapping("/addproduct")
 	public ResponseEntity<?> addProduct(@RequestBody ProductDto productDto,Authentication authentication){
-		if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-		try {
-			String username = authentication.getName();
-			String message = productService.addProduct(productDto,username);
-			return new ResponseEntity<>(message,HttpStatus.CREATED);
-		}catch(Exception exception) {
-			return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		log.info("In addProduct "+productDto+" "+authentication.getName());
+		String username = authentication.getName();
+		String message = productService.addProduct(productDto,username);
+		return new ResponseEntity<>(message,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/getcategory")
 	public ResponseEntity<?> getCategory(Authentication authentication){
-		if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-		try {
-			String username = authentication.getName();
-			List<String> category = productService.getCategory(username);
-			return new ResponseEntity<>(category,HttpStatus.CREATED);
-		}catch(Exception exception) {
-			return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		log.info("In getCategory"+" "+authentication.getName());
+		String username = authentication.getName();
+		List<String> category = productService.getCategory(username);
+		return new ResponseEntity<>(category,HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/getproductname/{categoryname}")
 	public ResponseEntity<?> getProductName(@PathVariable("categoryname") String categoryName,Authentication authentication){
-		if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-		try {
-			String username = authentication.getName();
-			List<String> products = productService.getProducts(username,categoryName);
-			return new ResponseEntity<>(products,HttpStatus.CREATED);
-		}catch(Exception exception) {
-			return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		log.info("In getProductName "+categoryName+" "+authentication.getName());
+		String username = authentication.getName();
+		List<String> products = productService.getProducts(username,categoryName);
+		return new ResponseEntity<>(products,HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/addbatch")
 	public ResponseEntity<?> addBatchToProduct(@RequestBody AddBatchToProductDto addBatchToProductDto,Authentication authentication){
-		if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-		try {
-			String username = authentication.getName();
-			String message = productService.addBatchToProduct(username,addBatchToProductDto);
-			return new ResponseEntity<>(message,HttpStatus.CREATED);
-		}catch(Exception exception) {
-			return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		log.info("In addBatchToProduct "+addBatchToProductDto+" "+authentication.getName());
+		String username = authentication.getName();
+		String message = productService.addBatchToProduct(username,addBatchToProductDto);
+		return new ResponseEntity<>(message,HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/sale")
 	public ResponseEntity<?> sellProduct(@RequestBody SaleDto saleDto,Authentication authentication){
-		if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-		try {
-			String username = authentication.getName();
-			String message = productService.sellProduct(username,saleDto);
-			return new ResponseEntity<>(message,HttpStatus.CREATED);
-		}catch(Exception exception) {
-			return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		log.info("In sellProduct "+saleDto+" "+authentication.getName());
+		String username = authentication.getName();
+		String message = productService.sellProduct(username,saleDto);
+		return new ResponseEntity<>(message,HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/allproducts")
 	public ResponseEntity<?> getAllProducts(Authentication authentication){
-		if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-		try {
-			String username = authentication.getName();
-			List<ProductVO> productVO = productService.getAllProducts(username);
-			return new ResponseEntity<>(productVO,HttpStatus.CREATED);
-		}catch(Exception exception) {
-			return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		log.info("In getAllProducts"+authentication.getName());
+		String username = authentication.getName();
+		List<ProductVO> productVO = productService.getAllProducts(username);
+		return new ResponseEntity<>(productVO,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/updateproduct")
 	public ResponseEntity<?> updateProduct(@RequestBody ProductEditDto productEditDto,Authentication authentication){
-		if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-		try {
-			String username = authentication.getName();
-			String message = productService.updateProduct(productEditDto,username);
-			return new ResponseEntity<>(message,HttpStatus.CREATED);
-		}catch(Exception exception) {
-			return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		log.info("In updateProduct "+productEditDto+" "+authentication.getName());
+		String username = authentication.getName();
+		String message = productService.updateProduct(productEditDto,username);
+		return new ResponseEntity<>(message,HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/deleteproduct/{productCode}")
 	public ResponseEntity<?> deleteProduct(@PathVariable String productCode,Authentication authentication){
-		if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-		try {
-			String username = authentication.getName();
-			String message = productService.deleteProduct(productCode,username);
-			return new ResponseEntity<>(message,HttpStatus.CREATED);
-		}catch(Exception exception) {
-			return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		}
+		log.info("In updateProduct "+productCode+" "+authentication.getName());
+		String username = authentication.getName();
+		String message = productService.deleteProduct(productCode,username);
+		return new ResponseEntity<>(message,HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/updatebatch")
 	public ResponseEntity<?> updateBatch(@RequestBody BatchUpdateDto batchUpdateDto, Authentication authentication) {
-	    if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-	    try {
-	        String username = authentication.getName();
-	        String message = productService.updateBatch(username, batchUpdateDto);
-	        return new ResponseEntity<>(message, HttpStatus.OK);
-	    } catch (Exception exception) {
-	        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-	    }
+		log.info("In updateProduct "+batchUpdateDto+" "+authentication.getName());
+		String username = authentication.getName();
+        String message = productService.updateBatch(username, batchUpdateDto);
+        return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deletebatch/{id}")
 	public ResponseEntity<?> deleteBatch(@PathVariable Long id, Authentication authentication) {
-	    if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-	    try {
-	        String username = authentication.getName();
-	        String message = productService.deleteBatch(username, id);
-	        return new ResponseEntity<>(message, HttpStatus.OK);
-	    } catch (Exception exception) {
-	        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-	    }
+		log.info("In deleteBatch "+id+" "+authentication.getName());
+		String username = authentication.getName();
+        String message = productService.deleteBatch(username, id);
+        return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 	
 	@GetMapping("/lowstockitems")
 	public ResponseEntity<?> getLowStockItems(Authentication authentication) {
-	    if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-	    try {
-	        String username = authentication.getName();
-	        List<LowStockVO> lowStockVO = productService.getLowStockItems(username);
-	        return new ResponseEntity<>(lowStockVO, HttpStatus.OK);
-	    } catch (Exception exception) {
-	        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-	    }
+		log.info("In getLowStockItems"+authentication.getName());
+		String username = authentication.getName();
+        List<LowStockVO> lowStockVO = productService.getLowStockItems(username);
+        return new ResponseEntity<>(lowStockVO, HttpStatus.OK);
 	}
 	
 	@GetMapping("/expiryitems")
 	public ResponseEntity<?> getExpiryItems(Authentication authentication) {
-	    if (authentication == null || !authentication.isAuthenticated()) {
-	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing token");
-	    }
-	    try {
-	        String username = authentication.getName();
-	        List<BatchExpiryVO> expiryItems = productService.getExpiryItems(username);
-	        return new ResponseEntity<>(expiryItems, HttpStatus.OK);
-	    } catch (Exception exception) {
-	        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-	    }
+		log.info("In getExpiryItems"+authentication.getName());
+		String username = authentication.getName();
+        List<BatchExpiryVO> expiryItems = productService.getExpiryItems(username);
+        return new ResponseEntity<>(expiryItems, HttpStatus.OK);
 	}
 	
 }

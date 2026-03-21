@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.ims.config.auth.UserPrincipal;
 import com.ims.entity.UserEntity;
-import com.ims.model.UserPrincipal;
 import com.ims.repository.UserRepository;
 
 @Service
