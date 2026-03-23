@@ -17,7 +17,7 @@ public class AddBatchToProductDto {
 	@JsonProperty("batchNo")
 	private String batchNumber;
 	@JsonProperty("currQuantity")
-	private Integer currentQuantity;
+	private Double currentQuantity;
 	private LocalDate expiryDate; 
     private Double purchasePrice;
     private String partyName; 

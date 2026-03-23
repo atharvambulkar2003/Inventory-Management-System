@@ -61,6 +61,22 @@ public class ProductController {
 		return new ResponseEntity<>(products,HttpStatus.CREATED);
 	}
 	
+	@PostMapping("/getunit/{productname}")
+	public ResponseEntity<?> getDefaultUnits(@PathVariable("productname") String productName,Authentication authentication){
+		log.info("In getDefaultUnits "+productName+" "+authentication.getName());
+		String username = authentication.getName();
+		String productUnit = productService.getProductUnit(username,productName);
+		return new ResponseEntity<>(productUnit,HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/expiryitems")
+	public ResponseEntity<?> getExpiryItems(Authentication authentication) {
+		log.info("In getExpiryItems"+authentication.getName());
+		String username = authentication.getName();
+        List<BatchExpiryVO> expiryItems = productService.getExpiryItems(username);
+        return new ResponseEntity<>(expiryItems, HttpStatus.OK);
+	}
+	
 	@PostMapping("/addbatch")
 	public ResponseEntity<?> addBatchToProduct(@RequestBody AddBatchToProductDto addBatchToProductDto,Authentication authentication){
 		log.info("In addBatchToProduct "+addBatchToProductDto+" "+authentication.getName());
@@ -124,13 +140,4 @@ public class ProductController {
         List<LowStockVO> lowStockVO = productService.getLowStockItems(username);
         return new ResponseEntity<>(lowStockVO, HttpStatus.OK);
 	}
-	
-	@GetMapping("/expiryitems")
-	public ResponseEntity<?> getExpiryItems(Authentication authentication) {
-		log.info("In getExpiryItems"+authentication.getName());
-		String username = authentication.getName();
-        List<BatchExpiryVO> expiryItems = productService.getExpiryItems(username);
-        return new ResponseEntity<>(expiryItems, HttpStatus.OK);
-	}
-	
 }

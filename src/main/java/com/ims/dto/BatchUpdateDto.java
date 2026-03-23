@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class BatchUpdateDto {
 	private Long id;
 	private String batchNumber;
-    private Integer currentQuantity;
+    private Double currentQuantity;
     private LocalDate expiryDate; 
     private Double purchasePrice;
 }

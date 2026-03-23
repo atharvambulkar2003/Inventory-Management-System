@@ -24,7 +24,7 @@ public class BatchEntity {
     private ProductEntity product;
 
     private String batchNumber;
-    private Integer currentQuantity;
+    private Double currentQuantity;
     private LocalDate expiryDate; 
     private Double purchasePrice;
 }

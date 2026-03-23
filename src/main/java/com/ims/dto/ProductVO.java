@@ -13,9 +13,10 @@ public class ProductVO {
 	private String productCode; 
     private String productName;
     private String category;
-    private Integer minStockLevel;
-    private Integer totalQuantity;
+    private Double minStockLevel;
+    private Double totalQuantity;
     private Double totalPurchasePrice;
     private Double perItemPrice;
+    private String defaultUnits;
     List<BatchVO> batches;
 }

@@ -1,5 +1,7 @@
 package com.ims.entity;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,4 +31,6 @@ public class UserEntity {
     @OneToOne(mappedBy = "owner",cascade = CascadeType.ALL)
     private StoreEntity store;
     
+    private String otp; 
+    private LocalDateTime otpExpiryTime;
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class SaleDto {
 	private String category;
 	private String productName;
-	private Integer quantity;
+	private Double quantity;
 	private Double interestRate;
 	private String customerName;
 }

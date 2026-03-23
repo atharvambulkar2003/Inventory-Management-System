@@ -10,7 +10,7 @@ import lombok.Data;
 public class TransactionVO {
     private Long id;
     private TransactionType type; 
-    private Integer quantity;
+    private Double quantity;
     private LocalDateTime transactionDate;
     private String partyName; 
     private Double totalAmount;
@@ -18,4 +18,5 @@ public class TransactionVO {
     private String productName;
     private String productCode;
     private String category;
+    private String defaultUnits;
 }

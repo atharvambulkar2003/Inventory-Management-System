@@ -26,8 +26,9 @@ public class ProductEntity {
     private String productCode; 
     private String productName;
     private String category;
-    private Integer minStockLevel;
-    private Integer totalQuantity;
+    private Double minStockLevel;
+    private Double totalQuantity;
+    private String defaultUnits;
     private Double totalPurchasePrice;
     
     @ManyToOne

@@ -28,7 +28,7 @@ public class TransactionEntity {
     @Enumerated(EnumType.STRING)
     private TransactionType type; // PURCHASE, SALE
 
-    private Integer quantity;
+    private Double quantity;
     private LocalDateTime transactionDate;
     private String partyName; 
     private Double totalAmount;

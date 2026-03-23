@@ -11,5 +11,5 @@ public class ProductEditDto {
 	private String productCode; 
     private String productName;
     private String category;
-    private Integer minStockLevel;
+    private Double minStockLevel;
 }

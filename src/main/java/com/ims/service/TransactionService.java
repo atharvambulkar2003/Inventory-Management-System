@@ -54,10 +54,12 @@ public class TransactionService {
 	            vo.setProductCode(transaction.getProduct().getProductCode());
 	            vo.setProductName(transaction.getProduct().getProductName());
 	            vo.setCategory(transaction.getProduct().getCategory());
+	            vo.setDefaultUnits(transaction.getProduct().getDefaultUnits());
 	        } else {
 	            vo.setProductCode("N/A");
 	            vo.setProductName("DELETED PRODUCT");
 	            vo.setCategory("N/A");
+	            vo.setDefaultUnits("N/A");
 	        }
 	        
 	        transactionVOList.add(vo);

@@ -88,7 +88,7 @@ public class ProductService {
 		
 		productEntity.setStore(userEntity.getStore());
 		productEntity.setProductName(productEntity.getProductName().toUpperCase());
-		productEntity.setTotalQuantity(0);
+		productEntity.setTotalQuantity(0.0);
 		productEntity.setTotalPurchasePrice(0.0);
 		
 		userEntity.getStore().getProducts().add(productEntity);
@@ -209,83 +209,79 @@ public class ProductService {
 
 	@Transactional
 	public String sellProduct(String username, SaleDto saleDto) {
-		log.info("In sellProduct service "+username+" "+saleDto);
+	    log.info("In sellProduct service {} {}", username, saleDto);
 
-		UserEntity user = userRepository.findByUsername(username);
-		if (user == null) {
-			log.error("User not found "+username);
-            throw new UserNotFoundException("User not found");
-        }
-        
-        if(user.getStore() == null) {
-        	log.error("Store not found "+username);
-        	throw new StoreNotFoundException("Store not found");
-        }
-        
-        ProductEntity productEntity = productRepository.findByProductNameAndCategoryAndStore(saleDto.getProductName().toUpperCase(),saleDto.getCategory(), user.getStore());
-		
-        if(productEntity.getTotalQuantity()<saleDto.getQuantity()) {
-        	log.error("Quantity is less, total Quantity of "+productEntity.getProductName()+" is "+productEntity.getTotalQuantity());
-        	throw new LessQuantityException("Quantity is less, total Quantity of "+productEntity.getProductName()+" is "+productEntity.getTotalQuantity());
-        }
-        
-        Double individualProductPrice = productEntity.getTotalPurchasePrice() / productEntity.getTotalQuantity();
-        Double totalPriceWithQuantitySendByUser = individualProductPrice * saleDto.getQuantity();
-        Double sellingPrice = totalPriceWithQuantitySendByUser + (totalPriceWithQuantitySendByUser * saleDto.getInterestRate() / 100);
-        sellingPrice = Math.round(sellingPrice * 100.0) / 100.0;
-        
-        List<BatchEntity> batches = productEntity.getBatches();
-        
-        Integer tempQuantity = saleDto.getQuantity();
-        
-        while(tempQuantity > 0 && !batches.isEmpty()) {
-        	BatchEntity batch = batches.get(0);
-        	if(batch.getCurrentQuantity() <= tempQuantity) {
-        		tempQuantity = tempQuantity - batch.getCurrentQuantity();
-        		batches.remove(0);
-        		batchRepository.delete(batch);
-        	}else {
-        		batch.setCurrentQuantity(batch.getCurrentQuantity()-tempQuantity);
-        		tempQuantity = 0;
-        		batchRepository.save(batch);
-        	}
-        }
-        
-        productEntity.setTotalPurchasePrice(productEntity.getTotalPurchasePrice()-totalPriceWithQuantitySendByUser);
-        productEntity.setTotalQuantity(productEntity.getTotalQuantity()-saleDto.getQuantity());
-        
-        TransactionEntity transaction = new TransactionEntity();
-        transaction.setProduct(productEntity);
-        transaction.setType(TransactionType.SALE);
-        transaction.setQuantity(saleDto.getQuantity());
-        transaction.setTransactionDate(LocalDateTime.now());
-        transaction.setPartyName(saleDto.getCustomerName());
-        transaction.setTotalAmount(sellingPrice); 
-        
-        transactionRepository.save(transaction);
-        
-        productEntity.getTransactions().add(transaction);
-        productRepository.save(productEntity);
-        
-        try {
-            String subject = "Sale of "+productEntity.getProductName()+" is sussessful";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                    "Product Name : "+productEntity.getProductName()+".\n\n" +
-                    "Total Quantity : "+saleDto.getQuantity()+".\n\n" +
-                    "Interest Rate : "+saleDto.getInterestRate()+".\n\n" +
-                    "Total cost price : "+totalPriceWithQuantitySendByUser+".\n\n" +
-                    "Selling Price : "+sellingPrice+".\n\n" +
-                    "Profit : "+(sellingPrice-totalPriceWithQuantitySendByUser)+".\n\n" +
-                    "Customer : "+saleDto.getCustomerName()+".\n\n" +
-                    "Quantity Remaining of"+productEntity.getProductName()+" product : "+productEntity.getTotalQuantity()+".\n\n\n\n\n" +
-                    "Regards,\n" +
-                    "Inventry Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-        	log.error("Failed to send email: " + e.getMessage());
-        }
-        
-        return "Sale is done with selling price "+ sellingPrice+ " on interest rate "+ saleDto.getInterestRate();
+	    UserEntity user = userRepository.findByUsername(username);
+	    if (user == null) throw new UserNotFoundException("User not found");
+	    if (user.getStore() == null) throw new StoreNotFoundException("Store not found");
+
+	    ProductEntity productEntity = productRepository.findByProductNameAndCategoryAndStore(
+	            saleDto.getProductName().toUpperCase(), saleDto.getCategory(), user.getStore());
+
+	    if (productEntity.getTotalQuantity() < saleDto.getQuantity()) {
+	        log.error("Insufficient stock for {}. Available: {}", productEntity.getProductName(), productEntity.getTotalQuantity());
+	        throw new LessQuantityException("Quantity is less, total Quantity of " + productEntity.getProductName() + " is " + productEntity.getTotalQuantity());
+	    }
+
+	    Double individualProductPrice = productEntity.getTotalPurchasePrice() / productEntity.getTotalQuantity();
+	    Double totalPriceWithQuantitySendByUser = individualProductPrice * saleDto.getQuantity();
+	    Double sellingPrice = totalPriceWithQuantitySendByUser + (totalPriceWithQuantitySendByUser * saleDto.getInterestRate() / 100);
+	    sellingPrice = round(sellingPrice);
+
+	    List<BatchEntity> batches = productEntity.getBatches();
+	    Double tempQuantity = saleDto.getQuantity();
+
+	    while (tempQuantity > 0.001 && !batches.isEmpty()) {
+	        BatchEntity batch = batches.get(0);
+	        if (batch.getCurrentQuantity() <= tempQuantity + 0.001) {
+	            tempQuantity -= batch.getCurrentQuantity();
+	            batches.remove(0);
+	            batchRepository.delete(batch);
+	        } else {
+	            batch.setCurrentQuantity(round(batch.getCurrentQuantity() - tempQuantity));
+	            tempQuantity = 0.0;
+	            batchRepository.save(batch);
+	        }
+	    }
+
+	    productEntity.setTotalPurchasePrice(round(productEntity.getTotalPurchasePrice() - totalPriceWithQuantitySendByUser));
+	    productEntity.setTotalQuantity(round(productEntity.getTotalQuantity() - saleDto.getQuantity()));
+
+	    TransactionEntity transaction = new TransactionEntity();
+	    transaction.setProduct(productEntity);
+	    transaction.setType(TransactionType.SALE);
+	    transaction.setQuantity(saleDto.getQuantity()); 
+	    transaction.setTransactionDate(LocalDateTime.now());
+	    transaction.setPartyName(saleDto.getCustomerName());
+	    transaction.setTotalAmount(sellingPrice);
+
+	    transactionRepository.save(transaction);
+	    productEntity.getTransactions().add(transaction);
+	    productRepository.save(productEntity);
+
+	    try {
+	        String subject = "Sale of " + productEntity.getProductName() + " is successful";
+	        String body = "Hello " + user.getFullName() + ",\n\n" +
+	                "Product Name : " + productEntity.getProductName() + ".\n" +
+	                "Total Quantity : " + saleDto.getQuantity() + ".\n" +
+	                "Interest Rate : " + saleDto.getInterestRate() + "%.\n" +
+	                "Total cost price : " + totalPriceWithQuantitySendByUser + ".\n" +
+	                "Selling Price : " + sellingPrice + ".\n" +
+	                "Profit : " + (round(sellingPrice - totalPriceWithQuantitySendByUser)) + ".\n" +
+	                "Customer : " + saleDto.getCustomerName() + ".\n" +
+	                "Quantity Remaining : " + productEntity.getTotalQuantity() + ".\n\n" +
+	                "Regards,\nInventory Management System";
+	        emailService.sendSimpleEmail(user.getEmail(), subject, body);
+	    } catch (Exception e) {
+	        log.error("Failed to send email: " + e.getMessage());
+	    }
+
+	    return "Sale is done with selling price " + sellingPrice + " on interest rate " + saleDto.getInterestRate();
+	}
+
+	private Double round(Double value) {
+	    if (value == null) return 0.0;
+	    return Math.round(value * 100.0) / 100.0;
 	}
 
 	public List<ProductVO> getAllProducts(String username) {
@@ -343,6 +339,10 @@ public class ProductService {
 	    	log.error("Product not found with code: " + productEditDto.getProductCode());
 	        throw new ProductNotFoundException("Product not found with code: " + productEditDto.getProductCode());
 	    }
+	    
+	    String oldName = productEntity.getProductName();
+	    String oldCategory = productEntity.getCategory();
+	    Double oldMinStock = productEntity.getMinStockLevel();
 
 	    ProductEntity duplicateNameProduct = productRepository.findByProductNameAndStore(productEditDto.getProductName().toUpperCase(), user.getStore());
 	        
@@ -358,20 +358,18 @@ public class ProductService {
 	    productRepository.save(productEntity);
 	    
 	    try {
-            String subject = "Update of product is successfully done";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                    "Old product name : "+productEntity.getProductName()+".\n" +
-                    "New product name : "+productEditDto.getProductName()+".\n" +
-                    "Old product category  : "+productEntity.getCategory()+".\n" +
-                    "New product category : "+productEditDto.getCategory()+".\n" +
-                    "Old product minimum stock level : "+productEntity.getMinStockLevel()+".\n" +
-                    "New Product minimum stock level : "+productEditDto.getMinStockLevel()+".\n" +
-                    "Regards,\n" +
-                    "Inventry Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-        	log.error("Failed to send email: " + e.getMessage());
-        }
+	        String subject = "Product Update Successful: " + oldName;
+	        String body = "Hello " + user.getFullName() + ",\n\n" +
+	                "The product update is complete. Here are the changes:\n\n" +
+	                "Name: " + oldName + " -> " + productEditDto.getProductName().toUpperCase() + "\n" +
+	                "Category: " + oldCategory + " -> " + productEditDto.getCategory() + "\n" +
+	                "Min Stock Level: " + oldMinStock + " -> " + productEditDto.getMinStockLevel() + "\n\n" +
+	                "Regards,\nInventory Management System";
+	        
+	        emailService.sendSimpleEmail(user.getEmail(), subject, body);
+	    } catch (Exception e) {
+	        log.error("Failed to send update email: {}", e.getMessage());
+	    }
 	    
 	    return "Product Updated successfully";
 	}
@@ -391,6 +389,7 @@ public class ProductService {
         	throw new StoreNotFoundException("Store not found");
         }
 	    ProductEntity productEntity = productRepository.findByProductCodeAndStore(productCode, user.getStore());
+	    
 	    
 	    if (productEntity == null) {
 	    	log.error("Product not found with code: " +productCode);
@@ -422,34 +421,29 @@ public class ProductService {
 	
 	@Transactional
 	public String updateBatch(String username, BatchUpdateDto dto) {
-		log.info("In updateBatch service "+username+" "+dto);
+	    log.info("In updateBatch service: {} | {}", username, dto);
 
 	    UserEntity user = userRepository.findByUsername(username);
-	    if (user == null) {
-	    	log.error("User not found "+username);
-            throw new UserNotFoundException("User not found");
-        }
-        
-        if(user.getStore() == null) {
-        	log.error("Store not found "+username);
-        	throw new StoreNotFoundException("Store not found");
-        }
 
 	    BatchEntity batch = batchRepository.findById(dto.getId())
 	            .orElseThrow(() -> new BatchNotFoundException("Batch not found with ID: " + dto.getId()));
 
 	    if (!batch.getProduct().getStore().getId().equals(user.getStore().getId())) {
-	    	log.error("Access denied to batch "+username);
 	        throw new BatchDoesNotBelongToUserException("This batch does not belong to your store.");
 	    }
 
+	    String oldBatchNumber = batch.getBatchNumber();
+	    Double oldQuantity = batch.getCurrentQuantity();
+	    Double oldPrice = batch.getPurchasePrice();
+	    LocalDate oldExpiry = batch.getExpiryDate();
+
 	    ProductEntity product = batch.getProduct();
 	    
-	    int quantityDifference = dto.getCurrentQuantity() - batch.getCurrentQuantity();
-	    product.setTotalQuantity(product.getTotalQuantity() + quantityDifference);
+	    Double quantityDifference = dto.getCurrentQuantity() - oldQuantity;
+	    product.setTotalQuantity(round(product.getTotalQuantity() + quantityDifference));
 	    
-	    double priceDifference = dto.getPurchasePrice() - batch.getPurchasePrice();
-	    product.setTotalPurchasePrice(product.getTotalPurchasePrice() + priceDifference);
+	    Double priceDifference = dto.getPurchasePrice() - oldPrice;
+	    product.setTotalPurchasePrice(round(product.getTotalPurchasePrice() + priceDifference));
 
 	    batch.setBatchNumber(dto.getBatchNumber());
 	    batch.setCurrentQuantity(dto.getCurrentQuantity());
@@ -460,52 +454,42 @@ public class ProductService {
 	    productRepository.save(product);
 
 	    try {
-            String subject = "Update of batch is successfully done";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                    "Old batch number : "+batch.getBatchNumber()+".\n" +
-                    "Updated batch number : "+dto.getBatchNumber()+".\n" +
-                    "Old batch quantity  : "+batch.getCurrentQuantity()+".\n" +
-                    "Updated batch quantity : "+dto.getCurrentQuantity()+".\n" +
-                    "Old batch purchase price : "+batch.getPurchasePrice()+".\n" +
-                    "Updated batch purchase price : "+dto.getPurchasePrice()+".\n" +
-                    "Old batch expiry date : " + (batch.getExpiryDate() == null ? "No expiry" : batch.getExpiryDate()) + ".\n" +
-                    "Updated batch expiry date : " + (dto.getExpiryDate() == null ? "No expiry" : dto.getExpiryDate()) + ".\n"+
-                    "Regards,\n" +
-                    "Inventry Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-        	log.error("Failed to send welcome email: " + e.getMessage());
-        }
+	        String subject = "Batch Update Successful: " + product.getProductName();
+	        String body = "Hello " + user.getFullName() + ",\n\n" +
+	                "Batch Number: " + oldBatchNumber + " -> " + dto.getBatchNumber() + "\n" +
+	                "Quantity: " + oldQuantity + " -> " + dto.getCurrentQuantity() + "\n" +
+	                "Price: " + oldPrice + " -> " + dto.getPurchasePrice() + "\n" +
+	                "Expiry: " + (oldExpiry == null ? "None" : oldExpiry) + " -> " + (dto.getExpiryDate() == null ? "None" : dto.getExpiryDate()) + "\n\n" +
+	                "Regards,\nInventory Management System";
+	        emailService.sendSimpleEmail(user.getEmail(), subject, body);
+	    } catch (Exception e) {
+	        log.error("Email failed: {}", e.getMessage());
+	    }
 	    
-	    return "Batch " + batch.getBatchNumber() + " updated successfully.";
+	    return "Batch updated successfully.";
 	}
 	
 	@Transactional
 	public String deleteBatch(String username, Long id) {
-		log.info("In deleteBatch service "+username+" id : "+id);
+	    log.info("Deleting batch ID: {} for user: {}", id, username);
 
 	    UserEntity user = userRepository.findByUsername(username);
-	    if (user == null) {
-	    	log.error("User not found "+username);
-	        throw new UserNotFoundException("Store not found");
-	    }
-	    
-	    if(user.getStore() == null) {
-	    	log.error("Store not found "+username);
-	    	throw new StoreNotFoundException("Store not found");
-	    }
+	    if (user == null) throw new UserNotFoundException("User not found");
 
 	    BatchEntity batch = batchRepository.findById(id)
 	            .orElseThrow(() -> new BatchNotFoundException("Batch not found with ID: " + id));
 
 	    ProductEntity product = batch.getProduct();
+	    
 	    if (!product.getStore().getId().equals(user.getStore().getId())) {
-	    	log.error("Access denied to batch "+username);
 	        throw new BatchDoesNotBelongToUserException("Access denied to this batch.");
 	    }
 
-	    product.setTotalQuantity(product.getTotalQuantity() - batch.getCurrentQuantity());
-	    product.setTotalPurchasePrice(product.getTotalPurchasePrice() - batch.getPurchasePrice());
+	    String deletedBatchNo = batch.getBatchNumber();
+	    String productName = product.getProductName();
+
+	    product.setTotalQuantity(round(product.getTotalQuantity() - batch.getCurrentQuantity()));
+	    product.setTotalPurchasePrice(round(product.getTotalPurchasePrice() - batch.getPurchasePrice()));
 
 	    product.getBatches().remove(batch);
 	    batchRepository.delete(batch);
@@ -513,18 +497,19 @@ public class ProductService {
 	    productRepository.save(product);
 	    
 	    try {
-            String subject = "Batch "+batch.getBatchNumber()+" is deleted successfully";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                    "Your batch "+batch.getBatchNumber()+" is deleted successfully.\n\n\n" +
-                    "Regards,\n" +
-                    "Inventry Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-        	log.error("Failed to send welcome email: " + e.getMessage());
-        }
+	        String subject = "Batch Deleted: " + deletedBatchNo;
+	        String body = "Hello " + user.getFullName() + ",\n\n" +
+	                "Batch " + deletedBatchNo + " for product " + productName + " has been successfully deleted.\n" +
+	                "Current " + productName + " stock: " + product.getTotalQuantity() + " " + product.getDefaultUnits() + ".\n\n" +
+	                "Regards,\nInventory Management System";
+	        emailService.sendSimpleEmail(user.getEmail(), subject, body);
+	    } catch (Exception e) {
+	        log.error("Failed to send deletion email: {}", e.getMessage());
+	    }
 
-	    return "Batch " + batch.getBatchNumber() + " deleted.";
+	    return "Batch " + deletedBatchNo + " deleted successfully.";
 	}
+
 
 	public List<LowStockVO> getLowStockItems(String username) {
 		log.info("In getLowStockItems "+username);
@@ -573,9 +558,34 @@ public class ProductService {
 	        BatchExpiryVO vo = modelMapper.map(batch, BatchExpiryVO.class);
 	        vo.setProductName(batch.getProduct().getProductName());
 	        vo.setProductCode(batch.getProduct().getProductCode());
+	        vo.setDefaultUnits(batch.getProduct().getDefaultUnits());
 	        expiryItems.add(vo);
 	    }
 	    return expiryItems;
+	}
+
+	public String getProductUnit(String username, String productName) {
+	    log.info("Fetching unit for product: {} for user: {}", productName, username);
+	    UserEntity user = userRepository.findByUsername(username);
+	    if (user == null) {
+	        log.error("User not found: {}", username);
+	        throw new UserNotFoundException("User not found");
+	    }
+
+	    StoreEntity store = user.getStore();
+	    if (store == null) {
+	        log.error("Store not found for user: {}", username);
+	        throw new StoreNotFoundException("Store not found for this account");
+	    }
+	  
+	    ProductEntity product = productRepository.findByProductNameAndStore(productName.toUpperCase(), store);
+
+	    if (product == null) {
+	        log.error("Product {} not found in store {}", productName, store.getStoreName());
+	        throw new ProductNotFoundException("Product '" + productName + "' not found.");
+	    }
+
+	    return product.getDefaultUnits();
 	}
 	
 }

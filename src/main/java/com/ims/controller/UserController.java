@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ims.dto.LoginDto;
 import com.ims.dto.SigninResponseVO;
+import com.ims.dto.UpdatePasswordDto;
+import com.ims.dto.UpdatePasswordOtpDto;
 import com.ims.dto.UserSignupDto;
+import com.ims.dto.UserUpdateRequestDto;
 import com.ims.service.UserService;
 import com.ims.service.auth.JwtService;
 
@@ -59,6 +62,38 @@ public class UserController {
 			log.error("Login error, Invalid username or password");
 			throw new BadCredentialsException("Invalid username or password");
 		}
+	}
+	
+	@GetMapping("/sendotp")
+	public ResponseEntity<?> sendOtpToEmailForProfileUpdate(Authentication authentication){
+		log.info("In send Otp "+authentication.getName());
+		String username = authentication.getName();
+		String message = userService.getOtp(username);
+		return new ResponseEntity<>(message,HttpStatus.OK);
+	}
+	
+	@PostMapping("/updateuser")
+	public ResponseEntity<?> updateUser(Authentication authentication,@RequestBody UserUpdateRequestDto userUpdateRequestDto){
+		log.info("In update user "+authentication.getName());
+		String username = authentication.getName();
+		String message = userService.updateUser(username,userUpdateRequestDto);
+		return new ResponseEntity<>(message,HttpStatus.OK);
+	}
+	
+	@PostMapping("/verifypasswordforotp")
+	public ResponseEntity<?> sendOtpForUpdatePassword(Authentication authentication,@RequestBody UpdatePasswordOtpDto updatePasswordOtpDto){
+		log.info("In sendOtpForUpdatePassword "+authentication.getName());
+		String username = authentication.getName();
+		String message = userService.sendOtpForUpdatePassword(username,updatePasswordOtpDto);
+		return new ResponseEntity<>(message,HttpStatus.OK);
+	}
+	
+	@PostMapping("/updatepassword")
+	public ResponseEntity<?> updatePassword(Authentication authentication,@RequestBody UpdatePasswordDto updatePasswordDto){
+		log.info("In update user "+authentication.getName());
+		String username = authentication.getName();
+		String message = userService.updatePassword(username,updatePasswordDto);
+		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
 	@GetMapping("/all")
