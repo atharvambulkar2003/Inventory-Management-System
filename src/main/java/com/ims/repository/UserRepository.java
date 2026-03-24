@@ -10,4 +10,5 @@ import com.ims.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	UserEntity findByUsername(String username);
 	boolean existsByUsername(String username);
+	UserEntity findByEmail(String email);
 }

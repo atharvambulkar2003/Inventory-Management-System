@@ -401,9 +401,12 @@ public class ProductService {
 	            transaction.setProduct(null); 
 	            transactionRepository.save(transaction);
 	        }
+	        transactionRepository.saveAll(productEntity.getTransactions());
 	    }
 	    
+
 	    productRepository.delete(productEntity);
+	    
 	    
 	    try {
             String subject = "Product "+productEntity.getProductName()+" deleted successfully";

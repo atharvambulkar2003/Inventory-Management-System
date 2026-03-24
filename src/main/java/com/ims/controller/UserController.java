@@ -10,11 +10,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ims.dto.ForgetPasswordChangePasswordByEmailDto;
+import com.ims.dto.ForgetPasswordChangePasswordByUsernameDto;
 import com.ims.dto.LoginDto;
 import com.ims.dto.SigninResponseVO;
 import com.ims.dto.UpdatePasswordDto;
@@ -94,6 +97,34 @@ public class UserController {
 		String username = authentication.getName();
 		String message = userService.updatePassword(username,updatePasswordDto);
 		return new ResponseEntity<>(message,HttpStatus.OK);
+	}
+	
+	@GetMapping("/forgetpassword/username/sendotp/{username}")
+	public ResponseEntity<?> sendOtpForForgetPasswordByUsername(@PathVariable String username){
+		log.info("In sendOtpForForgetPasswordByUsername "+username);
+		String message = userService.sendOtpForForgetPasswordByUsername(username);
+		return new ResponseEntity<>(message,HttpStatus.OK); 
+	}
+	
+	@PostMapping("/forgetpassword/username/recoveraccount")
+	public ResponseEntity<?> RecoverAccountByUsername(@RequestBody ForgetPasswordChangePasswordByUsernameDto forgetPasswordChangePasswordByUsernameDto){
+		log.info("In RecoverAccountByUsername "+forgetPasswordChangePasswordByUsernameDto);
+		String message = userService.recoverAccountByUsername(forgetPasswordChangePasswordByUsernameDto);
+		return new ResponseEntity<>(message,HttpStatus.OK); 
+	}
+	
+	@GetMapping("/forgetpassword/email/sendotp/{email}")
+	public ResponseEntity<?> sendOtpForForgetPasswordByEmail(@PathVariable String email){
+		log.info("In sendOtpForForgetPasswordByEmail "+email);
+		String message = userService.sendOtpForForgetPasswordByEmail(email);
+		return new ResponseEntity<>(message,HttpStatus.OK); 
+	}
+	
+	@PostMapping("/forgetpassword/email/recoveraccount")
+	public ResponseEntity<?> RecoverAccountByEmail(@RequestBody ForgetPasswordChangePasswordByEmailDto forgetPasswordChangePasswordByEmailDto){
+		log.info("In RecoverAccountByEmail "+forgetPasswordChangePasswordByEmailDto);
+		String message = userService.recoverAccountByEmail(forgetPasswordChangePasswordByEmailDto);
+		return new ResponseEntity<>(message,HttpStatus.OK); 
 	}
 	
 	@GetMapping("/all")
