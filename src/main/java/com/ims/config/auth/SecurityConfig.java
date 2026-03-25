@@ -30,7 +30,7 @@ public class SecurityConfig {
 	private JwtFilter jwtFilter;
 	
 	@Value("${app.cors.allowed-origins}")
-	private List<String> allowedOrigins;
+	private String allowedOrigins;
 	
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,7 +38,7 @@ public class SecurityConfig {
 	        .csrf(csrf -> csrf.disable())
 	        .cors(cors -> cors.configurationSource(request -> {
                 CorsConfiguration config = new CorsConfiguration();
-                config.setAllowedOrigins(allowedOrigins);
+                config.setAllowedOrigins(List.of(allowedOrigins.split(",")));  
                 config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                 config.setAllowedHeaders(List.of("*"));
                 config.setAllowCredentials(true);
