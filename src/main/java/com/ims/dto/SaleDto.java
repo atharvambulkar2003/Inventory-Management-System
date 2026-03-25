@@ -11,6 +11,6 @@ public class SaleDto {
 	private String category;
 	private String productName;
 	private Double quantity;
-	private Double interestRate;
+	private Double mrp;
 	private String customerName;
 }

@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -30,12 +31,15 @@ public class ProductEntity {
     private Double totalQuantity;
     private String defaultUnits;
     private Double totalPurchasePrice;
+    @Column(nullable = false)
+    private boolean active = true;
     
     @ManyToOne
     @JoinColumn(name = "store_id", nullable = false)
     private StoreEntity store;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OrderBy("id ASC")
     private List<BatchEntity> batches;
     
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

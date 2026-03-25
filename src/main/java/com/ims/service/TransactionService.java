@@ -50,18 +50,11 @@ public class TransactionService {
 	    for (TransactionEntity transaction : transactions) {
 	        TransactionVO vo = modelMapper.map(transaction, TransactionVO.class);
 	        
-	        if (transaction.getProduct() != null) {
-	            vo.setProductCode(transaction.getProduct().getProductCode());
-	            vo.setProductName(transaction.getProduct().getProductName());
-	            vo.setCategory(transaction.getProduct().getCategory());
-	            vo.setDefaultUnits(transaction.getProduct().getDefaultUnits());
-	        } else {
-	            vo.setProductCode("N/A");
-	            vo.setProductName("DELETED PRODUCT");
-	            vo.setCategory("N/A");
-	            vo.setDefaultUnits("N/A");
-	        }
-	        
+            vo.setProductCode(transaction.getProduct().getProductCode());
+            vo.setProductName(transaction.getProduct().getProductName());
+            vo.setCategory(transaction.getProduct().getCategory());
+            vo.setDefaultUnits(transaction.getProduct().getDefaultUnits());
+	       
 	        transactionVOList.add(vo);
 	    }
 	    

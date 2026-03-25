@@ -74,12 +74,12 @@ public class ProductService {
             throw new UserNotFoundException("User Not Found");
         }
 		
-		if (productRepository.existsByProductCodeAndStore(productDto.getProductCode(), userEntity.getStore())) {
+		if (productRepository.existsByProductCodeAndStoreAndActiveTrue(productDto.getProductCode(), userEntity.getStore())) {
 			log.error("A product with this code already exists in your store, "+productDto);
             throw new ProductCodeAlreadyExistsInStoreException("A product with this code already exists in your store.");
         }
 		
-		if (productRepository.existsByProductNameAndStore(productDto.getProductName().toUpperCase(), userEntity.getStore())) {
+		if (productRepository.existsByProductNameAndStoreAndActiveTrue(productDto.getProductName().toUpperCase(), userEntity.getStore())) {
 			log.error("A product named '" + productDto.getProductName() + "' is already registered. Please use a unique name or add a variant (e.g., 'Blue', 'XL').");
 	        throw new ProductNameAlreadyExistsInStore("A product named '" + productDto.getProductName() + "' is already registered. Please use a unique name or add a variant (e.g., 'Blue', 'XL').");
 	    }
@@ -126,7 +126,7 @@ public class ProductService {
         	log.error("Store not found "+username);
 	        throw new StoreNotFoundException("Store not found for this user");
 	    }
-		List<String> categories = productRepository.findDistinctCategoriesByStore(store);
+		List<String> categories = productRepository.findDistinctCategoriesByStoreAndActiveTrue(store);
 	    return categories;
 	}
 
@@ -141,7 +141,7 @@ public class ProductService {
         	log.error("Store not found "+username);
 	        throw new StoreNotFoundException("Store not found for this user");
 	    }
-		return productRepository.findProductsByStoreAndCategory(userEntity.getStore(), categoryName);
+		return productRepository.findProductsByStoreAndCategoryAndActiveTrue(userEntity.getStore(), categoryName);
 	}
 
 	@Transactional
@@ -159,11 +159,11 @@ public class ProductService {
         	throw new StoreNotFoundException("Store not found");
         }
 
-        ProductEntity product = productRepository.findByProductNameAndStore(dto.getProductName().toUpperCase(), user.getStore());
+        ProductEntity product = productRepository.findByProductNameAndStoreAndActiveTrue(dto.getProductName().toUpperCase(), user.getStore());
         
         if (product == null) {
-        	log.error("Product '" + dto.getProductName() + "' not found.");
-            throw new ProductNotFoundException("Product '" + dto.getProductName() + "' not found. Please add the product first.");
+        	log.error("Product " + dto.getProductName() + " not found.");
+            throw new ProductNotFoundException("Product " + dto.getProductName() + " not found. Please add the product first.");
         }
 
         BatchEntity batch = modelMapper.map(dto, BatchEntity.class);
@@ -215,20 +215,28 @@ public class ProductService {
 	    if (user == null) throw new UserNotFoundException("User not found");
 	    if (user.getStore() == null) throw new StoreNotFoundException("Store not found");
 
-	    ProductEntity productEntity = productRepository.findByProductNameAndCategoryAndStore(
+	    ProductEntity productEntity = productRepository.findByProductNameAndCategoryAndStoreAndActiveTrue(
 	            saleDto.getProductName().toUpperCase(), saleDto.getCategory(), user.getStore());
 
 	    if (productEntity.getTotalQuantity() < saleDto.getQuantity()) {
 	        log.error("Insufficient stock for {}. Available: {}", productEntity.getProductName(), productEntity.getTotalQuantity());
 	        throw new LessQuantityException("Quantity is less, total Quantity of " + productEntity.getProductName() + " is " + productEntity.getTotalQuantity());
 	    }
+	    
+	    if (productEntity.getTotalQuantity() <= 0) {
+	        throw new LessQuantityException("No stock available to calculate price");
+	    }
 
 	    Double individualProductPrice = productEntity.getTotalPurchasePrice() / productEntity.getTotalQuantity();
-	    Double totalPriceWithQuantitySendByUser = individualProductPrice * saleDto.getQuantity();
-	    Double sellingPrice = totalPriceWithQuantitySendByUser + (totalPriceWithQuantitySendByUser * saleDto.getInterestRate() / 100);
-	    sellingPrice = round(sellingPrice);
+	    
+	    Double totalCostOfSoldItems = round(individualProductPrice * saleDto.getQuantity());
+
+	    Double totalRevenue = round(saleDto.getMrp() * saleDto.getQuantity());
+
+	    Double profit = round(totalRevenue - totalCostOfSoldItems);
 
 	    List<BatchEntity> batches = productEntity.getBatches();
+	    
 	    Double tempQuantity = saleDto.getQuantity();
 
 	    while (tempQuantity > 0.001 && !batches.isEmpty()) {
@@ -244,7 +252,7 @@ public class ProductService {
 	        }
 	    }
 
-	    productEntity.setTotalPurchasePrice(round(productEntity.getTotalPurchasePrice() - totalPriceWithQuantitySendByUser));
+	    productEntity.setTotalPurchasePrice(round(productEntity.getTotalPurchasePrice() - totalCostOfSoldItems));
 	    productEntity.setTotalQuantity(round(productEntity.getTotalQuantity() - saleDto.getQuantity()));
 
 	    TransactionEntity transaction = new TransactionEntity();
@@ -253,7 +261,7 @@ public class ProductService {
 	    transaction.setQuantity(saleDto.getQuantity()); 
 	    transaction.setTransactionDate(LocalDateTime.now());
 	    transaction.setPartyName(saleDto.getCustomerName());
-	    transaction.setTotalAmount(sellingPrice);
+	    transaction.setTotalAmount(totalRevenue);
 
 	    transactionRepository.save(transaction);
 	    productEntity.getTransactions().add(transaction);
@@ -264,10 +272,9 @@ public class ProductService {
 	        String body = "Hello " + user.getFullName() + ",\n\n" +
 	                "Product Name : " + productEntity.getProductName() + ".\n" +
 	                "Total Quantity : " + saleDto.getQuantity() + ".\n" +
-	                "Interest Rate : " + saleDto.getInterestRate() + "%.\n" +
-	                "Total cost price : " + totalPriceWithQuantitySendByUser + ".\n" +
-	                "Selling Price : " + sellingPrice + ".\n" +
-	                "Profit : " + (round(sellingPrice - totalPriceWithQuantitySendByUser)) + ".\n" +
+	                "MRP of each quantity : " + saleDto.getMrp() + ".\n" +
+	                "Total cost price : " + totalCostOfSoldItems + ".\n" +
+	                "Profit : " + (round(profit)) + ".\n" +
 	                "Customer : " + saleDto.getCustomerName() + ".\n" +
 	                "Quantity Remaining : " + productEntity.getTotalQuantity() + ".\n\n" +
 	                "Regards,\nInventory Management System";
@@ -276,7 +283,7 @@ public class ProductService {
 	        log.error("Failed to send email: " + e.getMessage());
 	    }
 
-	    return "Sale is done with selling price " + sellingPrice + " on interest rate " + saleDto.getInterestRate();
+	    return "Sale successful. Revenue: " + totalRevenue + " | Profit: " + profit;
 	}
 
 	private Double round(Double value) {
@@ -300,19 +307,21 @@ public class ProductService {
 	    List<ProductVO> listProductVO = new ArrayList<>();
 	    
 	    for (ProductEntity product : products) {
-	        ProductVO productVO = modelMapper.map(product, ProductVO.class);
-	        
-	        List<BatchVO> listBatchVO = new ArrayList<>();
-	        for (BatchEntity batch : product.getBatches()) {
-	            listBatchVO.add(modelMapper.map(batch, BatchVO.class));
-	        }
-	        if (product.getTotalQuantity() != null && product.getTotalQuantity() > 0) {
-	        	Double rawPerItemPrice = product.getTotalPurchasePrice() / product.getTotalQuantity();
-	        	productVO.setPerItemPrice(Math.round(rawPerItemPrice * 100.0) / 100.0);
-	        } else {
-	            productVO.setPerItemPrice(0.0); 
-	        }	        productVO.setBatches(listBatchVO);
-	        listProductVO.add(productVO);
+	    	if(product.isActive()) {
+	    		 ProductVO productVO = modelMapper.map(product, ProductVO.class);
+	 	        
+	 	        List<BatchVO> listBatchVO = new ArrayList<>();
+	 	        for (BatchEntity batch : product.getBatches()) {
+	 	            listBatchVO.add(modelMapper.map(batch, BatchVO.class));
+	 	        }
+	 	        if (product.getTotalQuantity() != null && product.getTotalQuantity() > 0) {
+	 	        	Double rawPerItemPrice = product.getTotalPurchasePrice() / product.getTotalQuantity();
+	 	        	productVO.setPerItemPrice(Math.round(rawPerItemPrice * 100.0) / 100.0);
+	 	        } else {
+	 	            productVO.setPerItemPrice(0.0); 
+	 	        }	        productVO.setBatches(listBatchVO);
+	 	        listProductVO.add(productVO);
+	    	}
 	    }
 	    
 	    return listProductVO;
@@ -333,7 +342,7 @@ public class ProductService {
         	throw new StoreNotFoundException("Store not found");
         } 
 
-	    ProductEntity productEntity = productRepository.findByProductCodeAndStore(productEditDto.getProductCode(), user.getStore());
+	    ProductEntity productEntity = productRepository.findByProductCodeAndStoreAndActiveTrue(productEditDto.getProductCode(), user.getStore());
 	    
 	    if (productEntity == null) {
 	    	log.error("Product not found with code: " + productEditDto.getProductCode());
@@ -344,7 +353,7 @@ public class ProductService {
 	    String oldCategory = productEntity.getCategory();
 	    Double oldMinStock = productEntity.getMinStockLevel();
 
-	    ProductEntity duplicateNameProduct = productRepository.findByProductNameAndStore(productEditDto.getProductName().toUpperCase(), user.getStore());
+	    ProductEntity duplicateNameProduct = productRepository.findByProductNameAndStoreAndActiveTrue(productEditDto.getProductName().toUpperCase(), user.getStore());
 	        
 	    if (duplicateNameProduct != null && !duplicateNameProduct.getId().equals(productEntity.getId())) {
 	    	log.error("Product name '" + productEditDto.getProductName() + "' is already used by another product.");
@@ -388,30 +397,29 @@ public class ProductService {
         	log.error("Store not found "+username);
         	throw new StoreNotFoundException("Store not found");
         }
-	    ProductEntity productEntity = productRepository.findByProductCodeAndStore(productCode, user.getStore());
-	    
+        ProductEntity productEntity = productRepository.findByProductCodeAndStoreAndActiveTrue(productCode, user.getStore());	    
 	    
 	    if (productEntity == null) {
 	    	log.error("Product not found with code: " +productCode);
 	        throw new ProductNotFoundException("Product not found with code: " +productCode);
 	    }
 	    
-	    if (productEntity.getTransactions() != null) {
-	        for (TransactionEntity transaction : productEntity.getTransactions()) {
-	            transaction.setProduct(null); 
-	            transactionRepository.save(transaction);
-	        }
-	        transactionRepository.saveAll(productEntity.getTransactions());
+	    List<BatchEntity> batches = productEntity.getBatches();
+	    if (!batches.isEmpty()) {
+	        batchRepository.deleteAll(batches); 
+	        productEntity.getBatches().clear(); 
 	    }
 	    
+	    productEntity.setActive(false);
+	    productEntity.setTotalPurchasePrice(0.0);
+	    productEntity.setTotalQuantity(0.0);
 
-	    productRepository.delete(productEntity);
-	    
+	    productRepository.save(productEntity);
 	    
 	    try {
-            String subject = "Product "+productEntity.getProductName()+" deleted successfully";
+            String subject = "Product "+productEntity.getProductName()+" is Deactiviated successfully";
             String body = "Hello " + user.getFullName() + ",\n\n" +
-                    "Your product "+productEntity.getProductName()+" and its batches is deleted successfully.\n\n\n" +
+                    "Your product "+productEntity.getProductName()+" is Deactiviated and its batches is deleted successfully.\n\n\n" +
                     "Regards,\n" +
                     "Inventry Management System";
             emailService.sendSimpleEmail(user.getEmail(), subject, body);
@@ -531,7 +539,7 @@ public class ProductService {
 	    List<LowStockVO> listLowStockVO = new ArrayList<>();
 	    
 	    for(ProductEntity product:listProductEntities) {
-	    	if(product.getTotalQuantity()<=product.getMinStockLevel()) {
+	    	if(product.isActive() && product.getTotalQuantity()<=product.getMinStockLevel()) {
 	    		LowStockVO lowStockVO = modelMapper.map(product, LowStockVO.class);
 	    		listLowStockVO.add(lowStockVO);
 	    	}
@@ -581,7 +589,7 @@ public class ProductService {
 	        throw new StoreNotFoundException("Store not found for this account");
 	    }
 	  
-	    ProductEntity product = productRepository.findByProductNameAndStore(productName.toUpperCase(), store);
+	    ProductEntity product = productRepository.findByProductNameAndStoreAndActiveTrue(productName.toUpperCase(), store);
 
 	    if (product == null) {
 	        log.error("Product {} not found in store {}", productName, store.getStoreName());

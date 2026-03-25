@@ -12,6 +12,15 @@ import com.ims.entity.BatchEntity;
 
 @Repository
 public interface BatchRepository extends JpaRepository<BatchEntity, Long> {
-	@Query("SELECT b FROM BatchEntity b " +"WHERE b.product.store.owner.username = :username " +"AND b.expiryDate BETWEEN :startDate AND :endDate " +"AND b.currentQuantity > 0 " +"ORDER BY b.expiryDate ASC")
-    List<BatchEntity> findExpiringBatches(@Param("username") String username, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    @Query("SELECT b FROM BatchEntity b " +
+           "WHERE b.product.store.owner.username = :username " +
+           "AND b.expiryDate BETWEEN :startDate AND :endDate " +
+           "AND b.currentQuantity > 0 " +
+           "AND b.product.active = true " +
+           "ORDER BY b.expiryDate ASC")
+    List<BatchEntity> findExpiringBatches(
+        @Param("username") String username, 
+        @Param("startDate") LocalDate startDate, 
+        @Param("endDate") LocalDate endDate
+    );
 }
