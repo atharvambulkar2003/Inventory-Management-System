@@ -25,9 +25,12 @@ public class StoreEntity {
     private String gstNumber;
     
     @OneToOne
-    @JoinColumn(name = "owner_id", unique = true)
+    @JoinColumn(name = "owner_id")
     private UserEntity owner;
     
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<ProductEntity> products;
+    
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
+    private List<UserEntity> staff;
 }

@@ -19,6 +19,7 @@ import com.ims.dto.UserSignupDto;
 import com.ims.dto.UserUpdateRequestDto;
 import com.ims.entity.StoreEntity;
 import com.ims.entity.UserEntity;
+import com.ims.exception.EmailAlreadyExistsException;
 import com.ims.exception.EmailFailedException;
 import com.ims.exception.EmailNotFoundException;
 import com.ims.exception.ExpiredOtpException;
@@ -27,6 +28,7 @@ import com.ims.exception.InvalidUsernameException;
 import com.ims.exception.PasswordMismatchException;
 import com.ims.exception.UserNotFoundException;
 import com.ims.exception.UsernameAlreadyExistsException;
+import com.ims.repository.StoreRepository;
 import com.ims.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -44,6 +46,9 @@ public class UserService {
     @Autowired
     private EmailService emailService;
     
+    @Autowired
+    private StoreRepository storeRepository;
+    
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
     @Transactional
@@ -56,17 +61,24 @@ public class UserService {
             throw new UsernameAlreadyExistsException("Username is already taken");
         }
     	
+    	if (userRepository.existsByEmail(userSignupModel.getEmail())) {
+    		log.error("Email is already exists"+userSignupModel.getEmail());
+            throw new EmailAlreadyExistsException("Email is already exists "+userSignupModel.getEmail());
+        }
+    	
         UserEntity user = modelMapper.map(userSignupModel, UserEntity.class);
         StoreEntity store = modelMapper.map(userSignupModel, StoreEntity.class);
 
         user.setPassword(encoder.encode(userSignupModel.getPassword()));
-        user.setRole("OWNER"); 
-
-        store.setOwner(user);
-        user.setStore(store);
-
-        userRepository.save(user);
+        user.setRole("ROLE_OWNER"); 
+        user.setActive(true);
         
+        StoreEntity savedStore = storeRepository.save(store);
+        
+        user.setStore(savedStore);
+        UserEntity savedUser = userRepository.save(user);
+        savedStore.setOwner(savedUser);
+        storeRepository.save(savedStore);        
         try {
             String subject = "Welcome to IMS!";
             String body = "Hello " + user.getFullName() + ",\n\n" +

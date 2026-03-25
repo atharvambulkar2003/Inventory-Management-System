@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,8 +56,12 @@ public class UserController {
 		    new UsernamePasswordAuthenticationToken(loginModel.getUsername(), loginModel.getPassword())
 		);
 		if (authentication.isAuthenticated()) {
-		    String token = jwtService.generateToken(loginModel.getUsername());
 		    SigninResponseVO response = userService.getUserDetailsAfterLogin(loginModel.getUsername());
+		    if(!response.isActive()) {
+		    	log.error("Login denied: Account is deactivated for {}", loginModel.getUsername());
+	            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Your account has been deactivated. Please contact the Store Owner.");
+		    }
+		    String token = jwtService.generateToken(loginModel.getUsername());
 		    response.setToken(token);
 		    return ResponseEntity.ok(response); 
 		}else {

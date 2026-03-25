@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -24,11 +26,12 @@ public class UserEntity {
     private String username;
 	private String fullName;
     private String password; 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String email;
     private String role;
-    
-    @OneToOne(mappedBy = "owner",cascade = CascadeType.ALL)
+    private boolean active = true; 
+    @ManyToOne
+    @JoinColumn(name = "store_id")
     private StoreEntity store;
     
     private String otp; 

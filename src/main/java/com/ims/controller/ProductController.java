@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -102,6 +103,7 @@ public class ProductController {
 	}
 	
 	@PutMapping("/updateproduct")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> updateProduct(@RequestBody ProductEditDto productEditDto,Authentication authentication){
 		log.info("In updateProduct "+productEditDto+" "+authentication.getName());
 		String username = authentication.getName();
@@ -110,6 +112,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/deleteproduct/{productCode}")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> deleteProduct(@PathVariable String productCode,Authentication authentication){
 		log.info("In updateProduct "+productCode+" "+authentication.getName());
 		String username = authentication.getName();
@@ -118,6 +121,7 @@ public class ProductController {
 	}
 	
 	@PutMapping("/updatebatch")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> updateBatch(@RequestBody BatchUpdateDto batchUpdateDto, Authentication authentication) {
 		log.info("In updateProduct "+batchUpdateDto+" "+authentication.getName());
 		String username = authentication.getName();
@@ -126,6 +130,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/deletebatch/{id}")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> deleteBatch(@PathVariable Long id, Authentication authentication) {
 		log.info("In deleteBatch "+id+" "+authentication.getName());
 		String username = authentication.getName();
