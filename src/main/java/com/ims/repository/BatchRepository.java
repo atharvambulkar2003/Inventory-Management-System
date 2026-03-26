@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ims.entity.BatchEntity;
+import com.ims.entity.StoreEntity;
 
 @Repository
 public interface BatchRepository extends JpaRepository<BatchEntity, Long> {
@@ -23,4 +24,7 @@ public interface BatchRepository extends JpaRepository<BatchEntity, Long> {
         @Param("startDate") LocalDate startDate, 
         @Param("endDate") LocalDate endDate
     );
+
+
+	boolean existsByBatchNumberAndProductStore(String batchNumber, StoreEntity store);
 }

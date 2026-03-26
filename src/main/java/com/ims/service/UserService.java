@@ -22,11 +22,13 @@ import com.ims.exception.EmailAlreadyExistsException;
 import com.ims.exception.EmailFailedException;
 import com.ims.exception.EmailNotFoundException;
 import com.ims.exception.ExpiredOtpException;
+import com.ims.exception.GstNumberAlreadyExistsException;
 import com.ims.exception.InvalidOtpException;
 import com.ims.exception.InvalidUsernameException;
 import com.ims.exception.PasswordMismatchException;
 import com.ims.exception.UserNotFoundException;
 import com.ims.exception.UsernameAlreadyExistsException;
+import com.ims.repository.BatchRepository;
 import com.ims.repository.StoreRepository;
 import com.ims.repository.UserRepository;
 
@@ -47,6 +49,7 @@ public class UserService {
     
     @Autowired
     private NotificationService notificationService;
+   
     
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
@@ -64,6 +67,11 @@ public class UserService {
     		log.error("Email is already exists"+userSignupModel.getEmail());
             throw new EmailAlreadyExistsException("Email is already exists "+userSignupModel.getEmail());
         }
+    	
+    	if (storeRepository.existsByGstNumber(userSignupModel.getGstNumber())) {
+    	    log.error("GST Number already exists: " + userSignupModel.getGstNumber());
+    	    throw new GstNumberAlreadyExistsException("GST Number " + userSignupModel.getGstNumber() + " is already registered");
+    	}
     	
         UserEntity user = modelMapper.map(userSignupModel, UserEntity.class);
         StoreEntity store = modelMapper.map(userSignupModel, StoreEntity.class);

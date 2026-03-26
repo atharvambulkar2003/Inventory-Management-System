@@ -7,5 +7,5 @@ import com.ims.entity.StoreEntity;
 
 @Repository
 public interface StoreRepository extends JpaRepository<StoreEntity, Long>{
-
+	boolean existsByGstNumber(String gstNumbser);
 }

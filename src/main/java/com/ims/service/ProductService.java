@@ -26,6 +26,7 @@ import com.ims.entity.TransactionType;
 import com.ims.entity.UserEntity;
 import com.ims.exception.BatchDoesNotBelongToUserException;
 import com.ims.exception.BatchNotFoundException;
+import com.ims.exception.BatchNumberExistsException;
 import com.ims.exception.EmailFailedException;
 import com.ims.exception.LessQuantityException;
 import com.ims.exception.ProductCodeAlreadyExistsInStoreException;
@@ -150,6 +151,11 @@ public class ProductService {
         	log.error("Store not found "+username);
         	throw new StoreNotFoundException("Store not found");
         }
+        
+        if(batchRepository.existsByBatchNumberAndProductStore(dto.getBatchNumber(),user.getStore())) {
+        	log.error("Batch is already exists "+dto.getBatchNumber());
+        	throw new BatchNumberExistsException("Batch number already exists in store");
+        }
 
         ProductEntity product = productRepository.findByProductNameAndStoreAndActiveTrue(dto.getProductName().toUpperCase(), user.getStore());
         
@@ -179,8 +185,10 @@ public class ProductService {
         
         productRepository.save(product);
         
+        UserEntity owner = user.getStore().getOwner();
+        
         try {
-            notificationService.sendBatchAdditionNotification(user, product, batch);
+            notificationService.sendBatchAdditionNotification(owner, product, batch);
             log.info("Notification send of batch Addition "+user+ " product "+product+" batch "+batch);
         } catch (EmailFailedException e) {
         	log.error("Failed to send welcome email: " + e.getMessage());
@@ -248,9 +256,11 @@ public class ProductService {
 	    transactionRepository.save(transaction);
 	    productEntity.getTransactions().add(transaction);
 	    productRepository.save(productEntity);
+	    
+	    UserEntity owner = user.getStore().getOwner();
 
 	    try {
-	        notificationService.sendSaleNotification(user, productEntity, saleDto, profit);
+	        notificationService.sendSaleNotification(owner, productEntity, saleDto, profit);
 	    } catch (EmailFailedException e) {
 	        log.error("Failed to send email: " + e.getMessage());
 	    }

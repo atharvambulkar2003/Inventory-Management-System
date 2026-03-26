@@ -220,6 +220,30 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 	
+	@ExceptionHandler(GstNumberAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleGstNumberAlreadyExistsException(GstNumberAlreadyExistsException exception) {
+		log.error(exception.getMessage());
+		ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "GST number already exists",
+                exception.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+	
+	@ExceptionHandler(BatchNumberExistsException.class)
+    public ResponseEntity<ErrorResponse> handleBatchNumberExistsException(BatchNumberExistsException exception) {
+		log.error(exception.getMessage());
+		ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Batch number already exists",
+                exception.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+	
 	@ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<String> handleBadCredentials(BadCredentialsException exception) {
 		log.error(exception.getMessage());
