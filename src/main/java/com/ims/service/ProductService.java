@@ -3,7 +3,6 @@ package com.ims.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -27,6 +26,7 @@ import com.ims.entity.TransactionType;
 import com.ims.entity.UserEntity;
 import com.ims.exception.BatchDoesNotBelongToUserException;
 import com.ims.exception.BatchNotFoundException;
+import com.ims.exception.EmailFailedException;
 import com.ims.exception.LessQuantityException;
 import com.ims.exception.ProductCodeAlreadyExistsInStoreException;
 import com.ims.exception.ProductNameAlreadyExistsInStore;
@@ -55,13 +55,13 @@ public class ProductService {
 	private ModelMapper modelMapper;
 	
 	@Autowired
-	private EmailService emailService;
-	
-	@Autowired
 	private BatchRepository batchRepository;
 	
 	@Autowired
 	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private NotificationService notificationService;
 	
 	@Transactional
 	public String addProduct(ProductDto productDto, String username) {
@@ -96,17 +96,9 @@ public class ProductService {
 		productRepository.save(productEntity);
 		
 		try {
-            String subject = "New Product added to your Store";
-            String body = "Hello " + userEntity.getFullName() + ",\n\n" +
-                    "New product is being added on "+new Date()+".\n\n" +
-                    "Product Name : "+productEntity.getProductName()+".\n" +
-                    "Product Code : "+productEntity.getProductCode()+".\n" +
-                    "Product Category : "+productEntity.getCategory()+".\n" +
-                    "Product's Minimum Stock level for alert : "+productEntity.getMinStockLevel()+".\n\n\n\n" +
-                    "Regards,\n" +
-                    "Inventry Management System";
-            emailService.sendSimpleEmail(userEntity.getEmail(), subject, body);
-        } catch (Exception e) {
+            notificationService.sendProductAdditionNotification(userEntity, productEntity);
+            log.info("Notification send to add product "+productEntity+" from "+userEntity);
+        } catch (EmailFailedException e) {
         	log.error("Failed to send email: " + e.getMessage());
         }
 		
@@ -188,19 +180,9 @@ public class ProductService {
         productRepository.save(product);
         
         try {
-            String subject = "New Batch added to your Store";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                    "New Batch is being added on "+new Date()+" to category "+product.getCategory()+".\n\n" +
-                    "Product Name : "+product.getProductName()+".\n\n" +
-                    "Batch Number : "+batch.getBatchNumber()+".\n\n" +
-                    "Quantity Purchase : "+batch.getCurrentQuantity()+".\n\n" +
-                    "Total Quantity : "+product.getTotalQuantity()+".\n\n" +
-                    "Price of batch : "+batch.getPurchasePrice()+".\n\n" +
-                    "Total Price : "+product.getTotalPurchasePrice()+".\n\n\n\n\n" +
-                    "Regards,\n" +
-                    "Inventry Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
+            notificationService.sendBatchAdditionNotification(user, product, batch);
+            log.info("Notification send of batch Addition "+user+ " product "+product+" batch "+batch);
+        } catch (EmailFailedException e) {
         	log.error("Failed to send welcome email: " + e.getMessage());
         }
 
@@ -268,18 +250,8 @@ public class ProductService {
 	    productRepository.save(productEntity);
 
 	    try {
-	        String subject = "Sale of " + productEntity.getProductName() + " is successful";
-	        String body = "Hello " + user.getFullName() + ",\n\n" +
-	                "Product Name : " + productEntity.getProductName() + ".\n" +
-	                "Total Quantity : " + saleDto.getQuantity() + ".\n" +
-	                "MRP of each quantity : " + saleDto.getMrp() + ".\n" +
-	                "Total cost price : " + totalCostOfSoldItems + ".\n" +
-	                "Profit : " + (round(profit)) + ".\n" +
-	                "Customer : " + saleDto.getCustomerName() + ".\n" +
-	                "Quantity Remaining : " + productEntity.getTotalQuantity() + ".\n\n" +
-	                "Regards,\nInventory Management System";
-	        emailService.sendSimpleEmail(user.getEmail(), subject, body);
-	    } catch (Exception e) {
+	        notificationService.sendSaleNotification(user, productEntity, saleDto, profit);
+	    } catch (EmailFailedException e) {
 	        log.error("Failed to send email: " + e.getMessage());
 	    }
 
@@ -367,17 +339,10 @@ public class ProductService {
 	    productRepository.save(productEntity);
 	    
 	    try {
-	        String subject = "Product Update Successful: " + oldName;
-	        String body = "Hello " + user.getFullName() + ",\n\n" +
-	                "The product update is complete. Here are the changes:\n\n" +
-	                "Name: " + oldName + " -> " + productEditDto.getProductName().toUpperCase() + "\n" +
-	                "Category: " + oldCategory + " -> " + productEditDto.getCategory() + "\n" +
-	                "Min Stock Level: " + oldMinStock + " -> " + productEditDto.getMinStockLevel() + "\n\n" +
-	                "Regards,\nInventory Management System";
-	        
-	        emailService.sendSimpleEmail(user.getEmail(), subject, body);
-	    } catch (Exception e) {
-	        log.error("Failed to send update email: {}", e.getMessage());
+	        notificationService.sendProductUpdateNotification(user, oldName, oldCategory, oldMinStock, productEditDto);
+	        log.info("Update notification sent for product: {}", oldName);
+	    } catch (EmailFailedException e) {
+	        log.error("Failed to send product update email for user: {} and product: {}. Error: {}", username, oldName, e.getMessage());
 	    }
 	    
 	    return "Product Updated successfully";
@@ -398,11 +363,12 @@ public class ProductService {
         	throw new StoreNotFoundException("Store not found");
         }
         ProductEntity productEntity = productRepository.findByProductCodeAndStoreAndActiveTrue(productCode, user.getStore());	    
-	    
-	    if (productEntity == null) {
+        if (productEntity == null) {
 	    	log.error("Product not found with code: " +productCode);
 	        throw new ProductNotFoundException("Product not found with code: " +productCode);
 	    }
+        String productName = productEntity.getProductName();
+	    
 	    
 	    List<BatchEntity> batches = productEntity.getBatches();
 	    if (!batches.isEmpty()) {
@@ -417,17 +383,13 @@ public class ProductService {
 	    productRepository.save(productEntity);
 	    
 	    try {
-            String subject = "Product "+productEntity.getProductName()+" is Deactiviated successfully";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                    "Your product "+productEntity.getProductName()+" is Deactiviated and its batches is deleted successfully.\n\n\n" +
-                    "Regards,\n" +
-                    "Inventry Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-        	log.error("Failed to send email: " + e.getMessage());
-        }
+	        notificationService.sendProductDeactivationNotification(user, productName );
+	        log.info("Deactivation email sent for product: {} to user: {}", productName, username);
+	    } catch (EmailFailedException e) {
+	        log.error("Failed to send deactivation email for {} [User: {}]. Error: {}", productName, username, e.getMessage());
+	    }
 	    
-		return "Product Deleted successfully";
+		return "Product Deactivated successfully";
 	} 
 	
 	@Transactional
@@ -465,16 +427,10 @@ public class ProductService {
 	    productRepository.save(product);
 
 	    try {
-	        String subject = "Batch Update Successful: " + product.getProductName();
-	        String body = "Hello " + user.getFullName() + ",\n\n" +
-	                "Batch Number: " + oldBatchNumber + " -> " + dto.getBatchNumber() + "\n" +
-	                "Quantity: " + oldQuantity + " -> " + dto.getCurrentQuantity() + "\n" +
-	                "Price: " + oldPrice + " -> " + dto.getPurchasePrice() + "\n" +
-	                "Expiry: " + (oldExpiry == null ? "None" : oldExpiry) + " -> " + (dto.getExpiryDate() == null ? "None" : dto.getExpiryDate()) + "\n\n" +
-	                "Regards,\nInventory Management System";
-	        emailService.sendSimpleEmail(user.getEmail(), subject, body);
-	    } catch (Exception e) {
-	        log.error("Email failed: {}", e.getMessage());
+	        notificationService.sendBatchUpdateNotification(user, product, oldBatchNumber, oldQuantity, oldPrice, oldExpiry, dto);
+	        log.info("Batch update notification sent for: {}", oldBatchNumber);
+	    } catch (EmailFailedException e) {
+	        log.error("Failed to notify user {} about batch update {}. Reason: {}", user.getUsername(), oldBatchNumber, e.getMessage());
 	    }
 	    
 	    return "Batch updated successfully.";
@@ -508,14 +464,10 @@ public class ProductService {
 	    productRepository.save(product);
 	    
 	    try {
-	        String subject = "Batch Deleted: " + deletedBatchNo;
-	        String body = "Hello " + user.getFullName() + ",\n\n" +
-	                "Batch " + deletedBatchNo + " for product " + productName + " has been successfully deleted.\n" +
-	                "Current " + productName + " stock: " + product.getTotalQuantity() + " " + product.getDefaultUnits() + ".\n\n" +
-	                "Regards,\nInventory Management System";
-	        emailService.sendSimpleEmail(user.getEmail(), subject, body);
+	        notificationService.sendBatchDeletionNotification(user, productName, deletedBatchNo, product);
+	        log.info("Batch deletion notification sent for: {}", deletedBatchNo);
 	    } catch (Exception e) {
-	        log.error("Failed to send deletion email: {}", e.getMessage());
+	        log.error("Email failed for batch deletion {}: {}", deletedBatchNo, e.getMessage());
 	    }
 
 	    return "Batch " + deletedBatchNo + " deleted successfully.";
@@ -539,7 +491,7 @@ public class ProductService {
 	    List<LowStockVO> listLowStockVO = new ArrayList<>();
 	    
 	    for(ProductEntity product:listProductEntities) {
-	    	if(product.isActive() && product.getTotalQuantity()<=product.getMinStockLevel()) {
+	    	if(product.isActive() && product.getTotalQuantity()<product.getMinStockLevel()) {
 	    		LowStockVO lowStockVO = modelMapper.map(product, LowStockVO.class);
 	    		listLowStockVO.add(lowStockVO);
 	    	}
@@ -555,7 +507,8 @@ public class ProductService {
 			log.error("User not found "+username);
             throw new UserNotFoundException("User not found");
         }
-        
+		UserEntity owner = user.getStore().getOwner();
+
         if(user.getStore() == null) {
         	log.error("Store not found "+username);
         	throw new StoreNotFoundException("Store not found");
@@ -563,7 +516,7 @@ public class ProductService {
         
 	    LocalDate today = LocalDate.now();
 	    LocalDate thirtyDaysFromNow = today.plusDays(30);
-	    List<BatchEntity> batches = batchRepository.findExpiringBatches(username, today, thirtyDaysFromNow);
+	    List<BatchEntity> batches = batchRepository.findExpiringBatches(owner.getUsername(), today, thirtyDaysFromNow);
 	    List<BatchExpiryVO> expiryItems = new ArrayList<>();
 	    for (BatchEntity batch : batches) {
 	        BatchExpiryVO vo = modelMapper.map(batch, BatchExpiryVO.class);

@@ -3,6 +3,7 @@ package com.ims.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -63,6 +64,7 @@ public class UserController {
 		    }
 		    String token = jwtService.generateToken(loginModel.getUsername());
 		    response.setToken(token);
+			log.info("In login controller "+response);
 		    return ResponseEntity.ok(response); 
 		}else {
 			log.error("Login error, Invalid username or password");
@@ -71,6 +73,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/sendotp")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> sendOtpToEmailForProfileUpdate(Authentication authentication){
 		log.info("In send Otp "+authentication.getName());
 		String username = authentication.getName();
@@ -79,6 +82,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/updateuser")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> updateUser(Authentication authentication,@RequestBody UserUpdateRequestDto userUpdateRequestDto){
 		log.info("In update user "+authentication.getName());
 		String username = authentication.getName();
@@ -87,6 +91,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/verifypasswordforotp")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> sendOtpForUpdatePassword(Authentication authentication,@RequestBody UpdatePasswordOtpDto updatePasswordOtpDto){
 		log.info("In sendOtpForUpdatePassword "+authentication.getName());
 		String username = authentication.getName();
@@ -95,6 +100,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/updatepassword")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> updatePassword(Authentication authentication,@RequestBody UpdatePasswordDto updatePasswordDto){
 		log.info("In update user "+authentication.getName());
 		String username = authentication.getName();

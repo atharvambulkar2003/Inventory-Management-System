@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', Tahoma, sans-serif; padding: 20px; color: #333; max-width: 600px; margin: auto; }
+        .header { background-color: #3498db; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { border: 1px solid #e0e0e0; padding: 25px; border-radius: 0 0 8px 8px; background-color: #ffffff; }
+        .update-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .update-table th { text-align: left; background-color: #f8f9fa; padding: 10px; border-bottom: 2px solid #dee2e6; color: #7f8c8d; font-size: 12px; text-transform: uppercase; }
+        .update-table td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 14px; }
+        .old-val { color: #95a5a6; text-decoration: line-through; font-size: 12px; display: block; margin-bottom: 2px; }
+        .new-val { color: #2980b9; font-weight: bold; display: block; }
+        .footer { text-align: center; font-size: 11px; color: #bdc3c7; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">📋 Batch Details Updated</div>
+        <div class="content">
+            <p>Hello <strong th:text="${fullName}">Owner</strong>,</p>
+            <p>The following batch for <strong th:text="${productName}">Product</strong> has been modified:</p>
+            
+            <table class="update-table">
+                <thead>
+                    <tr><th>Field</th><th>Updated Value</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Batch No</strong></td>
+                        <td>
+                            <span class="old-val" th:text="${oldBatchNo}">-</span>
+                            <span class="new-val" th:text="${newBatchNo}">-</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quantity</strong></td>
+                        <td>
+                            <span class="old-val" th:text="${oldQty}">0</span>
+                            <span class="new-val" th:text="${newQty}">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Purchase Price</strong></td>
+                        <td>
+                            <span class="old-val" th:text="'₹' + ${oldPrice}">₹0</span>
+                            <span class="new-val" th:text="'₹' + ${newPrice}">₹0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Expiry</strong></td>
+                        <td>
+                            <span class="old-val" th:text="${oldExpiry}">None</span>
+                            <span class="new-val" th:text="${newExpiry}">None</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">
+            &copy; 2026 Inventry Management System &bull; Batch Audit Service
+        </div>
+    </div>
+</body>
+</html>

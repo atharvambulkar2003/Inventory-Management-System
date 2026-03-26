@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; color: #333; max-width: 500px; margin: auto; }
+        .deactivated-card { border: 1px solid #ebccd1; border-radius: 8px; overflow: hidden; }
+        .header { background-color: #c0392b; color: white; padding: 15px; text-align: center; font-size: 18px; }
+        .body { padding: 25px; background-color: #ffffff; line-height: 1.6; }
+        .status-badge { display: inline-block; background-color: #f2dede; color: #a94442; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 12px; margin-bottom: 15px; border: 1px solid #ebccd1; }
+        .footer { text-align: center; font-size: 11px; color: #95a5a6; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="deactivated-card">
+            <div class="header">Product Deactivated</div>
+            <div class="body">
+                <div class="status-badge">STATUS: INACTIVE</div>
+                <p>Hello <strong th:text="${fullName}">Owner</strong>,</p>
+                <p>This is to confirm that the product <strong><span th:text="${productName}">Product Name</span></strong> has been deactivated in your inventory.</p>
+                
+                <p style="font-size: 13px; color: #7f8c8d;">
+                    Note: All associated batches for this product have been removed and it will no longer appear in your active stock list.
+                </p>
+            </div>
+        </div>
+        <div class="footer">
+            &copy; 2026 Inventry Management System &bull; Security & Audit
+        </div>
+    </div>
+</body>
+</html>

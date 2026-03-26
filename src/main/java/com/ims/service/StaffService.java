@@ -1,7 +1,6 @@
 package com.ims.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -13,6 +12,7 @@ import com.ims.dto.AddStaffDto;
 import com.ims.dto.StaffVO;
 import com.ims.entity.UserEntity;
 import com.ims.exception.EmailAlreadyExistsException;
+import com.ims.exception.EmailFailedException;
 import com.ims.exception.UserNotFoundException;
 import com.ims.exception.UsernameAlreadyExistsException;
 import com.ims.repository.UserRepository;
@@ -34,7 +34,7 @@ public class StaffService {
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private EmailService emailService;
+	private NotificationService notificationService;
 
 	@Transactional
 	public String addStaffToStore(String username, AddStaffDto addStaffDto) {
@@ -59,24 +59,11 @@ public class StaffService {
 		userEntity.getStore().getStaff().add(staff);
 		userRepository.save(staff);
 		try {
-	        String storeName = userEntity.getStore().getStoreName();
-	        String staffSubject = "Welcome to the Team at " + storeName;
-	        String staffBody = "Hello " + staff.getFullName() + ",\n\n" +
-	                "Your account for " + storeName + " has been created.\n" +
-	                "Username: " + staff.getUsername() + "\n" +
-	                "Password: " + addStaffDto.getPassword() + "\n\n" +
-	                "Regards,\nInventary Management System";
-	        emailService.sendSimpleEmail(staff.getEmail(), staffSubject, staffBody);
-	        
-	        String ownerSubject = "Staff Added Successfully";
-	        String ownerBody = "Hello " + userEntity.getFullName() + ",\n\n" +
-	                "You have successfully added " + staff.getFullName() + " as staff for " + storeName + ".\n\n" +
-	                "Regards,\nInventary Management System";
-	        emailService.sendSimpleEmail(userEntity.getEmail(), ownerSubject, ownerBody);
-
-	    } catch (Exception e) {
-	        log.error("Failed to send notification emails: " + e.getMessage());
-	    }
+		    notificationService.sendStaffOnboardingNotifications(userEntity, staff, addStaffDto.getPassword());
+		    log.info("Onboarding emails sent for staff: {}", staff.getUsername());
+		} catch (EmailFailedException e) {
+		    log.error("Notification failed: {}", e.getMessage());
+		}
 		return "Staff added successfully";
 	}
 

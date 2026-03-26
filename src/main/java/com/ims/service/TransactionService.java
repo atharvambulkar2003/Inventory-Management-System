@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ims.dto.TransactionVO;
-import com.ims.entity.ProductEntity;
 import com.ims.entity.TransactionEntity;
 import com.ims.entity.UserEntity;
 import com.ims.exception.StoreNotFoundException;

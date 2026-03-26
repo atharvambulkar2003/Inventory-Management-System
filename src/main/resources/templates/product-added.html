@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', sans-serif; padding: 20px; color: #333; max-width: 600px; margin: auto; }
+        .header { background-color: #27ae60; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { border: 1px solid #e0e0e0; padding: 25px; border-radius: 0 0 8px 8px; }
+        .data-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .data-table td { padding: 10px; border-bottom: 1px solid #eee; }
+        .label { font-weight: bold; color: #7f8c8d; width: 40%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">📦 New Product Registered</div>
+        <div class="content">
+            <p>Hello <strong th:text="${fullName}">Owner</strong>,</p>
+            <p>A new product entry has been created in your inventory.</p>
+            <table class="data-table">
+                <tr><td class="label">Product Name</td><td th:text="${productName}">Name</td></tr>
+                <tr><td class="label">Code</td><td th:text="${productCode}">Code</td></tr>
+                <tr><td class="label">Category</td><td th:text="${category}">Category</td></tr>
+                <tr><td class="label">Min Stock Level</td><td th:text="${minStock}">0</td></tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

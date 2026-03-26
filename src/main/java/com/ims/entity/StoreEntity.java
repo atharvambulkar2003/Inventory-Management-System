@@ -12,10 +12,12 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "stores")
 @Data
+@ToString(exclude = {"owner", "staff", "products"})
 public class StoreEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,6 @@
 package com.ims.service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Random;
 
 import org.modelmapper.ModelMapper;
@@ -44,10 +43,10 @@ public class UserService {
     private ModelMapper modelMapper;
     
     @Autowired
-    private EmailService emailService;
+    private StoreRepository storeRepository;
     
     @Autowired
-    private StoreRepository storeRepository;
+    private NotificationService notificationService;
     
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
@@ -80,14 +79,9 @@ public class UserService {
         savedStore.setOwner(savedUser);
         storeRepository.save(savedStore);        
         try {
-            String subject = "Welcome to IMS!";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                    "Your registration as an OWNER for " + store.getStoreName() + " is successful.\n\n" +
-                    "Regards,\n" +
-                    "Inventry Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
+            notificationService.sendOwnerWelcomeNotification(savedUser, savedStore);
         } catch (Exception e) {
-        	log.error("Failed to send welcome email: " + e.getMessage());
+            log.error("Notification failed: {}", e.getMessage());
         }
         
         return "User registered successfully";
@@ -104,18 +98,15 @@ public class UserService {
 		SigninResponseVO signInResponseVO = modelMapper.map(userEntity, SigninResponseVO.class);	    
 	    modelMapper.map(userEntity.getStore(), signInResponseVO);
 	    try {
-            String subject = "Login detected to IMS!";
-            String body = "Hello " + userEntity.getFullName() + ",\n\n" +
-                    "Your Login is detected on "+new Date()+".\n\n" +
-                    "Regards,\n" +
-                    "Inventry Management System";
-            emailService.sendSimpleEmail(userEntity.getEmail(), subject, body);
-        } catch (Exception e) {
-        	log.error("Failed to send welcome email: " + e.getMessage());
-        }
+	        notificationService.sendLoginAlert(userEntity);
+	        log.info("Send login alert to {}", userEntity);
+	    } catch (Exception e) {
+	        log.error("Could not send login alert: {}", e.getMessage());
+	    }
 	    return signInResponseVO;
 	}
 
+	@Transactional
 	public String getOtp(String username) {
 	    log.info("Generating secure OTP for: {}", username);
 	    
@@ -128,16 +119,12 @@ public class UserService {
 	    user.setOtpExpiryTime(LocalDateTime.now().plusMinutes(5));
 	    userRepository.save(user);
 
-	    try {
-	        String subject = "OTP for Profile Update";
-	        String body = "Hello " + user.getFullName() + ",\n\n" +
-	                      "Your verification code is: " + generatedOtp + "\n" +
-	                      "This code will expire in 5 minutes.\n\n\n"+
-            			  "Regards,\nInventory Management System";
-	        emailService.sendSimpleEmail(user.getEmail(), subject, body);
-	    } catch (Exception e) {
-	        log.error("Email failed: {}", e.getMessage());
-	        throw new EmailFailedException("Email service down. Try again later.");
+	    try {	        
+	        notificationService.sendOtpNotification(user, generatedOtp);
+	        log.info("OTP sent successfully to {}", user.getEmail());
+	    } catch (EmailFailedException e) {
+	        log.error("Failed to send OTP email: {}", e.getMessage());
+	        throw new EmailFailedException("Unable to send opt, please check the connection");
 	    }
 
 	    return "OTP sent to your registered email.";
@@ -170,18 +157,16 @@ public class UserService {
 	    userRepository.save(user);
 	    
 	    try {
-            String subject = "Profile Updated Successfully";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                          "your profile has been updated successfully\n\n\n" +
-                          "Regards,\nInventory Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-            log.error("Failed to send email: {}", e.getMessage());
-        }
+	        notificationService.sendProfileUpdateNotification(user);
+	        log.info("profile update confirmation sent to {}", user.getEmail());
+	    } catch (Exception e) {
+	        log.error("Notification failed: {}", e.getMessage());
+	    }
 	    
 		return "User Updated successfully";
 	}
 
+	@Transactional
 	public String sendOtpForUpdatePassword(String username, UpdatePasswordOtpDto updatePasswordOtpDto) {
 		log.info("In sendOtpForUpdatePassword service "+ username +" "+updatePasswordOtpDto);
 		if(!username.equals(updatePasswordOtpDto.getUsername())) {
@@ -202,15 +187,11 @@ public class UserService {
         userRepository.save(user);
 
         try {
-            String subject = "Security Alert: Password Change OTP";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                          "You are attempting to change your password. Your OTP is: " + generatedOtp + "\n" +
-                          "This code will expire in 5 minutes. If this wasn't you, change your password immediately.\n\n\n"+
-            			  "Regards,\nInventory Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-            log.error("Failed to send email: {}", e.getMessage());
-            throw new EmailFailedException("Email service failed. Please try again later.");
+            notificationService.sendPasswordOtp(user, generatedOtp);
+            log.info("Password OTP successfully sent to: {}", user.getEmail());
+        } catch (EmailFailedException e) {
+            log.error("Failed to send Password OTP email: {}", e.getMessage());
+            throw new EmailFailedException("Email service is temporarily unavailable. Please try again later.");
         }
 
         return "OTP sent to your registered email.";
@@ -254,19 +235,17 @@ public class UserService {
 	    userRepository.save(user);
 	    
 	    try {
-            String subject = "Password is successfully updated.";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                          "your password has been updated successfully\n\n\n" +
-                          "Regards,\nInventory Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-            log.error("Failed to send email: {}", e.getMessage());
-        }
+	        notificationService.sendPasswordUpdateConfirmation(user);
+	        log.info("Password update confirmation sent to {}", user.getEmail());
+	    } catch (EmailFailedException e) {
+	        log.error("Failed to send password update confirmation: {}", e.getMessage());
+	    }
 	    
 	    log.info("Password updated successfully for user: {}", username);
 	    return "Password updated successfully! Please login with your new credentials.";
 	}
 
+	@Transactional
 	public String sendOtpForForgetPasswordByUsername(String username) {
 	    log.info("In sendOtpForForgetPasswordByUsername service for user: {}", username);
 	    UserEntity user = userRepository.findByUsername(username);
@@ -282,16 +261,12 @@ public class UserService {
 	    user.setOtpExpiryTime(LocalDateTime.now().plusMinutes(5));
 	    userRepository.save(user);
 	    try {
-            String subject = "Security Alert: Password Change OTP";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-                          "You are attempting to change your password. Your OTP is: " + generatedOtp + "\n" +
-                          "This code will expire in 5 minutes. If this wasn't you, change your password immediately.\n\n\n"+
-            			  "Regards,\nInventory Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-            log.error("Failed to send email: {}", e.getMessage());
-            throw new EmailFailedException("Email service failed. Please try again later.");
-        }
+	        notificationService.forgotPasswordOtp(user, generatedOtp);
+	        log.info("Password OTP successfully sent to: {}", user.getEmail());
+	    } catch (EmailFailedException e) {
+	        log.error("Failed to send Password OTP email: {}", e.getMessage());
+	        throw new EmailFailedException("Email service is temporarily unavailable. Please try again later.");
+	    }
 		return "Otp send successfully to registered email of user.";
 	}
 
@@ -329,17 +304,12 @@ public class UserService {
 	    user.setOtpExpiryTime(LocalDateTime.now().plusMinutes(5));
 	    userRepository.save(user);
 	    try {
-            String subject = "Security Alert: Password Change OTP";
-            String body = "Hello " + user.getFullName() + ",\n\n" +
-            			  "Your username is : "+user.getUsername()+" \n"+
-                          "You are attempting to change your password. Your OTP is: " + generatedOtp + "\n" +
-                          "This code will expire in 5 minutes. If this wasn't you, change your password immediately.\n\n\n"+
-            			  "Regards,\nInventory Management System";
-            emailService.sendSimpleEmail(user.getEmail(), subject, body);
-        } catch (Exception e) {
-            log.error("Failed to send email: {}", e.getMessage());
-            throw new EmailFailedException("Email service failed. Please try again later.");
-        }
+	        notificationService.sendPasswordOtpForEmail(user, generatedOtp);
+	        log.info("Security OTP sent to username: {}", user.getUsername());
+	    } catch (EmailFailedException e) {
+	        log.error("Failed to send Security OTP: {}", e.getMessage());
+	        throw new EmailFailedException("Email service unavailable. Please try again in a few minutes.");
+	    }
 		return "Otp send successfully to registered email of user.";
 	}
 

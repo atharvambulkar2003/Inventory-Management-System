@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', sans-serif; padding: 20px; color: #333; max-width: 600px; margin: auto; }
+        .header { background-color: #8e44ad; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { border: 1px solid #e0e0e0; padding: 25px; border-radius: 0 0 8px 8px; }
+        .profit-badge { background-color: #eafaf1; color: #27ae60; padding: 10px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 20px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">💰 Sale Confirmed</div>
+        <div class="content">
+            <p>A sale was recorded for <strong><span th:text="${productName}">Product</span></strong>.</p>
+            
+            <div class="profit-badge">
+                Profit Earned: ₹<span th:text="${profit}">0.00</span>
+            </div>
+
+            <p><strong>Customer:</strong> <span th:text="${customer}">Walk-in</span><br/>
+            <strong>Sold Qty:</strong> <span th:text="${soldQty}">0</span><br/>
+            <strong>Current Stock:</strong> <span th:text="${remainingQty}">0</span></p>
+        </div>
+    </div>
+</body>
+</html>

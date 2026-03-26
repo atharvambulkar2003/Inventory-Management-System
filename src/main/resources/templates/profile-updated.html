@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; color: #333; max-width: 500px; margin: auto; }
+        .success-banner { background-color: #27ae60; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; }
+        .card { border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; }
+        .body-text { padding: 25px; line-height: 1.6; background-color: #ffffff; }
+        .footer { text-align: center; font-size: 12px; color: #95a5a6; margin-top: 20px; }
+        .button { display: inline-block; padding: 10px 20px; background-color: #2c3e50; color: white; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="success-banner">
+                <strong>Profile Updated</strong>
+            </div>
+            <div class="body-text">
+                <p>Hello <strong th:text="${fullName}">User</strong>,</p>
+                <p>This is a quick confirmation that your profile details in the **Inventry Management System** have been updated successfully.</p>
+                <p>If you made these changes, no further action is required.</p>
+                
+                <p style="font-size: 13px; color: #7f8c8d;">Changed on: <span th:text="${updateTime}">Date</span></p>
+            </div>
+        </div>
+        <div class="footer">
+            &copy; 2026 Inventry Management System <br/>
+            Amravati, Maharashtra
+        </div>
+    </div>
+</body>
+</html>

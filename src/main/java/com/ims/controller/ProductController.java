@@ -39,6 +39,7 @@ public class ProductController {
 	private ProductService productService;
 	
 	@PostMapping("/addproduct")
+	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> addProduct(@RequestBody ProductDto productDto,Authentication authentication){
 		log.info("In addProduct "+productDto+" "+authentication.getName());
 		String username = authentication.getName();
@@ -47,6 +48,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/getcategory")
+	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getCategory(Authentication authentication){
 		log.info("In getCategory"+" "+authentication.getName());
 		String username = authentication.getName();
@@ -55,6 +57,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/getproductname/{categoryname}")
+	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getProductName(@PathVariable("categoryname") String categoryName,Authentication authentication){
 		log.info("In getProductName "+categoryName+" "+authentication.getName());
 		String username = authentication.getName();
@@ -63,6 +66,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/getunit/{productname}")
+	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getDefaultUnits(@PathVariable("productname") String productName,Authentication authentication){
 		log.info("In getDefaultUnits "+productName+" "+authentication.getName());
 		String username = authentication.getName();
@@ -71,6 +75,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/expiryitems")
+	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getExpiryItems(Authentication authentication) {
 		log.info("In getExpiryItems"+authentication.getName());
 		String username = authentication.getName();
@@ -79,6 +84,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/addbatch")
+	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> addBatchToProduct(@RequestBody AddBatchToProductDto addBatchToProductDto,Authentication authentication){
 		log.info("In addBatchToProduct "+addBatchToProductDto+" "+authentication.getName());
 		String username = authentication.getName();
@@ -87,6 +93,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/sale")
+	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> sellProduct(@RequestBody SaleDto saleDto,Authentication authentication){
 		log.info("In sellProduct "+saleDto+" "+authentication.getName());
 		String username = authentication.getName();
@@ -95,6 +102,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/allproducts")
+	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getAllProducts(Authentication authentication){
 		log.info("In getAllProducts"+authentication.getName());
 		String username = authentication.getName();
@@ -139,6 +147,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/lowstockitems")
+	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getLowStockItems(Authentication authentication) {
 		log.info("In getLowStockItems"+authentication.getName());
 		String username = authentication.getName();

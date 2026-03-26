@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', sans-serif; padding: 20px; color: #333; max-width: 600px; margin: auto; }
+        .header { background-color: #2980b9; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { border: 1px solid #e0e0e0; padding: 25px; border-radius: 0 0 8px 8px; }
+        .stats-grid { display: flex; justify-content: space-between; margin-top: 20px; }
+        .stat-card { background: #f8f9fa; padding: 10px; border-radius: 5px; width: 45%; border: 1px solid #eee; }
+        .stat-val { display: block; font-size: 18px; font-weight: bold; color: #2c3e50; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">➕ Stock In: New Batch Added</div>
+        <div class="content">
+            <p>Hello <strong th:text="${fullName}">Owner</strong>,</p>
+            <p>New stock has arrived for <strong><span th:text="${productName}">Product</span></strong>.</p>
+            
+            <div class="stats-grid" style="display: table; width: 100%;">
+                <div class="stat-card" style="display: table-cell; padding: 10px;">
+                    <span style="font-size: 12px; color: #7f8c8d;">BATCH QUANTITY</span>
+                    <span class="stat-val" th:text="${batchQty}">0</span>
+                </div>
+                <div class="stat-card" style="display: table-cell; padding: 10px;">
+                    <span style="font-size: 12px; color: #7f8c8d;">NEW TOTAL STOCK</span>
+                    <span class="stat-val" th:text="${totalQty}">0</span>
+                </div>
+            </div>
+            
+            <p style="margin-top: 15px;">Batch Number: <code th:text="${batchNo}">B001</code></p>
+        </div>
+    </div>
+</body>
+</html>

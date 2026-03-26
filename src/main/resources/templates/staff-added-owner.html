@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; color: #333; }
+        .card { border-left: 5px solid #2ecc71; background: #f4fdf7; padding: 20px; border-radius: 4px; }
+        .footer { font-size: 11px; color: #95a5a6; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <p>Hello <strong th:text="${ownerName}">Owner</strong>,</p>
+            <p>Success! <strong><span th:text="${staffName}">Staff</span></strong> has been successfully added to the staff list for <strong><span th:text="${storeName}">Store</span></strong>.</p>
+        </div>
+        <div class="footer">Inventry Management System &bull; 2026</div>
+    </div>
+</body>
+</html>

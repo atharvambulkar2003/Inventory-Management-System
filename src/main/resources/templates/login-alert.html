@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; color: #333; }
+        .alert-box { border: 2px solid #e74c3c; border-radius: 10px; padding: 20px; }
+        .header { color: #e74c3c; font-size: 20px; font-weight: bold; margin-bottom: 15px; }
+        .details { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0; }
+        .footer { font-size: 12px; color: #95a5a6; margin-top: 20px; }
+        .warning { color: #c0392b; font-size: 13px; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="alert-box">
+            <div class="header">Security Alert: New Login Detected</div>
+            <p>Hello <span th:text="${fullName}">User</span>,</p>
+            <p>This is an automated notification to inform you that a successful login was recorded for your account.</p>
+            
+            <div class="details">
+                <strong>Time:</strong> <span th:text="${loginTime}">2026-03-25</span><br/>
+                <strong>Status:</strong> Successful
+            </div>
+
+            <p class="warning">If this was not you, please change your password immediately.</p>
+        </div>
+        <div class="footer">
+            Regards,<br/>
+            <strong>Inventry Management System Security Team</strong>
+        </div>
+    </div>
+</body>
+</html>

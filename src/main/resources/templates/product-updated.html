@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; color: #333; max-width: 600px; margin: auto; }
+        .header { background-color: #f39c12; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { border: 1px solid #e0e0e0; padding: 25px; border-radius: 0 0 8px 8px; background-color: #fff; }
+        .diff-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .diff-table th { text-align: left; background-color: #f8f9fa; padding: 10px; border-bottom: 2px solid #dee2e6; }
+        .diff-table td { padding: 12px 10px; border-bottom: 1px solid #eee; font-size: 14px; }
+        .old-val { color: #7f8c8d; text-decoration: line-through; font-size: 12px; display: block; }
+        .new-val { color: #27ae60; font-weight: bold; display: block; }
+        .footer { text-align: center; font-size: 11px; color: #95a5a6; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">📝 Product Information Updated</div>
+        <div class="content">
+            <p>Hello <strong th:text="${fullName}">Owner</strong>,</p>
+            <p>The details for your product have been successfully updated. Review the changes below:</p>
+            
+            <table class="diff-table">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Updated Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Product Name</strong></td>
+                        <td>
+                            <span class="old-val" th:text="${oldName}">Old Name</span>
+                            <span class="new-val" th:text="${newName}">New Name</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Category</strong></td>
+                        <td>
+                            <span class="old-val" th:text="${oldCategory}">Old Cat</span>
+                            <span class="new-val" th:text="${newCategory}">New Cat</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Min Stock Level</strong></td>
+                        <td>
+                            <span class="old-val" th:text="${oldMinStock}">0</span>
+                            <span class="new-val" th:text="${newMinStock}">5</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">Inventry Management System &bull; Amravati</div>
+    </div>
+</body>
+</html>

@@ -10,10 +10,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "batches")
 @Data
+@ToString(exclude = "product")
 public class BatchEntity {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

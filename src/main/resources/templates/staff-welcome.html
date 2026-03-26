@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', Arial, sans-serif; padding: 20px; color: #333; max-width: 500px; margin: auto; }
+        .welcome-header { background-color: #3498db; color: white; padding: 20px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { border: 1px solid #e0e0e0; padding: 30px; border-radius: 0 0 8px 8px; background-color: #ffffff; }
+        .credential-box { background-color: #f9f9f9; border: 1px solid #ddd; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .label { color: #7f8c8d; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+        .value { font-family: monospace; font-size: 16px; color: #2c3e50; }
+        .footer { text-align: center; font-size: 11px; color: #bdc3c7; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-header">
+            <h2>Welcome to the Team!</h2>
+            <p th:text="${storeName}">Store Name</p>
+        </div>
+        <div class="content">
+            <p>Hello <strong th:text="${staffName}">Staff Name</strong>,</p>
+            <p>An account has been created for you. You can now log in using the credentials below:</p>
+            
+            <div class="credential-box">
+                <div class="label">Username</div>
+                <div class="value" th:text="${username}">username</div>
+                <div style="margin-top: 10px;" class="label">Temporary Password</div>
+                <div class="value" th:text="${password}">password</div>
+            </div>
+
+            <p style="font-size: 13px; color: #e67e22;"><em>Note: Please change your password after your first login for security.</em></p>
+        </div>
+        <div class="footer">Sent via Inventry Management System</div>
+    </div>
+</body>
+</html>

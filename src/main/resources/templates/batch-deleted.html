@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .container { font-family: 'Segoe UI', sans-serif; padding: 20px; color: #333; max-width: 500px; margin: auto; }
+        .header { background-color: #e67e22; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { border: 1px solid #e0e0e0; padding: 25px; border-radius: 0 0 8px 8px; border-top: none; }
+        .stock-box { background-color: #fff9f4; border: 1px solid #fbdcb9; padding: 15px; border-radius: 5px; text-align: center; margin-top: 20px; }
+        .stock-val { font-size: 24px; font-weight: bold; color: #d35400; display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">🗑️ Batch Removed</div>
+        <div class="content">
+            <p>Hello <strong th:text="${fullName}">Owner</strong>,</p>
+            <p>Batch <strong><span th:text="${batchNo}">001</span></strong> for product <strong><span th:text="${productName}">Product</span></strong> has been successfully deleted.</p>
+            
+            <div class="stock-box">
+                <span style="font-size: 12px; color: #7f8c8d; text-transform: uppercase;">Updated Total Stock</span>
+                <span class="stock-val">[[${totalQty}]] [[${units}]]</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
