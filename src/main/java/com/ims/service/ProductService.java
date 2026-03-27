@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import com.ims.dto.AddBatchToProductDto;
@@ -205,9 +207,11 @@ public class ProductService {
 	    if (user == null) throw new UserNotFoundException("User not found");
 	    if (user.getStore() == null) throw new StoreNotFoundException("Store not found");
 
-	    ProductEntity productEntity = productRepository.findByProductNameAndCategoryAndStoreAndActiveTrue(
+	    ProductEntity productEntity = productRepository.findByProductNameAndCategoryAndStoreAndActiveTrueWithLock(
 	            saleDto.getProductName().toUpperCase(), saleDto.getCategory(), user.getStore());
 
+	    productEntity.getBatches().size();//to handle concurrency control, to not use cached batches
+	    
 	    if (productEntity.getTotalQuantity() < saleDto.getQuantity()) {
 	        log.error("Insufficient stock for {}. Available: {}", productEntity.getProductName(), productEntity.getTotalQuantity());
 	        throw new LessQuantityException("Quantity is less, total Quantity of " + productEntity.getProductName() + " is " + productEntity.getTotalQuantity());
@@ -258,6 +262,16 @@ public class ProductService {
 	    productRepository.save(productEntity);
 	    
 	    UserEntity owner = user.getStore().getOwner();
+	    
+	    if (productEntity.getTotalQuantity() <= productEntity.getMinStockLevel()) {
+	        try {
+	        	log.info("In sendLowQuantityNotification " +productEntity.getTotalQuantity()+ " "+productEntity.getMinStockLevel());
+	            notificationService.sendLowQuantityNotification(owner, productEntity);
+	        	log.info("In sendLowQuantityNotification Email send" +productEntity.getTotalQuantity()+ " "+productEntity.getMinStockLevel());
+	        } catch (EmailFailedException e) {
+	            log.error("Failed to send low stock notification: " + e.getMessage());
+	        }
+	    }
 
 	    try {
 	        notificationService.sendSaleNotification(owner, productEntity, saleDto, profit);
@@ -432,9 +446,13 @@ public class ProductService {
 	    batch.setCurrentQuantity(dto.getCurrentQuantity());
 	    batch.setExpiryDate(dto.getExpiryDate());
 	    batch.setPurchasePrice(dto.getPurchasePrice());
-
-	    batchRepository.save(batch);
-	    productRepository.save(product);
+	    
+	    try {
+	    	batchRepository.save(batch);
+		    productRepository.save(product);
+	    }catch (ObjectOptimisticLockingFailureException e) {
+	        throw new RuntimeException("This batch was modified by another user. Please refresh and try again.");
+	    }
 
 	    try {
 	        notificationService.sendBatchUpdateNotification(user, product, oldBatchNumber, oldQuantity, oldPrice, oldExpiry, dto);
@@ -469,9 +487,13 @@ public class ProductService {
 	    product.setTotalPurchasePrice(round(product.getTotalPurchasePrice() - batch.getPurchasePrice()));
 
 	    product.getBatches().remove(batch);
-	    batchRepository.delete(batch);
 	    
-	    productRepository.save(product);
+	    try {
+	    	batchRepository.delete(batch);
+		    productRepository.save(product);
+	    }catch (ObjectOptimisticLockingFailureException e) {
+	        throw new RuntimeException("This batch was modified by another user. Please refresh and try again.");
+	    }
 	    
 	    try {
 	        notificationService.sendBatchDeletionNotification(user, productName, deletedBatchNo, product);

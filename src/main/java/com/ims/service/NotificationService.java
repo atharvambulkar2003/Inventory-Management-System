@@ -209,6 +209,20 @@ public class NotificationService {
 		String html = templateEngine.process("batch-deleted", context);
 		emailService.sendHtmlEmail(user.getEmail(), "Batch Deleted: " + batchNo, html);
 	}
+
+	public void sendLowQuantityNotification(UserEntity owner, ProductEntity productEntity) {
+		Context context = new Context();
+		context.setVariable("fullName",owner.getFullName());
+		context.setVariable("productName", productEntity.getProductName());
+		context.setVariable("productCode", productEntity.getProductCode());
+		context.setVariable("productCategory", productEntity.getCategory());
+		context.setVariable("productCurrentQuantity", productEntity.getTotalQuantity());
+		context.setVariable("Units", productEntity.getDefaultUnits());
+		context.setVariable("MinimumStockLevel", productEntity.getMinStockLevel());
+		
+		String html = templateEngine.process("lowstock-alert", context);
+		emailService.sendHtmlEmail(owner.getEmail(), "Low stock alert : "+productEntity.getProductName(), html);
+	}
     
     
 }

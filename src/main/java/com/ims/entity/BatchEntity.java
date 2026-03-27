@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Data;
 import lombok.ToString;
 
@@ -24,6 +25,9 @@ public class BatchEntity {
 	@ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
+	
+	@Version
+    private Long version;
 
     private String batchNumber;
     private Double currentQuantity;

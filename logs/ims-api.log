@@ -14,3 +14,575 @@
 2026-03-27T01:00:00.250+05:30  INFO 11696 --- [inventory-management-system] [RMI TCP Connection(108)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-03-27T01:00:00.259+05:30  INFO 11696 --- [inventory-management-system] [RMI TCP Connection(108)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
 2026-03-27T01:00:01.312+05:30  INFO 11696 --- [inventory-management-system] [RMI TCP Connection(108)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
+2026-03-27T12:19:28.760+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T12:19:28.768+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T12:19:28.890+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-03-27T12:19:28.891+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-03-27T12:19:30.027+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T12:19:30.114+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72 ms. Found 5 JPA repository interfaces.
+2026-03-27T12:19:30.861+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T12:19:30.879+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T12:19:30.880+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T12:19:30.974+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 2083 ms
+2026-03-27T12:19:31.204+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T12:19:31.312+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.4.Final
+2026-03-27T12:19:31.965+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T12:19:32.019+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-27T12:19:33.465+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4b4c75ce
+2026-03-27T12:19:33.468+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-27T12:19:33.604+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T12:19:33.984+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T12:19:35.568+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T12:19:36.506+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T12:19:36.625+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-27T12:19:37.795+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T12:19:37.795+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T12:19:37.866+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T12:19:38.721+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T12:19:38.735+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 10.678 seconds (process running for 12.178)
+2026-03-27T12:53:30.621+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-27T12:53:30.657+05:30  INFO 13736 --- [inventory-management-system] [Thread-1] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T12:53:31.055+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T12:53:31.070+05:30  INFO 13736 --- [inventory-management-system] [Thread-1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T12:53:31.085+05:30  INFO 13736 --- [inventory-management-system] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-03-27T12:53:33.087+05:30  INFO 13736 --- [inventory-management-system] [Thread-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-03-27T12:53:33.267+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T12:53:33.267+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T12:53:33.604+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T12:53:33.632+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 5 JPA repository interfaces.
+2026-03-27T12:53:33.812+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T12:53:33.814+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T12:53:33.814+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T12:53:33.843+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 569 ms
+2026-03-27T12:53:33.923+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T12:53:34.004+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T12:53:34.006+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-03-27T12:53:36.554+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@6dd1c30
+2026-03-27T12:53:36.556+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-03-27T12:53:36.709+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T12:53:37.893+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T12:53:38.069+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T12:53:39.720+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T12:53:40.076+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T12:53:40.076+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T12:53:40.132+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T12:53:40.480+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T12:53:40.487+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 7.262 seconds (process running for 2053.93)
+2026-03-27T12:53:40.490+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T12:58:30.205+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-27T12:58:30.207+05:30  INFO 13736 --- [inventory-management-system] [Thread-5] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T12:58:30.529+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T12:58:30.533+05:30  INFO 13736 --- [inventory-management-system] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T12:58:30.534+05:30  INFO 13736 --- [inventory-management-system] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-03-27T12:58:31.178+05:30  INFO 13736 --- [inventory-management-system] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-03-27T12:58:31.341+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T12:58:31.342+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T12:58:31.584+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T12:58:31.610+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 5 JPA repository interfaces.
+2026-03-27T12:58:31.743+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T12:58:31.745+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T12:58:31.745+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T12:58:31.775+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 430 ms
+2026-03-27T12:58:31.833+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T12:58:31.895+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T12:58:31.897+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2026-03-27T12:58:32.848+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@20dee3b2
+2026-03-27T12:58:32.849+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2026-03-27T12:58:32.935+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T12:58:33.252+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T12:58:33.520+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T12:58:34.272+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T12:58:34.598+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T12:58:34.599+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T12:58:34.633+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T12:58:34.964+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T12:58:34.969+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 3.661 seconds (process running for 2348.412)
+2026-03-27T12:58:34.971+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T12:59:14.198+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-27T12:59:14.205+05:30  INFO 13736 --- [inventory-management-system] [Thread-9] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T12:59:14.687+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T12:59:14.690+05:30  INFO 13736 --- [inventory-management-system] [Thread-9] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T12:59:14.691+05:30  INFO 13736 --- [inventory-management-system] [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2026-03-27T12:59:15.494+05:30  INFO 13736 --- [inventory-management-system] [Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2026-03-27T12:59:15.647+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T12:59:15.647+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T12:59:15.962+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T12:59:15.992+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28 ms. Found 5 JPA repository interfaces.
+2026-03-27T12:59:16.141+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T12:59:16.143+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T12:59:16.144+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T12:59:16.181+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 531 ms
+2026-03-27T12:59:16.270+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T12:59:16.323+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T12:59:16.326+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2026-03-27T12:59:17.238+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection org.postgresql.jdbc.PgConnection@618b667e
+2026-03-27T12:59:17.239+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2026-03-27T12:59:17.323+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T12:59:17.641+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T12:59:17.926+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T12:59:18.679+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T12:59:19.125+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T12:59:19.126+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T12:59:19.157+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T12:59:19.501+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T12:59:19.505+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 3.89 seconds (process running for 2392.948)
+2026-03-27T12:59:19.507+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T13:03:36.229+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-27T13:03:36.231+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-03-27T13:03:36.235+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-03-27T13:03:37.891+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In getLowStockItemsatharv
+2026-03-27T13:03:37.892+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.service.ProductService           : In getLowStockItems atharv
+2026-03-27T13:03:38.615+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.controller.ProductController     : In getLowStockItemsatharv
+2026-03-27T13:03:38.616+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.service.ProductService           : In getLowStockItems atharv
+2026-03-27T13:03:40.743+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.controller.ProductController     : In getLowStockItemsatharv
+2026-03-27T13:03:40.744+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.service.ProductService           : In getLowStockItems atharv
+2026-03-27T13:03:45.380+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:03:45.380+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:03:45.868+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:03:45.868+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:03:46.321+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:03:46.321+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:03:46.823+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:03:46.824+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:03:49.254+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In getProductName Clothing atharv
+2026-03-27T13:03:51.206+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.controller.ProductController     : In getDefaultUnits JACKET atharv
+2026-03-27T13:03:51.207+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.service.ProductService           : Fetching unit for product: JACKET for user: atharv
+2026-03-27T13:04:08.059+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.controller.ProductController     : In addBatchToProduct AddBatchToProductDto(category=Clothing, productName=JACKET, batchNumber=batch-c3, currentQuantity=10.0, expiryDate=null, purchasePrice=1000.0, partyName=Kadambari) atharv
+2026-03-27T13:04:08.078+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : In addBatchToProduct service atharv AddBatchToProductDto(category=Clothing, productName=JACKET, batchNumber=batch-c3, currentQuantity=10.0, expiryDate=null, purchasePrice=1000.0, partyName=Kadambari)
+2026-03-27T13:04:09.452+05:30  INFO 13736 --- [inventory-management-system] [task-1] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-03-27T13:04:09.484+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : Notification send of batch Addition UserEntity(id=1, username=atharv, fullName=Atharva M Ambulkar, password=$2a$10$2UpOvXn0VW/keYS4wsmrKuEInht9o8qXuS2pTcOgII0xXKJKUtF.O, email=be22f06f002@geca.ac.in, role=ROLE_OWNER, active=true, otp=null, otpExpiryTime=null) product ProductEntity(id=5, productCode=PROD-005, productName=JACKET, category=Clothing, minStockLevel=10.0, totalQuantity=19.0, defaultUnits=unit, totalPurchasePrice=1900.0, active=true) batch BatchEntity(id=13, batchNumber=batch-c3, currentQuantity=10.0, expiryDate=null, purchasePrice=1000.0)
+2026-03-27T13:04:10.664+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:04:10.665+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:04:11.177+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:04:11.178+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:04:12.788+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In getProductName Clothing atharv
+2026-03-27T13:04:15.598+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.controller.ProductController     : In getLowStockItemsatharv
+2026-03-27T13:04:15.598+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.service.ProductService           : In getLowStockItems atharv
+2026-03-27T13:04:16.042+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.controller.ProductController     : In getLowStockItemsatharv
+2026-03-27T13:04:16.043+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : In getLowStockItems atharv
+2026-03-27T13:04:17.647+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:04:17.648+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:04:18.137+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:04:18.138+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:04:19.704+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In getProductName Clothing atharv
+2026-03-27T13:04:21.536+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.controller.ProductController     : In getDefaultUnits JACKET atharv
+2026-03-27T13:04:21.537+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.service.ProductService           : Fetching unit for product: JACKET for user: atharv
+2026-03-27T13:04:31.777+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.controller.ProductController     : In sellProduct SaleDto(category=Clothing, productName=JACKET, quantity=10.0, mrp=100.0, customerName=ABC) atharv
+2026-03-27T13:04:31.778+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : In sellProduct service atharv SaleDto(category=Clothing, productName=JACKET, quantity=10.0, mrp=100.0, customerName=ABC)
+2026-03-27T13:04:32.203+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : In sendLowQuantityNotification 9.0 10.0
+2026-03-27T13:04:32.228+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : In sendLowQuantityNotification Email send9.0 10.0
+2026-03-27T13:04:32.228+05:30  INFO 13736 --- [inventory-management-system] [task-2] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-03-27T13:04:32.245+05:30  INFO 13736 --- [inventory-management-system] [task-3] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-03-27T13:04:35.442+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.controller.ProductController     : In getAllProductsatharv
+2026-03-27T13:04:35.443+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.service.ProductService           : In getAllProducts service atharv
+2026-03-27T13:04:36.081+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.controller.ProductController     : In getAllProductsatharv
+2026-03-27T13:04:36.081+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.service.ProductService           : In getAllProducts service atharv
+2026-03-27T13:04:36.255+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.controller.ProductController     : In getLowStockItemsatharv
+2026-03-27T13:04:36.256+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.service.ProductService           : In getLowStockItems atharv
+2026-03-27T13:04:36.992+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.controller.ProductController     : In getLowStockItemsatharv
+2026-03-27T13:04:36.993+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.service.ProductService           : In getLowStockItems atharv
+2026-03-27T13:06:48.033+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.controller.ProductController     : In addProduct ProductDto(productCode=PROD-009, productName=Rice, category=Food, minStockLevel=10.0, defaultUnits=kg) atharv
+2026-03-27T13:06:48.035+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.service.ProductService           : In addProduct service ProductDto(productCode=PROD-009, productName=Rice, category=Food, minStockLevel=10.0, defaultUnits=kg) atharv
+2026-03-27T13:06:48.487+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.service.ProductService           : Notification send to add product ProductEntity(id=8, productCode=PROD-009, productName=RICE, category=Food, minStockLevel=10.0, totalQuantity=0.0, defaultUnits=kg, totalPurchasePrice=0.0, active=true) from UserEntity(id=1, username=atharv, fullName=Atharva M Ambulkar, password=$2a$10$2UpOvXn0VW/keYS4wsmrKuEInht9o8qXuS2pTcOgII0xXKJKUtF.O, email=be22f06f002@geca.ac.in, role=ROLE_OWNER, active=true, otp=null, otpExpiryTime=null)
+2026-03-27T13:06:48.487+05:30  INFO 13736 --- [inventory-management-system] [task-4] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-03-27T13:06:51.904+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:06:51.905+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:06:52.435+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.controller.ProductController     : In getCategory atharv
+2026-03-27T13:06:52.436+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.service.ProductService           : In getCategory service atharv
+2026-03-27T13:06:54.662+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.controller.ProductController     : In getProductName Food atharv
+2026-03-27T13:06:57.044+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.controller.ProductController     : In getDefaultUnits RICE atharv
+2026-03-27T13:06:57.048+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.service.ProductService           : Fetching unit for product: RICE for user: atharv
+2026-03-27T13:07:09.611+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.controller.ProductController     : In sellProduct SaleDto(category=Food, productName=RICE, quantity=20.0, mrp=1000.0, customerName=ABC) atharv
+2026-03-27T13:07:09.612+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.service.ProductService           : In sellProduct service atharv SaleDto(category=Food, productName=RICE, quantity=20.0, mrp=1000.0, customerName=ABC)
+2026-03-27T13:07:09.860+05:30 ERROR 13736 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.service.ProductService           : Insufficient stock for RICE. Available: 0.0
+2026-03-27T13:07:09.957+05:30 ERROR 13736 --- [inventory-management-system] [http-nio-8083-exec-8] c.ims.exception.GlobalExceptionHandler   : Quantity is less, total Quantity of RICE is 0.0
+2026-03-27T13:07:09.968+05:30  WARN 13736 --- [inventory-management-system] [http-nio-8083-exec-8] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.ims.exception.LessQuantityException: Quantity is less, total Quantity of RICE is 0.0]
+2026-03-27T13:10:03.229+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-03-27T13:10:03.229+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-03-27T13:10:06.238+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-03-27T13:10:06.239+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-03-27T13:10:14.733+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.controller.ProductController     : In getAllProductsatharv
+2026-03-27T13:10:14.734+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.service.ProductService           : In getAllProducts service atharv
+2026-03-27T13:10:15.405+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In getAllProductsatharv
+2026-03-27T13:10:15.406+05:30  INFO 13736 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In getAllProducts service atharv
+2026-03-27T13:21:29.623+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2026-03-27T13:21:29.627+05:30  INFO 13736 --- [inventory-management-system] [Thread-13] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T13:21:29.990+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T13:21:29.997+05:30  INFO 13736 --- [inventory-management-system] [Thread-13] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:21:29.998+05:30  INFO 13736 --- [inventory-management-system] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2026-03-27T13:21:31.394+05:30  INFO 13736 --- [inventory-management-system] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2026-03-27T13:21:31.616+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T13:21:31.616+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T13:21:31.871+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T13:21:31.896+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 5 JPA repository interfaces.
+2026-03-27T13:21:32.039+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T13:21:32.040+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T13:21:32.040+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T13:21:32.067+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 447 ms
+2026-03-27T13:21:32.125+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T13:21:32.182+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T13:21:32.184+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-03-27T13:21:33.199+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection org.postgresql.jdbc.PgConnection@43218939
+2026-03-27T13:21:33.200+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-03-27T13:21:33.302+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T13:21:33.711+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T13:21:33.996+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T13:21:36.729+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:21:37.096+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T13:21:37.096+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T13:21:37.169+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T13:21:37.556+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T13:21:37.560+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 5.981 seconds (process running for 3731.003)
+2026-03-27T13:21:37.562+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T13:27:54.935+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2026-03-27T13:27:54.940+05:30  INFO 13736 --- [inventory-management-system] [Thread-17] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T13:27:55.308+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T13:27:55.310+05:30  INFO 13736 --- [inventory-management-system] [Thread-17] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:27:55.311+05:30  INFO 13736 --- [inventory-management-system] [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2026-03-27T13:27:56.094+05:30  INFO 13736 --- [inventory-management-system] [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2026-03-27T13:27:56.231+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T13:27:56.231+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T13:27:56.644+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T13:27:56.715+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 69 ms. Found 5 JPA repository interfaces.
+2026-03-27T13:27:56.987+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T13:27:56.989+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T13:27:56.990+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T13:27:57.067+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 833 ms
+2026-03-27T13:27:57.180+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T13:27:57.282+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T13:27:57.286+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2026-03-27T13:27:58.245+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection org.postgresql.jdbc.PgConnection@ad2a124
+2026-03-27T13:27:58.246+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2026-03-27T13:27:58.345+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T13:27:58.694+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T13:27:58.943+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T13:27:59.688+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:28:00.324+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T13:28:00.325+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T13:28:00.404+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T13:28:01.101+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T13:28:01.107+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 4.907 seconds (process running for 4114.55)
+2026-03-27T13:28:01.109+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T13:28:42.857+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-27T13:28:42.859+05:30  INFO 13736 --- [inventory-management-system] [Thread-21] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T13:28:43.201+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T13:28:43.203+05:30  INFO 13736 --- [inventory-management-system] [Thread-21] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:28:43.204+05:30  INFO 13736 --- [inventory-management-system] [Thread-21] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2026-03-27T13:28:43.982+05:30  INFO 13736 --- [inventory-management-system] [Thread-21] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
+2026-03-27T13:28:44.144+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T13:28:44.145+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T13:28:44.354+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T13:28:44.378+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 5 JPA repository interfaces.
+2026-03-27T13:28:44.496+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T13:28:44.497+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T13:28:44.497+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T13:28:44.525+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 377 ms
+2026-03-27T13:28:44.584+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T13:28:44.637+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T13:28:44.638+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2026-03-27T13:28:45.422+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection org.postgresql.jdbc.PgConnection@e596c22
+2026-03-27T13:28:45.422+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2026-03-27T13:28:45.508+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T13:28:45.827+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T13:28:46.011+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T13:28:46.749+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:28:47.121+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T13:28:47.121+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T13:28:47.157+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T13:28:47.448+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T13:28:47.452+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 3.339 seconds (process running for 4160.895)
+2026-03-27T13:28:47.454+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T13:30:23.190+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-27T13:30:23.200+05:30  INFO 13736 --- [inventory-management-system] [Thread-25] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T13:30:23.939+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T13:30:23.942+05:30  INFO 13736 --- [inventory-management-system] [Thread-25] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:30:23.944+05:30  INFO 13736 --- [inventory-management-system] [Thread-25] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
+2026-03-27T13:30:24.729+05:30  INFO 13736 --- [inventory-management-system] [Thread-25] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
+2026-03-27T13:30:24.951+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T13:30:24.951+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T13:30:25.325+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T13:30:25.444+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 115 ms. Found 5 JPA repository interfaces.
+2026-03-27T13:30:25.687+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T13:30:25.688+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T13:30:25.688+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T13:30:25.739+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 784 ms
+2026-03-27T13:30:25.830+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T13:30:25.912+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T13:30:25.914+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2026-03-27T13:30:26.697+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-8 - Added connection org.postgresql.jdbc.PgConnection@70370a2d
+2026-03-27T13:30:26.698+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2026-03-27T13:30:26.783+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T13:30:27.102+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T13:30:27.306+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T13:30:28.060+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:30:28.569+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T13:30:28.569+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T13:30:28.643+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T13:30:29.281+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T13:30:29.293+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 4.4 seconds (process running for 4262.736)
+2026-03-27T13:30:29.296+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T13:40:51.473+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-27T13:40:51.475+05:30  INFO 13736 --- [inventory-management-system] [Thread-29] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T13:40:51.851+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T13:40:51.854+05:30  INFO 13736 --- [inventory-management-system] [Thread-29] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:40:51.855+05:30  INFO 13736 --- [inventory-management-system] [Thread-29] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown initiated...
+2026-03-27T13:40:52.800+05:30  INFO 13736 --- [inventory-management-system] [Thread-29] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown completed.
+2026-03-27T13:40:52.956+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T13:40:52.957+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T13:40:53.181+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T13:40:53.206+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 5 JPA repository interfaces.
+2026-03-27T13:40:53.336+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T13:40:53.337+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T13:40:53.337+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T13:40:53.365+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 406 ms
+2026-03-27T13:40:53.415+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T13:40:53.459+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T13:40:53.461+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Starting...
+2026-03-27T13:40:54.589+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-9 - Added connection org.postgresql.jdbc.PgConnection@a36fbb1
+2026-03-27T13:40:54.590+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Start completed.
+2026-03-27T13:40:54.673+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T13:40:55.017+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T13:40:55.171+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T13:40:56.631+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:40:56.938+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T13:40:56.939+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T13:40:56.976+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T13:40:57.301+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T13:40:57.305+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 4.38 seconds (process running for 4890.748)
+2026-03-27T13:40:57.306+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T13:45:21.874+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-27T13:45:21.878+05:30  INFO 13736 --- [inventory-management-system] [Thread-33] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T13:45:22.253+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T13:45:22.257+05:30  INFO 13736 --- [inventory-management-system] [Thread-33] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:45:22.257+05:30  INFO 13736 --- [inventory-management-system] [Thread-33] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown initiated...
+2026-03-27T13:45:23.239+05:30  INFO 13736 --- [inventory-management-system] [Thread-33] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown completed.
+2026-03-27T13:45:23.378+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T13:45:23.378+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T13:45:23.591+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T13:45:23.619+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 5 JPA repository interfaces.
+2026-03-27T13:45:23.768+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T13:45:23.769+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T13:45:23.770+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T13:45:23.796+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 415 ms
+2026-03-27T13:45:23.842+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T13:45:23.883+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T13:45:23.885+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Starting...
+2026-03-27T13:45:25.111+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-10 - Added connection org.postgresql.jdbc.PgConnection@150fe5eb
+2026-03-27T13:45:25.112+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Start completed.
+2026-03-27T13:45:25.194+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T13:45:25.666+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T13:45:25.887+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T13:45:26.734+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:45:27.152+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T13:45:27.152+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T13:45:27.195+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T13:45:27.518+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T13:45:27.521+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 4.181 seconds (process running for 5160.965)
+2026-03-27T13:45:27.522+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T13:46:14.096+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-27T13:46:14.097+05:30  INFO 13736 --- [inventory-management-system] [Thread-37] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T13:46:14.410+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T13:46:14.413+05:30  INFO 13736 --- [inventory-management-system] [Thread-37] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:46:14.414+05:30  INFO 13736 --- [inventory-management-system] [Thread-37] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown initiated...
+2026-03-27T13:46:15.381+05:30  INFO 13736 --- [inventory-management-system] [Thread-37] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown completed.
+2026-03-27T13:46:15.558+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T13:46:15.559+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T13:46:15.858+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T13:46:15.883+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23 ms. Found 5 JPA repository interfaces.
+2026-03-27T13:46:16.074+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T13:46:16.075+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T13:46:16.075+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T13:46:16.100+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 539 ms
+2026-03-27T13:46:16.153+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T13:46:16.214+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T13:46:16.215+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Starting...
+2026-03-27T13:46:16.976+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-11 - Added connection org.postgresql.jdbc.PgConnection@34e56544
+2026-03-27T13:46:16.978+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Start completed.
+2026-03-27T13:46:17.129+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T13:46:17.459+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T13:46:17.732+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T13:46:20.010+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:46:20.621+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T13:46:20.622+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T13:46:20.686+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T13:46:21.225+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T13:46:21.229+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 5.707 seconds (process running for 5214.672)
+2026-03-27T13:46:21.230+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T13:46:36.793+05:30  INFO 13736 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-03-27T13:46:36.796+05:30  INFO 13736 --- [inventory-management-system] [Thread-41] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T13:46:37.236+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T13:46:37.239+05:30  INFO 13736 --- [inventory-management-system] [Thread-41] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:46:37.240+05:30  INFO 13736 --- [inventory-management-system] [Thread-41] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown initiated...
+2026-03-27T13:46:38.257+05:30  INFO 13736 --- [inventory-management-system] [Thread-41] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Shutdown completed.
+2026-03-27T13:46:38.406+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 13736 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-03-27T13:46:38.407+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-03-27T13:46:38.642+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-27T13:46:38.666+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 5 JPA repository interfaces.
+2026-03-27T13:46:38.817+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-03-27T13:46:38.818+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-03-27T13:46:38.818+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-03-27T13:46:38.842+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 432 ms
+2026-03-27T13:46:38.898+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-27T13:46:38.951+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-27T13:46:38.952+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Starting...
+2026-03-27T13:46:39.967+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-12 - Added connection org.postgresql.jdbc.PgConnection@7f6d1ad8
+2026-03-27T13:46:39.968+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Start completed.
+2026-03-27T13:46:40.076+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-27T13:46:40.455+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-27T13:46:40.625+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-27T13:46:41.648+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T13:46:41.990+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-03-27T13:46:41.990+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-03-27T13:46:42.027+05:30  WARN 13736 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-27T13:46:42.357+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-03-27T13:46:42.360+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 3.981 seconds (process running for 5235.803)
+2026-03-27T13:46:42.361+05:30  INFO 13736 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-03-27T14:52:16.521+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@220ca805 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:52:22.683+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@763784dd (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:52:22.684+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-12 - Thread starvation or clock leap detected (housekeeper delta=1h2m12s586ms22µs800ns).
+2026-03-27T14:52:22.688+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@abcc33d (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:52:22.689+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@7f6d1ad8 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:52:22.691+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@1a5c5b1d (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:52:22.692+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@500735e7 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:52:22.694+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@3dc01df (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:52:22.697+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@6f959fb2 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:52:22.698+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@1769a5ee (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:52:22.700+05:30  WARN 13736 --- [inventory-management-system] [HikariPool-12:housekeeper] com.zaxxer.hikari.pool.PoolBase          : HikariPool-12 - Failed to validate connection org.postgresql.jdbc.PgConnection@7e2802e9 (This connection has been closed.). Possibly consider using a shorter maxLifetime value.
+2026-03-27T14:53:07.540+05:30  INFO 13736 --- [inventory-management-system] [RMI TCP Connection(94)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2026-03-27T14:53:07.542+05:30  INFO 13736 --- [inventory-management-system] [RMI TCP Connection(94)-127.0.0.1] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-03-27T14:53:07.785+05:30  INFO 13736 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-03-27T14:53:07.788+05:30  INFO 13736 --- [inventory-management-system] [RMI TCP Connection(94)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-03-27T14:53:07.789+05:30  INFO 13736 --- [inventory-management-system] [RMI TCP Connection(94)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown initiated...
+2026-03-27T14:53:08.627+05:30  INFO 13736 --- [inventory-management-system] [RMI TCP Connection(94)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-12 - Shutdown completed.

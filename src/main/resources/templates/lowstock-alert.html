@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Low Stock Alert</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e0e0e0; }
+        .header { background-color: #f39c12; color: white; padding: 20px; text-align: center; }
+        .content { padding: 30px; line-height: 1.6; color: #333; }
+        .product-card { background-color: #fff9f0; border: 1px solid #f39c12; border-radius: 5px; padding: 15px; margin: 20px 0; }
+        .footer { background: #f9f9f9; padding: 15px; text-align: center; font-size: 12px; color: #777; }
+        .btn { display: inline-block; padding: 10px 20px; background-color: #f39c12; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; margin-top: 10px; }
+        .label { font-weight: bold; color: #555; }
+        .warning { color: #e67e22; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Low Stock Alert!</h1>
+        </div>
+        <div class="content">
+            <p>Hi <span th:text="${fullName}">User</span>,</p>
+            <p>This is an automated notification from your <strong>Inventory Management System</strong>. One of your products has fallen below the minimum stock level.</p>
+            
+            <div class="product-card">
+                <h3 th:text="${productName}" style="margin-top: 0; color: #d35400;">Product Name</h3>
+                <p><span class="label">Product Code:</span> <span th:text="${productCode}">CODE123</span></p>
+                <p><span class="label">Category:</span> <span th:text="${productCategory}">General</span></p>
+                <hr style="border: 0; border-top: 1px solid #f39c12; opacity: 0.3;">
+                <p class="warning">
+                    Current Quantity: <span th:text="${productCurrentQuantity}">0</span> <span th:text="${Units}">units</span>
+                </p>
+                <p>
+                    <span class="label">Minimum Required:</span> <span th:text="${MinimumStockLevel}">10</span>
+                </p>
+            </div>
+
+            <p>Please restock this item soon to avoid any interruption in your sales operations.</p>
+            
+            <a href="https://inventory-management-system-pi-tan.vercel.app/inventory" class="btn">View Inventory</a>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 IMS Dashboard </p>
+        </div>
+    </div>
+</body>
+</html>

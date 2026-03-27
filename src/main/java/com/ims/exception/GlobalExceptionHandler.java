@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -243,6 +244,12 @@ public class GlobalExceptionHandler {
         );
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+	
+	@ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+	public ResponseEntity<String> handleConcurrency(ObjectOptimisticLockingFailureException ex) {
+	    return ResponseEntity.status(HttpStatus.CONFLICT)
+	            .body("The product was updated or deleted by another user. Please refresh your page.");
+	}
 	
 	@ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<String> handleBadCredentials(BadCredentialsException exception) {
