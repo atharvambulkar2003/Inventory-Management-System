@@ -48,7 +48,7 @@ public class SecurityConfig {
             }))
 	        .authorizeHttpRequests(auth -> auth
 	        	.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
-	        	.requestMatchers("/api/user/signup","/api/user/login","/api/user/forgetpassword/username/sendotp/*","/api/user/forgetpassword/username/recoveraccount","/api/user/forgetpassword/email/sendotp/*")
+	        	.requestMatchers("/api/user/signup","/api/user/login","/api/user/forgetpassword/username/sendotp/*","/api/user/forgetpassword/username/recoveraccount","/api/user/forgetpassword/email/sendotp/*","/api/user/forgetpassword/email/recoveraccount")
 	        	.permitAll()
 	            .anyRequest().authenticated()
 	        )
