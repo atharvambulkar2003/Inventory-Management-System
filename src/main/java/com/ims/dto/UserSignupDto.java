@@ -11,3 +11,4 @@ public class UserSignupDto {
     private String storeName;
     private String gstNumber;
 }
+	

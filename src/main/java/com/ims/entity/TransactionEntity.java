@@ -2,6 +2,7 @@ package com.ims.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,8 +31,15 @@ public class TransactionEntity {
     @Enumerated(EnumType.STRING)
     private TransactionType type; // PURCHASE, SALE
 
+    @Column(nullable = false)
     private Double quantity;
+    
+    @Column(nullable = false)
     private LocalDateTime transactionDate;
+    
+    @Column(nullable = false)
     private String partyName; 
+    
+    @Column(nullable = false)
     private Double totalAmount;
 }

@@ -24,12 +24,22 @@ public class UserEntity {
 	
 	@Column(nullable = false, unique = true)
     private String username;
+	
+	@Column(nullable = false)
 	private String fullName;
+	
+	@Column(nullable = false)
     private String password; 
+	
     @Column(nullable = false,unique = true)
     private String email;
+    
+    @Column(nullable = false)
     private String role;
+    
+    @Column(nullable = false)
     private boolean active = true; 
+    
     @ManyToOne
     @JoinColumn(name = "store_id")
     private StoreEntity store;

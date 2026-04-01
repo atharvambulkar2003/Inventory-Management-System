@@ -24,6 +24,7 @@ public class StoreEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
+	@Column(nullable = false)
 	private String storeName;
 	
 	@Column(unique = true)

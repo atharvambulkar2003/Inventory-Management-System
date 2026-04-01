@@ -21,7 +21,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
     @Query("SELECT DISTINCT p.category FROM ProductEntity p WHERE p.store = :store AND p.active = true")
     List<String> findDistinctCategoriesByStoreAndActiveTrue(@Param("store") StoreEntity store);
 
-    // Use this specific method for product names
     @Query("SELECT p.productName FROM ProductEntity p WHERE p.store = :store AND p.category = :category AND p.active = true")
     List<String> findProductsByStoreAndCategoryAndActiveTrue(@Param("store") StoreEntity store, @Param("category") String category);
 

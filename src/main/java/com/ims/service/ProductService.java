@@ -315,7 +315,8 @@ public class ProductService {
 	 	        	productVO.setPerItemPrice(Math.round(rawPerItemPrice * 100.0) / 100.0);
 	 	        } else {
 	 	            productVO.setPerItemPrice(0.0); 
-	 	        }	        productVO.setBatches(listBatchVO);
+	 	        }	        
+	 	        productVO.setBatches(listBatchVO);
 	 	        listProductVO.add(productVO);
 	    	}
 	    }
@@ -392,7 +393,6 @@ public class ProductService {
 	        throw new ProductNotFoundException("Product not found with code: " +productCode);
 	    }
         String productName = productEntity.getProductName();
-	    
 	    
 	    List<BatchEntity> batches = productEntity.getBatches();
 	    if (!batches.isEmpty()) {

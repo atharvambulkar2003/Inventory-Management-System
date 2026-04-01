@@ -60,7 +60,7 @@ public class UserController {
 		    SigninResponseVO response = userService.getUserDetailsAfterLogin(loginModel.getUsername());
 		    if(!response.isActive()) {
 		    	log.error("Login denied: Account is deactivated for {}", loginModel.getUsername());
-	            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Your account has been deactivated. Please contact the Store Owner.");
+	            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Your account has been deactivated.");
 		    }
 		    String token = jwtService.generateToken(loginModel.getUsername());
 		    response.setToken(token);

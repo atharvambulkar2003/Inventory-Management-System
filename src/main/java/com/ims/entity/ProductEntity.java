@@ -28,12 +28,25 @@ public class ProductEntity {
 
     @Column(nullable = false)
     private String productCode; 
+    
+    @Column(nullable = false)
     private String productName;
+    
+    @Column(nullable = false)
     private String category;
+    
+    @Column(nullable = false)
     private Double minStockLevel;
+    
+    @Column(nullable = false)
     private Double totalQuantity;
+    
+    @Column(nullable = false)
     private String defaultUnits;
+    
+    @Column(nullable = false)
     private Double totalPurchasePrice;
+    
     @Column(nullable = false)
     private boolean active = true;
     
