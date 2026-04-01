@@ -53,7 +53,7 @@ public class ProductController {
 		log.info("In getCategory"+" "+authentication.getName());
 		String username = authentication.getName();
 		List<String> category = productService.getCategory(username);
-		return new ResponseEntity<>(category,HttpStatus.CREATED);
+		return new ResponseEntity<>(category,HttpStatus.OK);
 	}
 	
 	@PostMapping("/getproductname/{categoryname}")
@@ -62,7 +62,7 @@ public class ProductController {
 		log.info("In getProductName "+categoryName+" "+authentication.getName());
 		String username = authentication.getName();
 		List<String> products = productService.getProducts(username,categoryName);
-		return new ResponseEntity<>(products,HttpStatus.CREATED);
+		return new ResponseEntity<>(products,HttpStatus.OK);
 	}
 	
 	@PostMapping("/getunit/{productname}")
@@ -71,7 +71,7 @@ public class ProductController {
 		log.info("In getDefaultUnits "+productName+" "+authentication.getName());
 		String username = authentication.getName();
 		String productUnit = productService.getProductUnit(username,productName);
-		return new ResponseEntity<>(productUnit,HttpStatus.CREATED);
+		return new ResponseEntity<>(productUnit,HttpStatus.OK);
 	}
 	
 	@GetMapping("/expiryitems")
@@ -89,7 +89,7 @@ public class ProductController {
 		log.info("In addBatchToProduct "+addBatchToProductDto+" "+authentication.getName());
 		String username = authentication.getName();
 		String message = productService.addBatchToProduct(username,addBatchToProductDto);
-		return new ResponseEntity<>(message,HttpStatus.CREATED);
+		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
 	@PostMapping("/sale")
@@ -98,7 +98,7 @@ public class ProductController {
 		log.info("In sellProduct "+saleDto+" "+authentication.getName());
 		String username = authentication.getName();
 		String message = productService.sellProduct(username,saleDto);
-		return new ResponseEntity<>(message,HttpStatus.CREATED);
+		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
 	@GetMapping("/allproducts")
@@ -107,7 +107,7 @@ public class ProductController {
 		log.info("In getAllProducts"+authentication.getName());
 		String username = authentication.getName();
 		List<ProductVO> productVO = productService.getAllProducts(username);
-		return new ResponseEntity<>(productVO,HttpStatus.CREATED);
+		return new ResponseEntity<>(productVO,HttpStatus.OK);
 	}
 	
 	@PutMapping("/updateproduct")
@@ -116,7 +116,7 @@ public class ProductController {
 		log.info("In updateProduct "+productEditDto+" "+authentication.getName());
 		String username = authentication.getName();
 		String message = productService.updateProduct(productEditDto,username);
-		return new ResponseEntity<>(message,HttpStatus.CREATED);
+		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/deleteproduct/{productCode}")
@@ -125,7 +125,7 @@ public class ProductController {
 		log.info("In updateProduct "+productCode+" "+authentication.getName());
 		String username = authentication.getName();
 		String message = productService.deleteProduct(productCode,username);
-		return new ResponseEntity<>(message,HttpStatus.CREATED);
+		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
 	@PutMapping("/updatebatch")
