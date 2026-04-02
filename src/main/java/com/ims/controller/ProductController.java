@@ -38,7 +38,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@PostMapping("/addproduct")
+	@PostMapping
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> addProduct(@RequestBody ProductDto productDto,Authentication authentication){
 		log.info("In addProduct "+productDto+" "+authentication.getName());
@@ -47,7 +47,7 @@ public class ProductController {
 		return new ResponseEntity<>(message,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/getcategory")
+	@GetMapping("/categories")
 	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getCategory(Authentication authentication){
 		log.info("In getCategory"+" "+authentication.getName());
@@ -56,7 +56,7 @@ public class ProductController {
 		return new ResponseEntity<>(category,HttpStatus.OK);
 	}
 	
-	@PostMapping("/getproductname/{categoryname}")
+	@GetMapping("/{categoryname}")
 	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getProductName(@PathVariable("categoryname") String categoryName,Authentication authentication){
 		log.info("In getProductName "+categoryName+" "+authentication.getName());
@@ -65,7 +65,7 @@ public class ProductController {
 		return new ResponseEntity<>(products,HttpStatus.OK);
 	}
 	
-	@PostMapping("/getunit/{productname}")
+	@GetMapping("/unit/{productname}")
 	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getDefaultUnits(@PathVariable("productname") String productName,Authentication authentication){
 		log.info("In getDefaultUnits "+productName+" "+authentication.getName());
@@ -83,7 +83,7 @@ public class ProductController {
         return new ResponseEntity<>(expiryItems, HttpStatus.OK);
 	}
 	
-	@PostMapping("/addbatch")
+	@PostMapping("/batch")
 	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> addBatchToProduct(@RequestBody AddBatchToProductDto addBatchToProductDto,Authentication authentication){
 		log.info("In addBatchToProduct "+addBatchToProductDto+" "+authentication.getName());
@@ -101,7 +101,7 @@ public class ProductController {
 		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
-	@GetMapping("/allproducts")
+	@GetMapping
 	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getAllProducts(Authentication authentication){
 		log.info("In getAllProducts"+authentication.getName());
@@ -110,7 +110,7 @@ public class ProductController {
 		return new ResponseEntity<>(productVO,HttpStatus.OK);
 	}
 	
-	@PutMapping("/updateproduct")
+	@PutMapping
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> updateProduct(@RequestBody ProductEditDto productEditDto,Authentication authentication){
 		log.info("In updateProduct "+productEditDto+" "+authentication.getName());
@@ -119,7 +119,7 @@ public class ProductController {
 		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/deleteproduct/{productCode}")
+	@DeleteMapping("/{productCode}")
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> deleteProduct(@PathVariable String productCode,Authentication authentication){
 		log.info("In updateProduct "+productCode+" "+authentication.getName());
@@ -128,7 +128,7 @@ public class ProductController {
 		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
-	@PutMapping("/updatebatch")
+	@PutMapping("/batch")
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> updateBatch(@RequestBody BatchUpdateDto batchUpdateDto, Authentication authentication) {
 		log.info("In updateProduct "+batchUpdateDto+" "+authentication.getName());
@@ -137,7 +137,7 @@ public class ProductController {
         return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/deletebatch/{id}")
+	@DeleteMapping("/batch/{id}")
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> deleteBatch(@PathVariable Long id, Authentication authentication) {
 		log.info("In deleteBatch "+id+" "+authentication.getName());
@@ -154,4 +154,24 @@ public class ProductController {
         List<LowStockVO> lowStockVO = productService.getLowStockItems(username);
         return new ResponseEntity<>(lowStockVO, HttpStatus.OK);
 	}
+	
+	@GetMapping("/generate/product")
+	@PreAuthorize("hasAnyRole('OWNER')")
+	public ResponseEntity<?> generateProductCode(Authentication authentication){
+		log.info("In generateProductCode");
+		StringBuilder sb = new StringBuilder();
+		sb.append("PROD-");
+		sb.append(productService.generateFiveDigitCode());
+		return new ResponseEntity<>(sb.toString(),HttpStatus.OK); 
+	}
+	
+	@GetMapping("/check/productcode/{productCode}")
+	@PreAuthorize("hasAnyRole('OWNER')")
+	public ResponseEntity<?> checkProductCodeExists(Authentication authentication,@PathVariable String productCode){
+		log.info("In checkProductCodeExists");
+		String username = authentication.getName();
+		boolean isProductCodeExists = productService.checkProductCodeExists(username,productCode);
+		return new ResponseEntity<>(isProductCodeExists,HttpStatus.OK); 
+	}
+	
 }

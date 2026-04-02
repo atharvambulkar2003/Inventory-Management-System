@@ -30,7 +30,7 @@ public class ClerkController {
 	@Autowired
 	private StaffService staffService;
 	
-	@PostMapping("/addstaff")
+	@PostMapping
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> addStaffToStore(@RequestBody AddStaffDto addStaffDto,Authentication authentication){
 		log.info("In addStaffToStore controller "+authentication.getName()+" adding staff "+addStaffDto);
@@ -39,7 +39,7 @@ public class ClerkController {
 		return new ResponseEntity<>(message,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/getstaff")
+	@GetMapping
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> getAllStaff(Authentication authentication){
 		log.info("In getAllStaff controller "+authentication.getName());
@@ -48,7 +48,7 @@ public class ClerkController {
 		return new ResponseEntity<>(allStaff,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/deletestaff/{id}")
+	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> deleteStaff(@PathVariable Long id,Authentication authentication){
 		log.info("In deleteStaff controller "+authentication.getName()+" id = "+id);

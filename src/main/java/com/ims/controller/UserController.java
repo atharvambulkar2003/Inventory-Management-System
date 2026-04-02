@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,7 +73,7 @@ public class UserController {
 		}
 	}
 	
-	@GetMapping("/sendotp")
+	@GetMapping
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> sendOtpToEmailForProfileUpdate(Authentication authentication){
 		log.info("In send Otp "+authentication.getName());
@@ -81,7 +82,7 @@ public class UserController {
 		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
-	@PostMapping("/updateuser")
+	@PutMapping
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> updateUser(Authentication authentication,@RequestBody UserUpdateRequestDto userUpdateRequestDto){
 		log.info("In update user "+authentication.getName());
@@ -90,7 +91,7 @@ public class UserController {
 		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
-	@PostMapping("/verifypasswordforotp")
+	@PostMapping("/otp")
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> sendOtpForUpdatePassword(Authentication authentication,@RequestBody UpdatePasswordOtpDto updatePasswordOtpDto){
 		log.info("In sendOtpForUpdatePassword "+authentication.getName());
@@ -99,7 +100,7 @@ public class UserController {
 		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
-	@PostMapping("/updatepassword")
+	@PutMapping("/password")
 	@PreAuthorize("hasRole('OWNER')")
 	public ResponseEntity<?> updatePassword(Authentication authentication,@RequestBody UpdatePasswordDto updatePasswordDto){
 		log.info("In update user "+authentication.getName());
@@ -108,28 +109,28 @@ public class UserController {
 		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
-	@GetMapping("/forgetpassword/username/sendotp/{username}")
+	@GetMapping("/username/otp/{username}")
 	public ResponseEntity<?> sendOtpForForgetPasswordByUsername(@PathVariable String username){
 		log.info("In sendOtpForForgetPasswordByUsername "+username);
 		String message = userService.sendOtpForForgetPasswordByUsername(username);
 		return new ResponseEntity<>(message,HttpStatus.OK); 
 	}
 	
-	@PostMapping("/forgetpassword/username/recoveraccount")
+	@PutMapping("/username")
 	public ResponseEntity<?> RecoverAccountByUsername(@RequestBody ForgetPasswordChangePasswordByUsernameDto forgetPasswordChangePasswordByUsernameDto){
 		log.info("In RecoverAccountByUsername "+forgetPasswordChangePasswordByUsernameDto);
 		String message = userService.recoverAccountByUsername(forgetPasswordChangePasswordByUsernameDto);
 		return new ResponseEntity<>(message,HttpStatus.OK); 
 	}
 	
-	@GetMapping("/forgetpassword/email/sendotp/{email}")
+	@GetMapping("/email/otp/{email}")
 	public ResponseEntity<?> sendOtpForForgetPasswordByEmail(@PathVariable String email){
 		log.info("In sendOtpForForgetPasswordByEmail "+email);
 		String message = userService.sendOtpForForgetPasswordByEmail(email);
 		return new ResponseEntity<>(message,HttpStatus.OK); 
 	}
 	
-	@PostMapping("/forgetpassword/email/recoveraccount")
+	@PutMapping("/email")
 	public ResponseEntity<?> RecoverAccountByEmail(@RequestBody ForgetPasswordChangePasswordByEmailDto forgetPasswordChangePasswordByEmailDto){
 		log.info("In RecoverAccountByEmail "+forgetPasswordChangePasswordByEmailDto);
 		String message = userService.recoverAccountByEmail(forgetPasswordChangePasswordByEmailDto);

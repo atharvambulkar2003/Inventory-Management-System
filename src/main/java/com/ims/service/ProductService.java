@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
@@ -583,5 +583,43 @@ public class ProductService {
 
 	    return product.getDefaultUnits();
 	}
+
+	public boolean checkProductCodeExists(String username, String productCode) {
+		log.info("In checkProductCodeExists service "+username+" searching product code "+productCode);
+		UserEntity user = userRepository.findByUsername(username);
+		if(user == null) {
+			log.error("In checkProductCodeExists service "+username+" searching productcode "+productCode);
+			throw new UserNotFoundException("User not found"); 
+		}
+		if(user.getStore() == null) {
+			log.error("In checkProductCodeExists service "+username+" searching productcode "+productCode);
+			throw new StoreNotFoundException("Store not found"); 
+		}
+		boolean isProductCodeExists = productRepository.existsByProductCodeAndStoreAndActiveTrue(productCode, user.getStore());
+		return isProductCodeExists;
+	}
 	
+	public String generateFiveDigitCode() {
+		Random random = new Random();
+	    int otp = 10000 + random.nextInt(90000); 
+	    return String.valueOf(otp);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

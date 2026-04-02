@@ -24,7 +24,7 @@ public class TransactionController {
 	@Autowired
 	private TransactionService transactionService;
 	
-	@GetMapping("/alltransactions")
+	@GetMapping
 	@PreAuthorize("hasAnyRole('OWNER','STAFF')")
 	public ResponseEntity<?> getTransactionHistory(Authentication authentication) {
 		log.info("In getTransactionHistory "+authentication.getName());
