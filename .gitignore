@@ -36,3 +36,5 @@ build/
 ### Secrets & Local Config ###
 src/main/resources/application-dev.properties
 .env
+
+logs
