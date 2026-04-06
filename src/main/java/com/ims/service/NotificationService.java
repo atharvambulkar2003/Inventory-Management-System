@@ -146,11 +146,10 @@ public class NotificationService {
         emailService.sendHtmlEmail(user.getEmail(), "Stock In Alert: Batch " + batch.getBatchNumber(), html);
     }
 
-    public void sendSaleNotification(UserEntity user, ProductEntity product, SaleDto saleDto, double profit) {
+    public void sendSaleNotification(UserEntity user, ProductEntity product, SaleDto saleDto) {
         Context context = new Context();
         context.setVariable("productName", product.getProductName());
         context.setVariable("soldQty", saleDto.getQuantity());
-        context.setVariable("profit", String.format("%.2f", profit));
         context.setVariable("customer", saleDto.getCustomerName());
         context.setVariable("remainingQty", product.getTotalQuantity());
 
@@ -181,22 +180,18 @@ public class NotificationService {
         emailService.sendHtmlEmail(user.getEmail(), "Product Deactivated: " + productName, htmlContent);
     }
     
-    public void sendBatchUpdateNotification(UserEntity user, ProductEntity product,String oldBatchNo, double oldQty, double oldPrice, LocalDate oldExpiry, BatchUpdateDto newDto) {
-		Context context = new Context();
-		context.setVariable("fullName", user.getFullName());
-		context.setVariable("productName", product.getProductName());
-		context.setVariable("oldBatchNo", oldBatchNo);
-		context.setVariable("newBatchNo", newDto.getBatchNumber());
-		context.setVariable("oldQty", oldQty);
-		context.setVariable("newQty", newDto.getCurrentQuantity());
-		context.setVariable("oldPrice", oldPrice);
-		context.setVariable("newPrice", newDto.getPurchasePrice());
-		context.setVariable("oldExpiry", oldExpiry != null ? oldExpiry.toString() : "None");
-		context.setVariable("newExpiry", newDto.getExpiryDate() != null ? newDto.getExpiryDate().toString() : "None");
-		
-		String htmlContent = templateEngine.process("batch-updated", context);
-		emailService.sendHtmlEmail(user.getEmail(), "Batch Updated: " + product.getProductName(), htmlContent);
-	}
+    public void sendBatchUpdateNotification(UserEntity user, ProductEntity product, LocalDate oldExpiry, String oldLocation, BatchUpdateDto newDto) {
+        Context context = new Context();
+        context.setVariable("fullName", user.getFullName());
+        context.setVariable("productName", product.getProductName());       
+        context.setVariable("oldExpiry", oldExpiry != null ? oldExpiry.toString() : "None");
+        context.setVariable("newExpiry", newDto.getExpiryDate() != null ? newDto.getExpiryDate().toString() : "None");
+        context.setVariable("oldLocation", oldLocation != null ? oldLocation : "Not Assigned");
+        context.setVariable("newLocation", newDto.getLocation() != null ? newDto.getLocation() : "Not Assigned");
+        
+        String htmlContent = templateEngine.process("batch-updated", context);
+        emailService.sendHtmlEmail(user.getEmail(), "Batch Info Updated: " + product.getProductName(), htmlContent);
+    }
 	
 	public void sendBatchDeletionNotification(UserEntity user, String productName, String batchNo, ProductEntity product) {
 		Context context = new Context();

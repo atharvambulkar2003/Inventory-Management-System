@@ -50,7 +50,6 @@ public class UserService {
     @Autowired
     private NotificationService notificationService;
    
-    
     private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
     @Transactional
@@ -336,7 +335,7 @@ public class UserService {
 	    
 	    String newPassword = encoder.encode(forgetPasswordChangePasswordByEmailDto.getPassword());
 	    user.setPassword(newPassword);
-	    
+	    	
 	    user.setOtp(null);
 	    user.setOtpExpiryTime(null);
 	    

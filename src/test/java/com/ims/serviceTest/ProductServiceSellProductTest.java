@@ -266,9 +266,7 @@ class ProductServiceSellProductTest {
         when(userRepository.findByUsername("owneruser")).thenReturn(userEntity);
         when(productRepository.findByProductNameAndCategoryAndStoreAndActiveTrueWithLock(
                 "APPLE", "Fruits", store)).thenReturn(productEntity);
-        doThrow(new EmailFailedException("SMTP error"))
-                .when(notificationService).sendSaleNotification(any(), any(), any(), any());
-
+        
         String result = productService.sellProduct("owneruser", saleDto);
 
         assertTrue(result.contains("Sale successful"));

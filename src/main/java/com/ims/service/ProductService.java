@@ -8,7 +8,6 @@ import java.util.Random;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import com.ims.dto.AddBatchToProductDto;
@@ -31,6 +30,7 @@ import com.ims.exception.BatchNotFoundException;
 import com.ims.exception.BatchNumberExistsException;
 import com.ims.exception.EmailFailedException;
 import com.ims.exception.LessQuantityException;
+import com.ims.exception.ObjectOptimisticLockingFailureException;
 import com.ims.exception.ProductCodeAlreadyExistsInStoreException;
 import com.ims.exception.ProductNameAlreadyExistsInStore;
 import com.ims.exception.ProductNotFoundException;
@@ -167,11 +167,12 @@ public class ProductService {
         }
 
         BatchEntity batch = modelMapper.map(dto, BatchEntity.class);
+        batch.setPurchasePrice(dto.getPurchasePrice()*dto.getCurrentQuantity());
         batch.setProduct(product);
         batchRepository.save(batch);
 
         product.setTotalQuantity(product.getTotalQuantity()+dto.getCurrentQuantity());
-        product.setTotalPurchasePrice(product.getTotalPurchasePrice()+dto.getPurchasePrice());
+        product.setTotalPurchasePrice(product.getTotalPurchasePrice()+(dto.getPurchasePrice()*dto.getCurrentQuantity()));
 
         TransactionEntity transaction = new TransactionEntity();
         transaction.setProduct(product);
@@ -179,7 +180,7 @@ public class ProductService {
         transaction.setQuantity(dto.getCurrentQuantity());
         transaction.setTransactionDate(LocalDateTime.now());
         transaction.setPartyName(dto.getPartyName());
-        transaction.setTotalAmount(dto.getPurchasePrice()); 
+        transaction.setTotalAmount(dto.getCurrentQuantity()*dto.getPurchasePrice()); 
         
         transactionRepository.save(transaction);
         
@@ -196,7 +197,7 @@ public class ProductService {
         	log.error("Failed to send welcome email: " + e.getMessage());
         }
 
-        return "Batch added Successfully";
+        return "Purchase done Successfully";
     }
 
 	@Transactional
@@ -226,8 +227,6 @@ public class ProductService {
 	    Double totalCostOfSoldItems = round(individualProductPrice * saleDto.getQuantity());
 
 	    Double totalRevenue = round(saleDto.getMrp() * saleDto.getQuantity());
-
-	    Double profit = round(totalRevenue - totalCostOfSoldItems);
 
 	    List<BatchEntity> batches = productEntity.getBatches();
 	    
@@ -274,12 +273,12 @@ public class ProductService {
 	    }
 
 	    try {
-	        notificationService.sendSaleNotification(owner, productEntity, saleDto, profit);
+	        notificationService.sendSaleNotification(owner, productEntity, saleDto);
 	    } catch (EmailFailedException e) {
 	        log.error("Failed to send email: " + e.getMessage());
 	    }
 
-	    return "Sale successful. Revenue: " + totalRevenue + " | Profit: " + profit;
+	    return "Sale successful.";
 	}
 
 	private Double round(Double value) {
@@ -429,36 +428,24 @@ public class ProductService {
 	        throw new BatchDoesNotBelongToUserException("This batch does not belong to your store.");
 	    }
 
-	    String oldBatchNumber = batch.getBatchNumber();
-	    Double oldQuantity = batch.getCurrentQuantity();
-	    Double oldPrice = batch.getPurchasePrice();
 	    LocalDate oldExpiry = batch.getExpiryDate();
-
+	    String oldLocation = batch.getLocation();
+	    
 	    ProductEntity product = batch.getProduct();
-	    
-	    Double quantityDifference = dto.getCurrentQuantity() - oldQuantity;
-	    product.setTotalQuantity(round(product.getTotalQuantity() + quantityDifference));
-	    
-	    Double priceDifference = dto.getPurchasePrice() - oldPrice;
-	    product.setTotalPurchasePrice(round(product.getTotalPurchasePrice() + priceDifference));
 
-	    batch.setBatchNumber(dto.getBatchNumber());
-	    batch.setCurrentQuantity(dto.getCurrentQuantity());
 	    batch.setExpiryDate(dto.getExpiryDate());
-	    batch.setPurchasePrice(dto.getPurchasePrice());
+	    batch.setLocation(dto.getLocation());
 	    
 	    try {
-	    	batchRepository.save(batch);
-		    productRepository.save(product);
-	    }catch (ObjectOptimisticLockingFailureException e) {
-	        throw new RuntimeException("This batch was modified by another user. Please refresh and try again.");
+	        batchRepository.save(batch);
+	    } catch (ObjectOptimisticLockingFailureException e) {
+	        throw new ObjectOptimisticLockingFailureException("This batch was modified by another user. Please refresh and try again.");
 	    }
 
 	    try {
-	        notificationService.sendBatchUpdateNotification(user, product, oldBatchNumber, oldQuantity, oldPrice, oldExpiry, dto);
-	        log.info("Batch update notification sent for: {}", oldBatchNumber);
+	        notificationService.sendBatchUpdateNotification(user, product, oldExpiry, oldLocation, dto);
 	    } catch (EmailFailedException e) {
-	        log.error("Failed to notify user {} about batch update {}. Reason: {}", user.getUsername(), oldBatchNumber, e.getMessage());
+	        log.error("Failed to notify user {} about batch update", user.getUsername());
 	    }
 	    
 	    return "Batch updated successfully.";
@@ -492,7 +479,7 @@ public class ProductService {
 	    	batchRepository.delete(batch);
 		    productRepository.save(product);
 	    }catch (ObjectOptimisticLockingFailureException e) {
-	        throw new RuntimeException("This batch was modified by another user. Please refresh and try again.");
+	        throw new ObjectOptimisticLockingFailureException("This batch was modified by another user. Please refresh and try again.");
 	    }
 	    
 	    try {
@@ -605,21 +592,21 @@ public class ProductService {
 	    return String.valueOf(otp);
 	}
 
+	public boolean checkBatchNumberExists(String username, String batchNumber) {
+		log.info("In checkBatchNumberExists service "+username+" searching batch number "+batchNumber);
+		UserEntity user = userRepository.findByUsername(username);
+		if(user == null) {
+			log.error("In checkBatchNumberExists service "+username+" searching batch number "+batchNumber);
+			throw new UserNotFoundException("User not found"); 
+		}
+		if(user.getStore() == null) {
+			log.error("In checkBatchNumberExists service "+username+" searching batch number "+batchNumber);
+			throw new StoreNotFoundException("Store not found"); 
+		}
+		boolean isBatchNumberExists = batchRepository.existsByBatchNumberAndProductStore(batchNumber, user.getStore());
+		return isBatchNumberExists;
+	}
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

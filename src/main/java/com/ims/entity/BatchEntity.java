@@ -38,6 +38,8 @@ public class BatchEntity {
     
     private LocalDate expiryDate; 
     
+    private String location;
+    
     @Column(nullable = false)
     private Double purchasePrice;
 }

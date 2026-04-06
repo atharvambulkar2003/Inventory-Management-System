@@ -20,5 +20,6 @@ public class AddBatchToProductDto {
 	private Double currentQuantity;
 	private LocalDate expiryDate; 
     private Double purchasePrice;
+    private String location;
     private String partyName; 
 }

@@ -10,6 +10,7 @@ public class BatchExpiryVO {
     private String batchNumber;
     private Double currentQuantity;
     private LocalDate expiryDate;
+    private String location;
     private String productName;
     private String productCode;
     private String defaultUnits;
