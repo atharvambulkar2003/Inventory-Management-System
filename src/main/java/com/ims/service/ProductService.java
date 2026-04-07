@@ -527,12 +527,13 @@ public class ProductService {
 			log.error("User not found "+username);
             throw new UserNotFoundException("User not found");
         }
-		UserEntity owner = user.getStore().getOwner();
-
-        if(user.getStore() == null) {
+		
+		 if(user.getStore() == null) {
         	log.error("Store not found "+username);
         	throw new StoreNotFoundException("Store not found");
         }
+		
+		UserEntity owner = user.getStore().getOwner();
         
 	    LocalDate today = LocalDate.now();
 	    LocalDate thirtyDaysFromNow = today.plusDays(30);

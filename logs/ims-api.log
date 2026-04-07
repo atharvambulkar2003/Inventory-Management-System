@@ -695,3 +695,201 @@ Caused by: java.net.SocketException: Connection reset
 2026-04-07T15:04:43.738+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
 2026-04-07T15:04:43.747+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 5.325 seconds (process running for 771.359)
 2026-04-07T15:04:43.748+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-04-07T15:07:26.150+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-07T15:07:26.150+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-07T15:07:26.154+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2026-04-07T15:07:26.672+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:07:26.673+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:07:27.418+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:07:27.419+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:07:44.697+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.controller.ProductController     : In getCategory atharv
+2026-04-07T15:07:44.698+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.service.ProductService           : In getCategory service atharv
+2026-04-07T15:07:45.282+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In getCategory atharv
+2026-04-07T15:07:45.282+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In getCategory service atharv
+2026-04-07T15:07:46.785+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.controller.ProductController     : In getProductName Medicine atharv
+2026-04-07T15:07:48.915+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.controller.ProductController     : In getDefaultUnits PARACETAMOL atharv
+2026-04-07T15:07:48.916+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.service.ProductService           : Fetching unit for product: PARACETAMOL for user: atharv
+2026-04-07T15:07:51.108+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.controller.ProductController     : In generateBatchNumber controller atharv
+2026-04-07T15:07:51.671+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.controller.ProductController     : In checkBatchNumberExists controller atharv
+2026-04-07T15:07:51.671+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.service.ProductService           : In checkBatchNumberExists service atharv searching batch number PUR-35107
+2026-04-07T15:08:16.133+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In addBatchToProduct AddBatchToProductDto(category=Medicine, productName=PARACETAMOL, batchNumber=PUR-35107, currentQuantity=20.0, expiryDate=2026-04-07, purchasePrice=10.0, location=Desk NO 1, partyName=Pharma Industry) atharv
+2026-04-07T15:08:16.135+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In addBatchToProduct service atharv AddBatchToProductDto(category=Medicine, productName=PARACETAMOL, batchNumber=PUR-35107, currentQuantity=20.0, expiryDate=2026-04-07, purchasePrice=10.0, location=Desk NO 1, partyName=Pharma Industry)
+2026-04-07T15:08:16.875+05:30  INFO 14952 --- [inventory-management-system] [task-1] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-04-07T15:08:16.898+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : Notification send of batch Addition UserEntity(id=1, username=atharv, fullName=Atharv Ambulkar, password=$2a$10$w0KojNuZx6fMcbVKV13TdOgd.MB5KyBBuncqI5yOj67UOJlZD8BDi, email=be22f06f002@geca.ac.in, role=ROLE_OWNER, active=true, otp=null, otpExpiryTime=null) product ProductEntity(id=1, productCode=PROD-15952, productName=PARACETAMOL, category=Medicine, minStockLevel=20.0, totalQuantity=70.0, defaultUnits=unit, totalPurchasePrice=700.0, active=true, version=8) batch BatchEntity(id=6, version=0, batchNumber=PUR-35107, currentQuantity=20.0, expiryDate=2026-04-07, location=Desk NO 1, purchasePrice=200.0)
+2026-04-07T15:08:18.578+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:08:18.579+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:08:19.432+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:08:19.433+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:16:14.186+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:16:14.186+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:16:27.370+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In deleteBatch 6 atharv
+2026-04-07T15:16:27.371+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : Deleting batch ID: 6 for user: atharv
+2026-04-07T15:16:27.855+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : Batch deletion notification sent for: PUR-35107
+2026-04-07T15:16:27.855+05:30  INFO 14952 --- [inventory-management-system] [task-2] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-04-07T15:16:35.102+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.controller.ProductController     : In getAllProductsatharv
+2026-04-07T15:16:35.103+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.service.ProductService           : In getAllProducts service atharv
+2026-04-07T15:16:36.002+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.controller.ProductController     : In getAllProductsatharv
+2026-04-07T15:16:36.002+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.service.ProductService           : In getAllProducts service atharv
+2026-04-07T15:16:57.360+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.controller.ProductController     : In getCategory atharv
+2026-04-07T15:16:57.360+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : In getCategory service atharv
+2026-04-07T15:16:57.840+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.controller.ProductController     : In getCategory atharv
+2026-04-07T15:16:57.840+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.service.ProductService           : In getCategory service atharv
+2026-04-07T15:17:05.881+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In getProductName Medicine atharv
+2026-04-07T15:17:08.424+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In generateBatchNumber controller atharv
+2026-04-07T15:17:08.636+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.controller.ProductController     : In checkBatchNumberExists controller atharv
+2026-04-07T15:17:08.636+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.service.ProductService           : In checkBatchNumberExists service atharv searching batch number PUR-88072
+2026-04-07T15:17:14.129+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.controller.ProductController     : In getDefaultUnits PARACETAMOL atharv
+2026-04-07T15:17:14.129+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.service.ProductService           : Fetching unit for product: PARACETAMOL for user: atharv
+2026-04-07T15:17:38.459+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.controller.ProductController     : In addBatchToProduct AddBatchToProductDto(category=Medicine, productName=PARACETAMOL, batchNumber=PUR-88072, currentQuantity=20.0, expiryDate=2026-04-08, purchasePrice=40.0, location=Desk NO 19, partyName=Pharma Industry) atharv
+2026-04-07T15:17:38.459+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.service.ProductService           : In addBatchToProduct service atharv AddBatchToProductDto(category=Medicine, productName=PARACETAMOL, batchNumber=PUR-88072, currentQuantity=20.0, expiryDate=2026-04-08, purchasePrice=40.0, location=Desk NO 19, partyName=Pharma Industry)
+2026-04-07T15:17:39.115+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.service.ProductService           : Notification send of batch Addition UserEntity(id=1, username=atharv, fullName=Atharv Ambulkar, password=$2a$10$w0KojNuZx6fMcbVKV13TdOgd.MB5KyBBuncqI5yOj67UOJlZD8BDi, email=be22f06f002@geca.ac.in, role=ROLE_OWNER, active=true, otp=null, otpExpiryTime=null) product ProductEntity(id=1, productCode=PROD-15952, productName=PARACETAMOL, category=Medicine, minStockLevel=20.0, totalQuantity=70.0, defaultUnits=unit, totalPurchasePrice=1300.0, active=true, version=10) batch BatchEntity(id=7, version=0, batchNumber=PUR-88072, currentQuantity=20.0, expiryDate=2026-04-08, location=Desk NO 19, purchasePrice=800.0)
+2026-04-07T15:17:39.115+05:30  INFO 14952 --- [inventory-management-system] [task-3] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-04-07T15:17:41.706+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.controller.ProductController     : In getAllProductsatharv
+2026-04-07T15:17:41.706+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-10] com.ims.service.ProductService           : In getAllProducts service atharv
+2026-04-07T15:17:42.380+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In getAllProductsatharv
+2026-04-07T15:17:42.381+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.service.ProductService           : In getAllProducts service atharv
+2026-04-07T15:17:50.474+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.controller.ProductController     : In getLowStockItemsatharv
+2026-04-07T15:17:50.474+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.service.ProductService           : In getLowStockItems atharv
+2026-04-07T15:17:51.095+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.controller.ProductController     : In getLowStockItemsatharv
+2026-04-07T15:17:51.095+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.service.ProductService           : In getLowStockItems atharv
+2026-04-07T15:17:51.644+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:17:51.644+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:17:52.435+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:17:52.435+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:20:30.391+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:20:30.391+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:20:41.587+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.controller.ProductController     : In deleteBatch 7 atharv
+2026-04-07T15:20:41.587+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.service.ProductService           : Deleting batch ID: 7 for user: atharv
+2026-04-07T15:20:42.185+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.service.ProductService           : Batch deletion notification sent for: PUR-88072
+2026-04-07T15:20:42.185+05:30  INFO 14952 --- [inventory-management-system] [task-4] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-04-07T15:21:03.541+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:21:03.542+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:21:07.598+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:21:07.598+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:21:14.357+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:21:14.357+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:21:28.371+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:21:28.371+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:21:32.267+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:21:32.267+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:21:33.230+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:21:33.230+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:21:58.356+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.controller.ProductController     : In getCategory atharv
+2026-04-07T15:21:58.356+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-7] com.ims.service.ProductService           : In getCategory service atharv
+2026-04-07T15:21:59.109+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In getCategory atharv
+2026-04-07T15:21:59.110+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In getCategory service atharv
+2026-04-07T15:21:59.841+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In getProductName Medicine atharv
+2026-04-07T15:22:02.162+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.controller.ProductController     : In getDefaultUnits PARACETAMOL atharv
+2026-04-07T15:22:02.162+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.service.ProductService           : Fetching unit for product: PARACETAMOL for user: atharv
+2026-04-07T15:22:03.433+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.controller.ProductController     : In generateBatchNumber controller atharv
+2026-04-07T15:22:03.711+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.controller.ProductController     : In checkBatchNumberExists controller atharv
+2026-04-07T15:22:03.712+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-4] com.ims.service.ProductService           : In checkBatchNumberExists service atharv searching batch number PUR-79658
+2026-04-07T15:22:19.792+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.controller.ProductController     : In addBatchToProduct AddBatchToProductDto(category=Medicine, productName=PARACETAMOL, batchNumber=PUR-79658, currentQuantity=20.0, expiryDate=2026-04-08, purchasePrice=10.0, location=Desk NO 19, partyName=Pharma Industry) atharv
+2026-04-07T15:22:19.792+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : In addBatchToProduct service atharv AddBatchToProductDto(category=Medicine, productName=PARACETAMOL, batchNumber=PUR-79658, currentQuantity=20.0, expiryDate=2026-04-08, purchasePrice=10.0, location=Desk NO 19, partyName=Pharma Industry)
+2026-04-07T15:22:20.489+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-9] com.ims.service.ProductService           : Notification send of batch Addition UserEntity(id=1, username=atharv, fullName=Atharv Ambulkar, password=$2a$10$w0KojNuZx6fMcbVKV13TdOgd.MB5KyBBuncqI5yOj67UOJlZD8BDi, email=be22f06f002@geca.ac.in, role=ROLE_OWNER, active=true, otp=null, otpExpiryTime=null) product ProductEntity(id=1, productCode=PROD-15952, productName=PARACETAMOL, category=Medicine, minStockLevel=20.0, totalQuantity=70.0, defaultUnits=unit, totalPurchasePrice=700.0, active=true, version=12) batch BatchEntity(id=8, version=0, batchNumber=PUR-79658, currentQuantity=20.0, expiryDate=2026-04-08, location=Desk NO 19, purchasePrice=200.0)
+2026-04-07T15:22:20.489+05:30  INFO 14952 --- [inventory-management-system] [task-5] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-04-07T15:22:23.561+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:22:23.561+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:22:24.431+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:22:24.432+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:22:55.698+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.controller.ProductController     : In deleteBatch 8 atharv
+2026-04-07T15:22:55.699+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : Deleting batch ID: 8 for user: atharv
+2026-04-07T15:22:56.083+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-5] com.ims.service.ProductService           : Batch deletion notification sent for: PUR-79658
+2026-04-07T15:22:56.083+05:30  INFO 14952 --- [inventory-management-system] [task-6] com.ims.service.EmailService             : Sending HTML email to: be22f06f002@geca.ac.in
+2026-04-07T15:37:29.665+05:30  INFO 14952 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-04-07T15:37:29.818+05:30  INFO 14952 --- [inventory-management-system] [Thread-13] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-07T15:37:30.510+05:30  INFO 14952 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-04-07T15:37:30.732+05:30  INFO 14952 --- [inventory-management-system] [Thread-13] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-07T15:37:30.790+05:30  INFO 14952 --- [inventory-management-system] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2026-04-07T15:37:35.907+05:30  INFO 14952 --- [inventory-management-system] [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2026-04-07T15:37:37.715+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 14952 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-04-07T15:37:37.715+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-04-07T15:37:38.517+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-07T15:37:38.566+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 5 JPA repository interfaces.
+2026-04-07T15:37:38.959+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-04-07T15:37:38.961+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-07T15:37:38.961+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-07T15:37:38.992+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1140 ms
+2026-04-07T15:37:39.084+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-07T15:37:39.193+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-07T15:37:39.200+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2026-04-07T15:37:40.331+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection org.postgresql.jdbc.PgConnection@51642e18
+2026-04-07T15:37:40.333+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2026-04-07T15:37:40.511+05:30  WARN 14952 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-07T15:37:41.173+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-07T15:37:41.394+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-07T15:37:42.806+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-07T15:37:43.257+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-04-07T15:37:43.257+05:30  WARN 14952 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-04-07T15:37:43.315+05:30  WARN 14952 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-07T15:37:43.852+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-04-07T15:37:43.857+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 6.286 seconds (process running for 2751.468)
+2026-04-07T15:37:43.859+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-04-07T15:37:45.274+05:30  INFO 14952 --- [inventory-management-system] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-04-07T15:37:45.276+05:30  INFO 14952 --- [inventory-management-system] [Thread-17] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-07T15:37:45.436+05:30  INFO 14952 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-04-07T15:37:45.438+05:30  INFO 14952 --- [inventory-management-system] [Thread-17] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-07T15:37:45.439+05:30  INFO 14952 --- [inventory-management-system] [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2026-04-07T15:37:46.178+05:30  INFO 14952 --- [inventory-management-system] [Thread-17] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2026-04-07T15:37:46.336+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Starting Application using Java 17.0.8 with PID 14952 (C:\Users\A1\Desktop\IMS\inventrymanagementsystem\target\classes started by A1 in C:\Users\A1\Desktop\IMS\inventrymanagementsystem)
+2026-04-07T15:37:46.336+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.ims.Application                      : The following 1 profile is active: "dev"
+2026-04-07T15:37:46.652+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-07T15:37:46.686+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 5 JPA repository interfaces.
+2026-04-07T15:37:46.933+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8083 (http)
+2026-04-07T15:37:46.934+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-07T15:37:46.934+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.18]
+2026-04-07T15:37:46.965+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 626 ms
+2026-04-07T15:37:47.064+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-07T15:37:47.143+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-07T15:37:47.144+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2026-04-07T15:37:48.205+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection org.postgresql.jdbc.PgConnection@31f80eb4
+2026-04-07T15:37:48.205+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2026-04-07T15:37:48.388+05:30  WARN 14952 --- [inventory-management-system] [restartedMain] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-07T15:37:48.983+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://ep-misty-frost-a1e775u4-pooler.ap-southeast-1.aws.neon.tech/inventry-management-system]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.8
+	Default catalog/schema: inventry-management-system/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-07T15:37:49.154+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-07T15:37:50.460+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-07T15:37:50.818+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authProvider
+2026-04-07T15:37:50.818+05:30  WARN 14952 --- [inventory-management-system] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-04-07T15:37:50.861+05:30  WARN 14952 --- [inventory-management-system] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-07T15:37:51.322+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8083 (http) with context path '/'
+2026-04-07T15:37:51.332+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] com.ims.Application                      : Started Application in 5.039 seconds (process running for 2758.944)
+2026-04-07T15:37:51.334+05:30  INFO 14952 --- [inventory-management-system] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2026-04-07T15:39:42.748+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-07T15:39:42.748+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-07T15:39:42.751+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-04-07T15:39:44.357+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:39:44.357+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-2] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:39:44.404+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.controller.ProductController     : In getExpiryItemsatharv
+2026-04-07T15:39:44.404+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-3] com.ims.service.ProductService           : In getExpiryItems atharv
+2026-04-07T15:39:50.776+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] c.ims.controller.TransactionController   : In getTransactionHistory atharv
+2026-04-07T15:39:50.776+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-6] com.ims.service.TransactionService       : In getTransactionHistory atharv
+2026-04-07T15:39:51.660+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-8] c.ims.controller.TransactionController   : In getTransactionHistory atharv
+2026-04-07T15:39:51.660+05:30  INFO 14952 --- [inventory-management-system] [http-nio-8083-exec-8] com.ims.service.TransactionService       : In getTransactionHistory atharv
+2026-04-07T15:41:23.022+05:30  INFO 14952 --- [inventory-management-system] [RMI TCP Connection(72)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2026-04-07T15:41:23.024+05:30  INFO 14952 --- [inventory-management-system] [RMI TCP Connection(72)-127.0.0.1] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-07T15:41:23.272+05:30  INFO 14952 --- [inventory-management-system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-04-07T15:41:23.278+05:30  INFO 14952 --- [inventory-management-system] [RMI TCP Connection(72)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-07T15:41:23.278+05:30  INFO 14952 --- [inventory-management-system] [RMI TCP Connection(72)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2026-04-07T15:41:24.461+05:30  INFO 14952 --- [inventory-management-system] [RMI TCP Connection(72)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
