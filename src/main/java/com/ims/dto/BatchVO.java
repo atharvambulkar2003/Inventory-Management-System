@@ -15,5 +15,4 @@ public class BatchVO {
     private Double currentQuantity;
     private LocalDate expiryDate; 
     private String location;
-    private Double purchasePrice;
 }

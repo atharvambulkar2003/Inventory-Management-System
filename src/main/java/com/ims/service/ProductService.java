@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -304,18 +305,7 @@ public class ProductService {
 	    for (ProductEntity product : products) {
 	    	if(product.isActive()) {
 	    		 ProductVO productVO = modelMapper.map(product, ProductVO.class);
-	 	        
-	 	        List<BatchVO> listBatchVO = new ArrayList<>();
-	 	        for (BatchEntity batch : product.getBatches()) {
-	 	            listBatchVO.add(modelMapper.map(batch, BatchVO.class));
-	 	        }
-	 	        if (product.getTotalQuantity() != null && product.getTotalQuantity() > 0) {
-	 	        	Double rawPerItemPrice = product.getTotalPurchasePrice() / product.getTotalQuantity();
-	 	        	productVO.setPerItemPrice(Math.round(rawPerItemPrice * 100.0) / 100.0);
-	 	        } else {
-	 	            productVO.setPerItemPrice(0.0); 
-	 	        }	        
-	 	        productVO.setBatches(listBatchVO);
+	 	      
 	 	        listProductVO.add(productVO);
 	    	}
 	    }

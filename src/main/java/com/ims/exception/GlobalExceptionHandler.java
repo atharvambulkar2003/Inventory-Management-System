@@ -233,6 +233,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 	
+	@ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorizedException(UnauthorizedException exception) {
+		log.error(exception.getMessage());
+		ErrorResponse error = new ErrorResponse(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                "Unauthorized access",
+                exception.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+	
 	@ExceptionHandler(BatchNumberExistsException.class)
     public ResponseEntity<ErrorResponse> handleBatchNumberExistsException(BatchNumberExistsException exception) {
 		log.error(exception.getMessage());

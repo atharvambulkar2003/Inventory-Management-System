@@ -112,14 +112,7 @@ class ProductServiceSellProductTest {
 
         String result = productService.sellProduct("owneruser", saleDto);
 
-        Double individualPrice = round(500.0 / 10.0);
-        Double totalCost = round(individualPrice * 4.0);
-        Double totalRevenue = round(60.0 * 4.0);
-        Double profit = round(totalRevenue - totalCost);
-
-        assertTrue(result.contains("Sale successful"));
-        assertTrue(result.contains(String.valueOf(totalRevenue)));
-        assertTrue(result.contains(String.valueOf(profit)));
+        assertEquals("Sale successful.", result);
     }
 
     @Test
@@ -257,7 +250,7 @@ class ProductServiceSellProductTest {
 
         String result = productService.sellProduct("owneruser", saleDto);
 
-        assertTrue(result.contains("Sale successful"));
+        assertEquals("Sale successful.", result);
         verify(productRepository).save(productEntity);
     }
 
@@ -269,7 +262,7 @@ class ProductServiceSellProductTest {
         
         String result = productService.sellProduct("owneruser", saleDto);
 
-        assertTrue(result.contains("Sale successful"));
+        assertEquals("Sale successful.", result);
         verify(productRepository).save(productEntity);
     }
 

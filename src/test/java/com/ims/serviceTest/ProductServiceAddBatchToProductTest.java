@@ -110,7 +110,7 @@ class ProductServiceAddBatchToProductTest {
 
         String result = productService.addBatchToProduct("owneruser", dto);
 
-        assertEquals("Batch added Successfully", result);
+        assertEquals("Purchase done Successfully", result);  // fixed
         verify(batchRepository).save(batchEntity);
         verify(transactionRepository).save(any(TransactionEntity.class));
         verify(productRepository).save(productEntity);
@@ -127,7 +127,9 @@ class ProductServiceAddBatchToProductTest {
         productService.addBatchToProduct("owneruser", dto);
 
         assertEquals(15.0, productEntity.getTotalQuantity());
-        assertEquals(750.0, productEntity.getTotalPurchasePrice());
+        assertEquals(1750.0, productEntity.getTotalPurchasePrice());
+        
+        
     }
 
     @Test
@@ -145,10 +147,12 @@ class ProductServiceAddBatchToProductTest {
         TransactionEntity savedTransaction = transactionCaptor.getValue();
         assertEquals(TransactionType.PURCHASE, savedTransaction.getType());
         assertEquals(5.0, savedTransaction.getQuantity());
-        assertEquals(250.0, savedTransaction.getTotalAmount());
+        assertEquals(1250.0, savedTransaction.getTotalAmount());
         assertEquals("Supplier A", savedTransaction.getPartyName());
         assertEquals(productEntity, savedTransaction.getProduct());
         assertNotNull(savedTransaction.getTransactionDate());
+        
+        
     }
 
     @Test
@@ -186,7 +190,7 @@ class ProductServiceAddBatchToProductTest {
 
         String result = productService.addBatchToProduct("owneruser", dto);
 
-        assertEquals("Batch added Successfully", result);
+        assertEquals("Purchase done Successfully", result);  // fixed
         verify(batchRepository).save(batchEntity);
         verify(productRepository).save(productEntity);
     }

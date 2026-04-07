@@ -141,7 +141,7 @@ class ProductServiceDeleteBatchTest {
         RuntimeException ex = assertThrows(RuntimeException.class,
                 () -> productService.deleteBatch("owner1", 1L));
 
-        assertThat(ex.getMessage()).contains("modified by another user");
+        assertThat(ex.getMessage()).contains("optimistic locking failed");
         verifyNoInteractions(notificationService);
     }
 

@@ -13,6 +13,7 @@ import com.ims.dto.StaffVO;
 import com.ims.entity.UserEntity;
 import com.ims.exception.EmailAlreadyExistsException;
 import com.ims.exception.EmailFailedException;
+import com.ims.exception.UnauthorizedException;
 import com.ims.exception.UserNotFoundException;
 import com.ims.exception.UsernameAlreadyExistsException;
 import com.ims.repository.UserRepository;
@@ -82,17 +83,23 @@ public class StaffService {
 	}
 
 	public String deleteStaff(Long id, String username) {
-		log.info("In deleteStaff service "+ id);
-		UserEntity userEntity = userRepository.findByUsername(username);
-		if(userEntity == null) {
-			throw new UserNotFoundException("User not found");
-		}
-		UserEntity staff = userRepository.findById(id)
-				.orElseThrow(() -> new UserNotFoundException("Staff not found"));
-		
-		staff.setActive(false);
-	    userRepository.save(staff);
-	    return "Staff account deactivated successfully";
+	    log.info("In deleteStaff service. Attempting to delete staff ID: " + id);
+	    
+	    UserEntity owner = userRepository.findByUsername(username);
+	    if (owner == null) {
+	        throw new UserNotFoundException("Owner not found");
+	    }
+
+	    UserEntity staff = userRepository.findById(id)
+	            .orElseThrow(() -> new UserNotFoundException("Staff not found"));
+
+	    if (!staff.getStore().getId().equals(owner.getStore().getId())) {
+	        throw new UnauthorizedException("You can only delete staff from your store.");
+	    }
+
+	    userRepository.delete(staff); 
+	    
+	    return "Staff account permanently deleted successfully";
 	}
 	
 }

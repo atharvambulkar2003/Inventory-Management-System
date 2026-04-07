@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyDouble;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
@@ -144,7 +145,7 @@ class ProductServiceUpdateProductTest {
                 .thenReturn(null);
         doThrow(new EmailFailedException("SMTP down"))
                 .when(notificationService)
-                .sendProductUpdateNotification(any(), any(), any(), any(), any());
+                .sendProductUpdateNotification(any(), any(), any(), anyDouble(), any()); // fix here
 
         String result = productService.updateProduct(dto, "owner1");
 

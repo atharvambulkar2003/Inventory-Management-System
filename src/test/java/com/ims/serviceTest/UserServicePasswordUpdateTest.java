@@ -85,19 +85,14 @@ class UserServicePasswordUpdateTest {
         updatePasswordDto.setNewPassword("newPassword456");
     }
 
-    // ==================== SEND OTP FOR PASSWORD UPDATE TESTS ====================
-
     @Test
     void sendOtpForUpdatePassword_Success() {
-        // Arrange
         when(userRepository.findByUsername(username)).thenReturn(userEntity);
         when(encoder.matches(updatePasswordOtpDto.getPassword(), userEntity.getPassword())).thenReturn(true);
         when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
 
-        // Act
         String result = userService.sendOtpForUpdatePassword(username, updatePasswordOtpDto);
 
-        // Assert
         assertEquals("OTP sent to your registered email.", result);
         
         ArgumentCaptor<UserEntity> userCaptor = ArgumentCaptor.forClass(UserEntity.class);
@@ -109,16 +104,14 @@ class UserServicePasswordUpdateTest {
         assertNotNull(savedUser.getOtpExpiryTime());
         
         verify(userRepository).findByUsername(username);
-        verify(encoder).matches(updatePasswordOtpDto.getPassword(), userEntity.getPassword());
+        verify(encoder).matches(updatePasswordDto.getPassword(), "encodedOldPassword");
         verify(notificationService).sendPasswordOtp(any(UserEntity.class), anyString());
     }
 
     @Test
     void sendOtpForUpdatePassword_InvalidUsername_ThrowsException() {
-        // Arrange
         updatePasswordOtpDto.setUsername("differentUser");
 
-        // Act & Assert
         assertThrows(InvalidUsernameException.class, () -> {
             userService.sendOtpForUpdatePassword(username, updatePasswordOtpDto);
         });
@@ -130,10 +123,8 @@ class UserServicePasswordUpdateTest {
 
     @Test
     void sendOtpForUpdatePassword_UserNotFound_ThrowsException() {
-        // Arrange
         when(userRepository.findByUsername(username)).thenReturn(null);
 
-        // Act & Assert
         assertThrows(UserNotFoundException.class, () -> {
             userService.sendOtpForUpdatePassword(username, updatePasswordOtpDto);
         });
@@ -145,24 +136,21 @@ class UserServicePasswordUpdateTest {
 
     @Test
     void sendOtpForUpdatePassword_PasswordMismatch_ThrowsException() {
-        // Arrange
         when(userRepository.findByUsername(username)).thenReturn(userEntity);
         when(encoder.matches(updatePasswordOtpDto.getPassword(), userEntity.getPassword())).thenReturn(false);
 
-        // Act & Assert
         assertThrows(PasswordMismatchException.class, () -> {
             userService.sendOtpForUpdatePassword(username, updatePasswordOtpDto);
         });
 
         verify(userRepository).findByUsername(username);
-        verify(encoder).matches(updatePasswordOtpDto.getPassword(), userEntity.getPassword());
+        verify(encoder).matches(updatePasswordDto.getPassword(), "encodedOldPassword");
         verify(userRepository, never()).save(any());
         verify(notificationService, never()).sendPasswordOtp(any(), any());
     }
 
     @Test
     void sendOtpForUpdatePassword_EmailSendFails_ThrowsException() {
-        // Arrange
         when(userRepository.findByUsername(username)).thenReturn(userEntity);
         when(encoder.matches(updatePasswordOtpDto.getPassword(), userEntity.getPassword())).thenReturn(true);
         when(userRepository.save(any(UserEntity.class))).thenReturn(userEntity);
@@ -170,7 +158,6 @@ class UserServicePasswordUpdateTest {
         doThrow(new EmailFailedException("SMTP server down"))
             .when(notificationService).sendPasswordOtp(any(UserEntity.class), anyString());
 
-        // Act & Assert
         assertThrows(EmailFailedException.class, () -> {
             userService.sendOtpForUpdatePassword(username, updatePasswordOtpDto);
         });
@@ -180,11 +167,9 @@ class UserServicePasswordUpdateTest {
         verify(notificationService).sendPasswordOtp(any(UserEntity.class), anyString());
     }
 
-    // ==================== UPDATE PASSWORD TESTS ====================
 
     @Test
     void updatePassword_Success() {
-        // Arrange
         userEntity.setOtp("1234");
         userEntity.setOtpExpiryTime(LocalDateTime.now().plusMinutes(3));
         
@@ -208,17 +193,15 @@ class UserServicePasswordUpdateTest {
         assertNull(savedUser.getOtpExpiryTime());
         
         verify(userRepository).findByUsername(username);
-        verify(encoder).matches(updatePasswordDto.getPassword(), userEntity.getPassword());
+        verify(encoder).matches(updatePasswordDto.getPassword(), "encodedOldPassword");
         verify(encoder).encode(updatePasswordDto.getNewPassword());
         verify(notificationService).sendPasswordUpdateConfirmation(userEntity);
     }
 
     @Test
     void updatePassword_UserNotFound_ThrowsException() {
-        // Arrange
         when(userRepository.findByUsername(username)).thenReturn(null);
 
-        // Act & Assert
         assertThrows(UserNotFoundException.class, () -> {
             userService.updatePassword(username, updatePasswordDto);
         });
@@ -230,11 +213,9 @@ class UserServicePasswordUpdateTest {
 
     @Test
     void updatePassword_InvalidUsername_ThrowsException() {
-        // Arrange
         updatePasswordDto.setUsername("differentUser");
         when(userRepository.findByUsername(username)).thenReturn(userEntity);
 
-        // Act & Assert
         assertThrows(InvalidUsernameException.class, () -> {
             userService.updatePassword(username, updatePasswordDto);
         });
@@ -246,84 +227,75 @@ class UserServicePasswordUpdateTest {
 
     @Test
     void updatePassword_PasswordMismatch_ThrowsException() {
-        // Arrange
         when(userRepository.findByUsername(username)).thenReturn(userEntity);
         when(encoder.matches(updatePasswordDto.getPassword(), userEntity.getPassword())).thenReturn(false);
 
-        // Act & Assert
         assertThrows(PasswordMismatchException.class, () -> {
             userService.updatePassword(username, updatePasswordDto);
         });
 
         verify(userRepository).findByUsername(username);
-        verify(encoder).matches(updatePasswordDto.getPassword(), userEntity.getPassword());
+        verify(encoder).matches(updatePasswordDto.getPassword(), "encodedOldPassword");
         verify(userRepository, never()).save(any());
         verify(notificationService, never()).sendPasswordUpdateConfirmation(any());
     }
 
     @Test
     void updatePassword_InvalidOtp_ThrowsException() {
-        // Arrange
         userEntity.setOtp("5678");
         userEntity.setOtpExpiryTime(LocalDateTime.now().plusMinutes(3));
         
         when(userRepository.findByUsername(username)).thenReturn(userEntity);
         when(encoder.matches(updatePasswordDto.getPassword(), userEntity.getPassword())).thenReturn(true);
 
-        // Act & Assert
         assertThrows(InvalidOtpException.class, () -> {
             userService.updatePassword(username, updatePasswordDto);
         });
 
         verify(userRepository).findByUsername(username);
-        verify(encoder).matches(updatePasswordDto.getPassword(), userEntity.getPassword());
+        verify(encoder).matches(updatePasswordDto.getPassword(), "encodedOldPassword");
         verify(userRepository, never()).save(any());
         verify(notificationService, never()).sendPasswordUpdateConfirmation(any());
     }
 
     @Test
     void updatePassword_NullOtp_ThrowsException() {
-        // Arrange
         userEntity.setOtp(null);
         userEntity.setOtpExpiryTime(LocalDateTime.now().plusMinutes(3));
         
         when(userRepository.findByUsername(username)).thenReturn(userEntity);
         when(encoder.matches(updatePasswordDto.getPassword(), userEntity.getPassword())).thenReturn(true);
 
-        // Act & Assert
         assertThrows(InvalidOtpException.class, () -> {
             userService.updatePassword(username, updatePasswordDto);
         });
 
         verify(userRepository).findByUsername(username);
-        verify(encoder).matches(updatePasswordDto.getPassword(), userEntity.getPassword());
+        verify(encoder).matches(updatePasswordDto.getPassword(), "encodedOldPassword");
         verify(userRepository, never()).save(any());
         verify(notificationService, never()).sendPasswordUpdateConfirmation(any());
     }
 
     @Test
     void updatePassword_ExpiredOtp_ThrowsException() {
-        // Arrange
         userEntity.setOtp("1234");
         userEntity.setOtpExpiryTime(LocalDateTime.now().minusMinutes(1)); // Expired
         
         when(userRepository.findByUsername(username)).thenReturn(userEntity);
         when(encoder.matches(updatePasswordDto.getPassword(), userEntity.getPassword())).thenReturn(true);
 
-        // Act & Assert
         assertThrows(ExpiredOtpException.class, () -> {
             userService.updatePassword(username, updatePasswordDto);
         });
 
         verify(userRepository).findByUsername(username);
-        verify(encoder).matches(updatePasswordDto.getPassword(), userEntity.getPassword());
+        verify(encoder).matches(updatePasswordDto.getPassword(), "encodedOldPassword");
         verify(userRepository, never()).save(any());
         verify(notificationService, never()).sendPasswordUpdateConfirmation(any());
     }
 
     @Test
     void updatePassword_NotificationFails_StillUpdatesPassword() {
-        // Arrange
         userEntity.setOtp("1234");
         userEntity.setOtpExpiryTime(LocalDateTime.now().plusMinutes(3));
         
@@ -335,10 +307,8 @@ class UserServicePasswordUpdateTest {
         doThrow(new EmailFailedException("Email service down"))
             .when(notificationService).sendPasswordUpdateConfirmation(userEntity);
 
-        // Act
         String result = userService.updatePassword(username, updatePasswordDto);
 
-        // Assert
         assertEquals("Password updated successfully! Please login with your new credentials.", result);
         
         ArgumentCaptor<UserEntity> userCaptor = ArgumentCaptor.forClass(UserEntity.class);

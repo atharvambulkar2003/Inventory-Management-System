@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 public class AddBatchToProductDto {
 	private String category;
 	private String productName;
-	@JsonProperty("batchNo")
 	private String batchNumber;
-	@JsonProperty("currQuantity")
 	private Double currentQuantity;
 	private LocalDate expiryDate; 
     private Double purchasePrice;

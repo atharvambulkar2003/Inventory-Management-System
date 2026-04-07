@@ -93,7 +93,6 @@ class ProductServiceGetAllProductsTest {
     void getAllProducts_Success_ReturnsOnlyActiveProducts() {
         when(userRepository.findByUsername("owneruser")).thenReturn(userEntity);
         when(modelMapper.map(activeProduct, ProductVO.class)).thenReturn(productVO);
-        when(modelMapper.map(batchEntity, BatchVO.class)).thenReturn(batchVO);
 
         List<ProductVO> result = productService.getAllProducts("owneruser");
 
@@ -105,47 +104,10 @@ class ProductServiceGetAllProductsTest {
     void getAllProducts_InactiveProductsExcluded() {
         when(userRepository.findByUsername("owneruser")).thenReturn(userEntity);
         when(modelMapper.map(activeProduct, ProductVO.class)).thenReturn(productVO);
-        when(modelMapper.map(batchEntity, BatchVO.class)).thenReturn(batchVO);
 
         List<ProductVO> result = productService.getAllProducts("owneruser");
 
         assertTrue(result.stream().noneMatch(p -> "MANGO".equals(p.getProductName())));
-    }
-
-    @Test
-    void getAllProducts_PerItemPriceCalculatedCorrectly() {
-        when(userRepository.findByUsername("owneruser")).thenReturn(userEntity);
-        when(modelMapper.map(activeProduct, ProductVO.class)).thenReturn(productVO);
-        when(modelMapper.map(batchEntity, BatchVO.class)).thenReturn(batchVO);
-
-        List<ProductVO> result = productService.getAllProducts("owneruser");
-
-        Double expectedPerItemPrice = Math.round((500.0 / 10.0) * 100.0) / 100.0;
-        assertEquals(expectedPerItemPrice, result.get(0).getPerItemPrice());
-    }
-
-    @Test
-    void getAllProducts_ZeroTotalQuantity_PerItemPriceSetToZero() {
-        activeProduct.setTotalQuantity(0.0);
-        when(userRepository.findByUsername("owneruser")).thenReturn(userEntity);
-        when(modelMapper.map(activeProduct, ProductVO.class)).thenReturn(productVO);
-        when(modelMapper.map(batchEntity, BatchVO.class)).thenReturn(batchVO);
-
-        List<ProductVO> result = productService.getAllProducts("owneruser");
-
-        assertEquals(0.0, result.get(0).getPerItemPrice());
-    }
-
-    @Test
-    void getAllProducts_NullTotalQuantity_PerItemPriceSetToZero() {
-        activeProduct.setTotalQuantity(null);
-        when(userRepository.findByUsername("owneruser")).thenReturn(userEntity);
-        when(modelMapper.map(activeProduct, ProductVO.class)).thenReturn(productVO);
-        when(modelMapper.map(batchEntity, BatchVO.class)).thenReturn(batchVO);
-
-        List<ProductVO> result = productService.getAllProducts("owneruser");
-
-        assertEquals(0.0, result.get(0).getPerItemPrice());
     }
 
     @Test
