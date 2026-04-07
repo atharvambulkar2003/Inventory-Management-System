@@ -3,6 +3,8 @@ package com.ims.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -230,14 +232,23 @@ public class ProductService {
 	    Double totalRevenue = round(saleDto.getMrp() * saleDto.getQuantity());
 
 	    List<BatchEntity> batches = productEntity.getBatches();
-	    
+	    batches.sort(Comparator.comparing(BatchEntity::getExpiryDate, 
+	                 Comparator.nullsLast(Comparator.naturalOrder())));
+
 	    Double tempQuantity = saleDto.getQuantity();
 
-	    while (tempQuantity > 0.001 && !batches.isEmpty()) {
-	        BatchEntity batch = batches.get(0);
+	    Iterator<BatchEntity> iterator = batches.iterator();
+	    while (tempQuantity > 0.001 && iterator.hasNext()) {
+	        BatchEntity batch = iterator.next();
+	        
+	        if (batch.getExpiryDate() != null && batch.getExpiryDate().isBefore(LocalDate.now())) {
+	            log.warn("Skipping expired batch: {} for product: {}", batch.getBatchNumber(), productEntity.getProductName());
+	            continue;
+	        }
+
 	        if (batch.getCurrentQuantity() <= tempQuantity + 0.001) {
 	            tempQuantity -= batch.getCurrentQuantity();
-	            batches.remove(0);
+	            iterator.remove();
 	            batchRepository.delete(batch);
 	        } else {
 	            batch.setCurrentQuantity(round(batch.getCurrentQuantity() - tempQuantity));

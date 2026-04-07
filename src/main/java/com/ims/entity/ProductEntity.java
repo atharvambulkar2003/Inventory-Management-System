@@ -55,7 +55,7 @@ public class ProductEntity {
     private StoreEntity store;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @OrderBy("id ASC")
+    @OrderBy("expiryDate ASC, id ASC")
     private List<BatchEntity> batches;
     
     @Version

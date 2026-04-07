@@ -137,9 +137,4 @@ public class UserController {
 		return new ResponseEntity<>(message,HttpStatus.OK); 
 	}
 	
-	@GetMapping("/all")
-	public String getAll() {
-		return "Hey Its working";
-	}
-	
 }

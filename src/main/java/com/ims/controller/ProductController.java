@@ -155,7 +155,7 @@ public class ProductController {
         return new ResponseEntity<>(lowStockVO, HttpStatus.OK);
 	}
 	
-	@GetMapping("/generate/product")
+	@GetMapping("/generate-productcode")
 	@PreAuthorize("hasAnyRole('OWNER')")
 	public ResponseEntity<?> generateProductCode(Authentication authentication){
 		log.info("In generateProductCode controller "+authentication.getName());
@@ -165,7 +165,7 @@ public class ProductController {
 		return new ResponseEntity<>(sb.toString(),HttpStatus.OK); 
 	}
 	
-	@GetMapping("/check/productcode/{productCode}")
+	@GetMapping("/check-productcode/{productCode}")
 	@PreAuthorize("hasAnyRole('OWNER')")
 	public ResponseEntity<?> checkProductCodeExists(Authentication authentication,@PathVariable String productCode){
 		log.info("In checkProductCodeExists controller "+authentication.getName());
@@ -174,7 +174,7 @@ public class ProductController {
 		return new ResponseEntity<>(isProductCodeExists,HttpStatus.OK); 
 	}
 	
-	@GetMapping("/generate/batch")
+	@GetMapping("/generate-batchcode")
 	@PreAuthorize("hasAnyRole('OWNER')")
 	public ResponseEntity<?> generateBatchNumber(Authentication authentication){
 		log.info("In generateBatchNumber controller "+authentication.getName());
@@ -184,7 +184,7 @@ public class ProductController {
 		return new ResponseEntity<>(sb.toString(),HttpStatus.OK); 
 	}
 	
-	@GetMapping("/check/batch/{batchnumber}")
+	@GetMapping("/check-batchcode/{batchnumber}")
 	@PreAuthorize("hasAnyRole('OWNER')")
 	public ResponseEntity<?> checkBatchNumberExists(Authentication authentication,@PathVariable("batchnumber") String batchNumber){
 		log.info("In checkBatchNumberExists controller "+authentication.getName());

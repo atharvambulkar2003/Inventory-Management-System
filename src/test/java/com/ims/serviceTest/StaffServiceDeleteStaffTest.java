@@ -16,7 +16,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.ims.entity.StoreEntity;
 import com.ims.entity.UserEntity;
+import com.ims.exception.UnauthorizedException;
 import com.ims.exception.UserNotFoundException;
 import com.ims.repository.UserRepository;
 import com.ims.service.StaffService;
@@ -29,29 +31,34 @@ class StaffServiceDeleteStaffTest {
 
     private UserEntity owner;
     private UserEntity staff;
+    private StoreEntity store;
 
     @BeforeEach
     void setUp() {
+        store = new StoreEntity();
+        store.setId(1L);
+
         owner = new UserEntity();
         owner.setId(1L);
         owner.setUsername("owner1");
+        owner.setStore(store);
 
         staff = new UserEntity();
         staff.setId(2L);
         staff.setUsername("staffuser");
         staff.setActive(true);
+        staff.setStore(store); // same store as owner
     }
 
     @Test
-    void deleteStaff_success_deactivatesStaff() {
+    void deleteStaff_success_deletesStaff() {
         when(userRepository.findByUsername("owner1")).thenReturn(owner);
         when(userRepository.findById(2L)).thenReturn(Optional.of(staff));
 
         String result = staffService.deleteStaff(2L, "owner1");
 
-        assertThat(result).isEqualTo("Staff account deactivated successfully");
-        assertThat(staff.isActive()).isFalse();
-        verify(userRepository).save(staff);
+        assertThat(result).isEqualTo("Staff account permanently deleted successfully");
+        verify(userRepository).delete(staff);
     }
 
     @Test
@@ -61,7 +68,7 @@ class StaffServiceDeleteStaffTest {
         assertThrows(UserNotFoundException.class,
                 () -> staffService.deleteStaff(2L, "ghost"));
 
-        verify(userRepository, never()).save(any());
+        verify(userRepository, never()).delete(any());
     }
 
     @Test
@@ -72,19 +79,21 @@ class StaffServiceDeleteStaffTest {
         assertThrows(UserNotFoundException.class,
                 () -> staffService.deleteStaff(2L, "owner1"));
 
-        verify(userRepository, never()).save(any());
+        verify(userRepository, never()).delete(any());
     }
 
     @Test
-    void deleteStaff_alreadyInactive_savesWithInactiveStatus() {
-        staff.setActive(false);
+    void deleteStaff_staffFromDifferentStore_throwsUnauthorizedException() {
+        StoreEntity otherStore = new StoreEntity();
+        otherStore.setId(99L);
+        staff.setStore(otherStore);
+
         when(userRepository.findByUsername("owner1")).thenReturn(owner);
         when(userRepository.findById(2L)).thenReturn(Optional.of(staff));
 
-        String result = staffService.deleteStaff(2L, "owner1");
+        assertThrows(UnauthorizedException.class,
+                () -> staffService.deleteStaff(2L, "owner1"));
 
-        assertThat(result).isEqualTo("Staff account deactivated successfully");
-        assertThat(staff.isActive()).isFalse();
-        verify(userRepository).save(staff);
+        verify(userRepository, never()).delete(any());
     }
 }
